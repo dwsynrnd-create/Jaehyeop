@@ -16,6 +16,18 @@ xdg-open index.html
 start index.html
 ```
 
+## 온라인 배포 (GitHub Pages)
+
+이 앱은 빌드가 필요 없는 정적 사이트라, 저장소 설정에서 한 번만 켜면 바로 공개됩니다.
+
+1. **Settings → Pages** 로 이동
+2. **Source** 를 `Deploy from a branch` 로 선택
+3. **Branch** 를 `claude/optimistic-heisenberg-yPJ48` / `/ (root)` 로 지정하고 저장
+
+1~2분 뒤 아래 주소에서 접속할 수 있습니다.
+
+> https://dwsynrnd-create.github.io/Jaehyeop/
+
 ## 기능
 
 - **추가**: 입력창에 내용을 적고 Enter 또는 "추가" 버튼
