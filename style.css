@@ -1,0 +1,211 @@
+:root {
+  --bg: #0f172a;
+  --card: #1e293b;
+  --card-soft: #273449;
+  --text: #e2e8f0;
+  --muted: #94a3b8;
+  --accent: #38bdf8;
+  --accent-strong: #0ea5e9;
+  --danger: #f87171;
+  --done: #475569;
+  --radius: 12px;
+}
+
+* {
+  box-sizing: border-box;
+  margin: 0;
+  padding: 0;
+}
+
+body {
+  font-family: system-ui, -apple-system, "Segoe UI", Roboto, "Apple SD Gothic Neo",
+    "Malgun Gothic", sans-serif;
+  background: linear-gradient(160deg, #0b1220, #0f172a 60%);
+  color: var(--text);
+  min-height: 100vh;
+  display: flex;
+  justify-content: center;
+  padding: 32px 16px;
+}
+
+.app {
+  width: 100%;
+  max-width: 520px;
+  background: var(--card);
+  border-radius: var(--radius);
+  padding: 28px;
+  box-shadow: 0 20px 60px rgba(0, 0, 0, 0.4);
+}
+
+.app__header h1 {
+  font-size: 1.6rem;
+}
+
+.app__subtitle {
+  color: var(--muted);
+  font-size: 0.9rem;
+  margin-top: 6px;
+}
+
+.todo-form {
+  display: flex;
+  gap: 8px;
+  margin: 22px 0 16px;
+}
+
+.todo-form__input {
+  flex: 1;
+  background: var(--card-soft);
+  border: 1px solid transparent;
+  border-radius: 8px;
+  padding: 12px 14px;
+  color: var(--text);
+  font-size: 1rem;
+  outline: none;
+  transition: border-color 0.15s;
+}
+
+.todo-form__input:focus {
+  border-color: var(--accent);
+}
+
+.todo-form__button {
+  background: var(--accent-strong);
+  color: #04212f;
+  border: none;
+  border-radius: 8px;
+  padding: 0 20px;
+  font-size: 1rem;
+  font-weight: 600;
+  cursor: pointer;
+  transition: background 0.15s;
+}
+
+.todo-form__button:hover {
+  background: var(--accent);
+}
+
+.filters {
+  display: flex;
+  gap: 6px;
+  margin-bottom: 14px;
+}
+
+.filters__btn {
+  background: transparent;
+  color: var(--muted);
+  border: 1px solid var(--card-soft);
+  border-radius: 999px;
+  padding: 5px 14px;
+  font-size: 0.85rem;
+  cursor: pointer;
+  transition: all 0.15s;
+}
+
+.filters__btn:hover {
+  color: var(--text);
+}
+
+.filters__btn.is-active {
+  background: var(--card-soft);
+  color: var(--accent);
+  border-color: var(--accent);
+}
+
+.todo-list {
+  list-style: none;
+  display: flex;
+  flex-direction: column;
+  gap: 8px;
+}
+
+.todo-item {
+  display: flex;
+  align-items: center;
+  gap: 12px;
+  background: var(--card-soft);
+  border-radius: 8px;
+  padding: 12px 14px;
+  animation: pop 0.18s ease;
+}
+
+@keyframes pop {
+  from {
+    opacity: 0;
+    transform: translateY(-4px);
+  }
+  to {
+    opacity: 1;
+    transform: translateY(0);
+  }
+}
+
+.todo-item__checkbox {
+  width: 20px;
+  height: 20px;
+  accent-color: var(--accent-strong);
+  cursor: pointer;
+  flex-shrink: 0;
+}
+
+.todo-item__text {
+  flex: 1;
+  word-break: break-word;
+}
+
+.todo-item.is-done .todo-item__text {
+  color: var(--done);
+  text-decoration: line-through;
+}
+
+.todo-item__delete {
+  background: transparent;
+  border: none;
+  color: var(--muted);
+  font-size: 1.2rem;
+  line-height: 1;
+  cursor: pointer;
+  padding: 4px 6px;
+  border-radius: 6px;
+  transition: all 0.15s;
+}
+
+.todo-item__delete:hover {
+  color: var(--danger);
+  background: rgba(248, 113, 113, 0.1);
+}
+
+.empty-state {
+  color: var(--muted);
+  text-align: center;
+  padding: 28px 0;
+  font-size: 0.92rem;
+}
+
+.app__footer {
+  display: flex;
+  justify-content: space-between;
+  align-items: center;
+  margin-top: 18px;
+  padding-top: 14px;
+  border-top: 1px solid var(--card-soft);
+  font-size: 0.85rem;
+}
+
+.counter {
+  color: var(--muted);
+}
+
+.link-btn {
+  background: transparent;
+  border: none;
+  color: var(--muted);
+  cursor: pointer;
+  font-size: 0.85rem;
+  text-decoration: underline;
+  transition: color 0.15s;
+}
+
+.link-btn:hover {
+  color: var(--danger);
+}

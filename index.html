@@ -1,0 +1,47 @@
+<!DOCTYPE html>
+<html lang="ko">
+<head>
+  <meta charset="UTF-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+  <title>Jaehyeop · 할 일 관리</title>
+  <link rel="stylesheet" href="style.css" />
+</head>
+<body>
+  <main class="app">
+    <header class="app__header">
+      <h1>할 일 관리</h1>
+      <p class="app__subtitle">오늘 해야 할 일을 적고, 끝내고, 지워보세요.</p>
+    </header>
+
+    <form id="todo-form" class="todo-form" autocomplete="off">
+      <input
+        id="todo-input"
+        class="todo-form__input"
+        type="text"
+        placeholder="할 일을 입력하고 Enter"
+        aria-label="할 일 입력"
+        maxlength="200"
+        required
+      />
+      <button class="todo-form__button" type="submit">추가</button>
+    </form>
+
+    <nav class="filters" aria-label="할 일 필터">
+      <button class="filters__btn is-active" data-filter="all">전체</button>
+      <button class="filters__btn" data-filter="active">진행 중</button>
+      <button class="filters__btn" data-filter="done">완료</button>
+    </nav>
+
+    <ul id="todo-list" class="todo-list" aria-live="polite"></ul>
+
+    <p id="empty-state" class="empty-state" hidden>아직 할 일이 없어요. 위에서 추가해보세요!</p>
+
+    <footer class="app__footer">
+      <span id="counter" class="counter">0개 진행 중</span>
+      <button id="clear-done" class="link-btn" type="button">완료 항목 비우기</button>
+    </footer>
+  </main>
+
+  <script src="app.js"></script>
+</body>
+</html>
