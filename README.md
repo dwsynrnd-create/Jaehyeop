@@ -58,6 +58,20 @@ python download_dissolution_pdfs.py --drugs ibuprofen ketoprofen --require-ph an
 | `--require-ph` | `both` | pH 1.2/6.8 필터 (`both`/`any`/`off`) |
 | `--email` | `dwsynrnd@gmail.com` | Unpaywall API 정책상 필요한 이메일 |
 
+## ⭐ 바로 받는 큐레이션 카탈로그 (`oa_catalog.csv` + `download_from_catalog.py`)
+
+이미 **검증된 OA 논문 45편**(17개 약물, pH 1.2 / 6.8 용출 데이터 확인)을
+`oa_catalog.csv` 에 정리해 두었습니다. 검색 단계 없이 바로 PDF만 받으려면:
+
+```bash
+pip install requests
+python download_from_catalog.py                 # ~/dissolution_pdfs 에 저장
+python download_from_catalog.py --outdir "D:/논문/용출"
+```
+
+각 줄에 약물·BCS 클래스·논문 제목·PMCID·PMC 링크·pH 1.2/6.8 여부·비고가 들어
+있습니다. 표만 보고 싶으면 `oa_catalog.csv` 를 엑셀로 열어보세요.
+
 ## 🌐 브라우저 자동화 버전 (`browser_collect.py`)
 
 데이터 최대화를 위한 하이브리드 수집기. **API 발굴 → pH 검증 → 일반 다운로드,
