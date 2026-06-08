@@ -2,7 +2,7 @@
 
 ![dashboard](validation_dashboard.svg)
 
-실제 문헌 **31건** (BCS I 2 · II 27 · III 2). 입력은 문헌 physchem만(관측 PK로 튜닝 안 함). `*`=S0&lt;1 µg/mL(과대예측 영역).
+실제 문헌 **31건** (BCS I 2 · II 22 · III 2). 입력은 문헌 physchem만(관측 PK로 튜닝 안 함). `*`=S0&lt;1 µg/mL(과대예측 영역).
 
 ## BCS class별 정확도
 | BCS | 의미 | 2-fold 이내 | 평균 정확도 | 비고 |
@@ -19,11 +19,6 @@
 | Metoprolol tartrate | I | B | human | 1.00 | 1.00 | 100% | ✅ |
 | Propranolol HCl | I | B | human | 1.00 | 1.00 | 100% | ✅ |
 | AXL L-tartrate | II | B | rat | 1.53 | 1.50 | 98% | ✅ |
-| Albendazole D-tartrate * | II | B | rat | 14.04 | 5.20 | 0% | ⚠️ |
-| Albendazole HCl * | II | B | rat | 14.04 | 8.80 | 40% | ✅ |
-| Albendazole besylate * | II | B | rat | 14.04 | 7.60 | 15% | ✅ |
-| Albendazole fumarate * | II | B | rat | 14.04 | 3.40 | 0% | ⚠️ |
-| Albendazole mesylate * | II | B | rat | 14.04 | 20.30 | 69% | ✅ |
 | Cabozantinib salt | II | C | rat | 1.81 | 2.00 | 90% | ✅ |
 | Canertinib maleate | II | B | rat | 1.81 | 2.00 | 91% | ✅ |
 | Cilostazol besylate | II | A | rat | 2.38 | 2.94 | 81% | ✅ |
@@ -47,6 +42,11 @@
 | Serajuddin base B mesylate | II | C | rat | 1.81 | 5.00 | 36% | ⚠️ |
 | Atenolol salt | III | B | human | 1.00 | 1.00 | 100% | ✅ |
 | Cimetidine HCl | III | B | human | 1.01 | 1.00 | 99% | ✅ |
+| Albendazole D-tartrate * | IV | B | rat | 14.04 | 5.20 | 0% | ⚠️ |
+| Albendazole HCl * | IV | B | rat | 14.04 | 8.80 | 40% | ✅ |
+| Albendazole besylate * | IV | B | rat | 14.04 | 7.60 | 15% | ✅ |
+| Albendazole fumarate * | IV | B | rat | 14.04 | 3.40 | 0% | ⚠️ |
+| Albendazole mesylate * | IV | B | rat | 14.04 | 20.30 | 69% | ✅ |
 
 ## 총평
 | 항목 | 수준 |

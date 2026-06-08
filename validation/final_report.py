@@ -36,7 +36,7 @@ ndir = sum(1 for r in rows if (r["e"].get("obs_auc") and (r["pa"] > 1.15) == (r[
            or (r["e"].get("direction") == "up" and r["pa"] > 1)
            or (r["e"]["kind"] == "null" and abs(r["pa"]-1) < 0.25))
 ndir_tot = sum(1 for r in rows if r["e"].get("obs_auc") or r["e"].get("direction"))
-nbcs = {b: sum(1 for r in rows if r["e"]["bcs"] == b) for b in ["I", "II", "III"]}
+nbcs = {b: sum(1 for r in rows if r["e"]["bcs"] == b) for b in ["I", "II", "III", "IV"]}
 
 W, H = 1000, 770
 E = [f'<svg xmlns="http://www.w3.org/2000/svg" width="{W}" height="{H}" font-family="Helvetica,Arial,sans-serif">',
@@ -44,7 +44,7 @@ E = [f'<svg xmlns="http://www.w3.org/2000/svg" width="{W}" height="{H}" font-fam
      f'<text x="{W/2}" y="38" font-size="23" font-weight="bold" text-anchor="middle" fill="#073d39">'
      f'염 스크리닝 PK 예측기 — 최종 실행 결과 &amp; 정확도</text>',
      f'<text x="{W/2}" y="60" font-size="12.5" text-anchor="middle" fill="#828a92">'
-     f'BCS I–IV · free base vs 염형태 · IVIVE · 문헌 {len(rows)}건 검증 (BCS I {nbcs["I"]}·II {nbcs["II"]}·III {nbcs["III"]})</text>']
+     f'BCS I–IV · free base vs 염형태 · IVIVE · 문헌 {len(rows)}건 검증 (BCS1 {nbcs["I"]}·2 {nbcs["II"]}·3 {nbcs["III"]}·4 {nbcs["IV"]})</text>']
 
 # stat cards
 cards = [("단위 테스트", "8 / 8", "통과", "#2f6b3a"),

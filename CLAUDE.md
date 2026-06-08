@@ -20,6 +20,8 @@ salt_screening_predictor.html   대화형 웹툴(JS 포팅, Python과 수치 일
 validation/         literature.py·dataset.py(18건)·run_validation·validate_dataset(대시보드)
                     ·multi_ph_validation·input_mode_comparison·accuracy
 data/dataset_template.csv       배치 CSV 예시
+  literature_dataset.csv          개발에 쓴 문헌 데이터셋(31건/23약물)
+docs/DATASET.md                  문헌 출처·물성·용출 전체 공개
 docs/               PARAMETERS·ACCURACY_ASSESSMENT·VALIDATION_SUMMARY·ROADMAP + SVG
 tests/test_engine.py            단위테스트(8): 질량보존·BCS·공통이온·다중pH·배치·CI 등
 ```

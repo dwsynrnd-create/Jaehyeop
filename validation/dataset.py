@@ -56,11 +56,11 @@ ROWS = [
  ("Serajuddin base A mesylate","Serajuddin A","II","base","rat",20,450.0,6.0,4.0,"mesylate",8000,2.6,2.6,"C","Serajuddin 2007 ADDR 59:603","salt_vs_base",15,12,92,None),
  ("Serajuddin base B mesylate","Serajuddin B","II","base","rat",20,450.0,6.0,2.0,"mesylate",12000,5.0,5.0,"C","Serajuddin 2007 ADDR 59:603","salt_vs_base",14,12,92,None),
  # ---- albendazole: 5 salts (BCS II, very low S0) — extreme stress test ----
- ("Albendazole fumarate","Albendazole","II","base","rat",20,265.3,3.3,0.2,"fumarate",2000,3.4,3.0,"B","Molecules 2024 29:3571 PMC11314343","salt_vs_base",10,15,70,None),
- ("Albendazole D-tartrate","Albendazole","II","base","rat",20,265.3,3.3,0.2,"tartrate",4000,5.2,4.5,"B","Molecules 2024 29:3571 PMC11314343","salt_vs_base",10,15,70,None),
- ("Albendazole HCl","Albendazole","II","base","rat",20,265.3,3.3,0.2,"hcl",6000,8.8,7.0,"B","Molecules 2024 29:3571 PMC11314343","salt_vs_base",10,15,70,None),
- ("Albendazole besylate","Albendazole","II","base","rat",20,265.3,3.3,0.2,"besylate",10000,7.6,6.0,"B","ABZ-BSA-H (rat) 7.6x","salt_vs_base",10,15,70,None),
- ("Albendazole mesylate","Albendazole","II","base","rat",20,265.3,3.3,0.2,"mesylate",20000,20.3,15.0,"B","ABZ-MSA-H (rat) 20.3x","salt_vs_base",10,15,70,None),
+ ("Albendazole fumarate","Albendazole","IV","base","rat",20,265.3,3.3,0.2,"fumarate",2000,3.4,3.0,"B","Molecules 2024 29:3571 PMC11314343","salt_vs_base",10,15,70,None),
+ ("Albendazole D-tartrate","Albendazole","IV","base","rat",20,265.3,3.3,0.2,"tartrate",4000,5.2,4.5,"B","Molecules 2024 29:3571 PMC11314343","salt_vs_base",10,15,70,None),
+ ("Albendazole HCl","Albendazole","IV","base","rat",20,265.3,3.3,0.2,"hcl",6000,8.8,7.0,"B","Molecules 2024 29:3571 PMC11314343","salt_vs_base",10,15,70,None),
+ ("Albendazole besylate","Albendazole","IV","base","rat",20,265.3,3.3,0.2,"besylate",10000,7.6,6.0,"B","ABZ-BSA-H (rat) 7.6x","salt_vs_base",10,15,70,None),
+ ("Albendazole mesylate","Albendazole","IV","base","rat",20,265.3,3.3,0.2,"mesylate",20000,20.3,15.0,"B","ABZ-MSA-H (rat) 20.3x","salt_vs_base",10,15,70,None),
  # ---- BCS II weak acids ----
  ("Phenytoin Na/piperazine","Phenytoin","II","acid","dog",10,252.3,8.3,22.0,"_plateau",0,1.0,1.0,"A","Serajuddin 2007; phenytoin PBPK PMC3787220","plateau",25,6,89,None),
  ("Diphenylbarbiturate Na","Barbiturate","II","acid","rat",20,240.0,7.8,30.0,"hcl",9000,1.75,1.75,"C","US 7,683,071 (Na >=1.5-2x)","salt_vs_base",20,8,80,None),

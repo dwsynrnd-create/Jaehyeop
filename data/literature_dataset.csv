@@ -1,0 +1,32 @@
+drug,bcs,moiety,mw,pka,s0_ugml,logP,counterion,s_salt_ugml,dissolution_data,obs_auc_ratio,obs_cmax_ratio,species,dose_mgkg,grade,kind,citation
+IIIM-290,II,base,462.3,5.24,8.6,3.0,hcl,387,salt 용해도/개선도,1.44,1.57,mouse,50,A,salt_vs_base,Bhagat 2018 ACS Omega PMC6072253
+Cilostazol,II,base,369.5,11.8,4.0,3.6,mesylate,50000,측정 pH1.2/4.5/6.8,3.88,3.65,rat,20,A,salt_vs_base,Seo 2015 DDDT PMC4524531
+Cilostazol,II,base,369.5,11.8,4.0,3.6,besylate,50000,측정 pH1.2/4.5/6.8,2.94,2.87,rat,20,A,salt_vs_base,Seo 2015 DDDT PMC4524531
+Dipyridamole,II,base,504.6,6.4,6.0,1.5,tosylate,4000,salt 용해도/개선도,1.7,2.8,rat,10,B,salt_vs_base,"Wakasawa 2015 (DP tosylate, rat)"
+Canertinib-type,II,base,485.0,6.0,4.0,,maleate,1500,salt 용해도/개선도,2.0,2.0,rat,20,B,salt_vs_base,"US 8,022,216 (quinolinyl maleate)"
+NK-1 antagonist,II,base,500.0,6.5,6.0,,tartrate,1200,salt 용해도/개선도,1.9,2.0,dog,12,B,salt_vs_base,"US 10,233,154/10,676,440"
+NK-1 antagonist,II,base,500.0,6.5,6.0,,maleate,2500,salt 용해도/개선도,2.9,2.4,dog,12,B,salt_vs_base,"US 10,233,154/10,676,440"
+Mesembrine,II,base,289.4,8.0,20.0,,besylate,3000,salt 용해도/개선도,1.5,1.5,rat,10,B,salt_vs_base,"US 11,970,446"
+AXL inhibitor,II,base,480.0,5.5,8.0,,tartrate,1500,salt 용해도/개선도,1.5,1.3,rat,10,B,salt_vs_base,"US 11,400,091"
+Miconazole,II,base,416.1,6.7,1.0,6.1,mesylate,8000,salt 용해도/개선도,2.9,2.4,rat,20,B,salt_vs_base,Tsutsumi 2022 Pharmaceutics PMC9143750
+Itraconazole,II,base,705.6,3.7,0.5,5.7,tosylate,5000,salt 용해도/개선도,2.8,2.3,rat,20,C,salt_vs_base,"cocrystal/salt, rat 2.8x AUC (BCS II)"
+Cabozantinib,II,base,501.5,5.0,3.0,5.4,tosylate,4000,salt 용해도/개선도,2.0,2.0,rat,10,C,salt_vs_base,Mol Pharm 2018 lipophilic salt ~2x rat
+RPR2000765,II,base,450.0,5.3,10.0,,mesylate,39000,salt 용해도/개선도,,,rat,20,C,salt_vs_base,Pudipeddi 2002 (S0 10->39000 ug/mL)
+Compound A,II,base,450.0,6.0,3.0,,mesylate,9000,salt 용해도/개선도,5.0,5.0,rat,20,C,salt_vs_base,salt 3-8x vs free base unmilled (rat)
+Compound A,II,base,450.0,6.0,3.0,,tosylate,9000,salt 용해도/개선도,5.0,5.0,rat,20,C,salt_vs_base,salt 3-8x vs free base unmilled (rat)
+Compound B1,II,base,450.0,6.0,3.0,,tosylate,6000,salt 용해도/개선도,3.0,3.0,rat,20,C,salt_vs_base,"US 6,015,807 (PTSA ~3x rat)"
+Compound B1,II,base,450.0,6.0,3.0,,tosylate,6000,salt 용해도/개선도,4.0,4.0,dog,20,C,salt_vs_base,"US 6,015,807 (PTSA ~4x dog)"
+Serajuddin A,II,base,450.0,6.0,4.0,,mesylate,8000,salt 용해도/개선도,2.6,2.6,rat,20,C,salt_vs_base,Serajuddin 2007 ADDR 59:603
+Serajuddin B,II,base,450.0,6.0,2.0,,mesylate,12000,salt 용해도/개선도,5.0,5.0,rat,20,C,salt_vs_base,Serajuddin 2007 ADDR 59:603
+Albendazole,IV,base,265.3,3.3,0.2,2.54,fumarate,2000,salt 용해도/개선도,3.4,3.0,rat,20,B,salt_vs_base,Molecules 2024 29:3571 PMC11314343
+Albendazole,IV,base,265.3,3.3,0.2,2.54,tartrate,4000,salt 용해도/개선도,5.2,4.5,rat,20,B,salt_vs_base,Molecules 2024 29:3571 PMC11314343
+Albendazole,IV,base,265.3,3.3,0.2,2.54,hcl,6000,salt 용해도/개선도,8.8,7.0,rat,20,B,salt_vs_base,Molecules 2024 29:3571 PMC11314343
+Albendazole,IV,base,265.3,3.3,0.2,2.54,besylate,10000,salt 용해도/개선도,7.6,6.0,rat,20,B,salt_vs_base,ABZ-BSA-H (rat) 7.6x
+Albendazole,IV,base,265.3,3.3,0.2,2.54,mesylate,20000,salt 용해도/개선도,20.3,15.0,rat,20,B,salt_vs_base,ABZ-MSA-H (rat) 20.3x
+Phenytoin,II,acid,252.3,8.3,22.0,2.5,(Na vs piperazine),,—,1.0,1.0,dog,10,A,plateau,Serajuddin 2007; phenytoin PBPK PMC3787220
+Barbiturate,II,acid,240.0,7.8,30.0,,hcl,9000,salt 용해도/개선도,1.75,1.75,rat,20,C,salt_vs_base,"US 7,683,071 (Na >=1.5-2x)"
+PKC inhibitor,II,base,520.0,6.5,5.0,,(mesylate vs HCl),,—,2.5,2.5,dog,20,C,counterion,"US 6,015,807 mesylate ~2.5x HCl"
+Propranolol,I,base,259.3,9.5,500.0,3.0,hcl,100000,—,1.0,1.0,human,1,B,null,BCS I; biowaiver: salt no PK change
+Metoprolol,I,base,267.4,9.7,500.0,1.9,tartrate,100000,—,1.0,1.0,human,1,B,null,BCS I; biowaiver: salt no PK change
+Atenolol,III,base,266.3,9.6,500.0,0.16,hcl,100000,—,1.0,1.0,human,1,B,null,"BCS III; perm-limited, salt no benefit"
+Cimetidine,III,base,252.3,6.8,500.0,0.4,hcl,100000,—,1.0,1.0,human,4,B,null,"BCS III; perm-limited, salt no benefit"

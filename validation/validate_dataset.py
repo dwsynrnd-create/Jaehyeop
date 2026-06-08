@@ -94,7 +94,7 @@ print(f"Haloperidol rank: {' > '.join(hr_order)}")
 # ---- SVG dashboard ----
 def svg():
     W, H = 980, 760
-    BCSCOL = {"I": "#3a5fa8", "II": "#0d6b63", "III": "#6b4e9e", "IV": "#b5651d"}
+    BCSCOL = {"I": "#2563eb", "II": "#16a34a", "III": "#9333ea", "IV": "#dc2626"}
     E = [f'<svg xmlns="http://www.w3.org/2000/svg" width="{W}" height="{H}" font-family="Helvetica,Arial,sans-serif">',
          f'<rect width="{W}" height="{H}" fill="#f5f2ec"/>',
          f'<text x="{W/2}" y="34" font-size="20" font-weight="bold" text-anchor="middle" fill="#073d39">'
@@ -131,19 +131,23 @@ def svg():
             continue
         col = BCSCOL.get(r["e"]["bcs"], "#888")
         p = max(lo, min(hi, r["pa"])); oo = max(lo, min(hi, o))
-        op = 0.4 if r["ultra"] else 0.9
-        E.append(f'<circle cx="{X(p):.0f}" cy="{Y(oo):.0f}" r="6" fill="{col}" opacity="{op}"/>')
-    # legend
+        E.append(f'<circle cx="{X(p):.0f}" cy="{Y(oo):.0f}" r="6.5" fill="{col}" '
+                 f'stroke="#fffdf9" stroke-width="1.1" opacity="0.95"/>')
+    # legend (BCS classes, one colour each)
+    names = {"I": "BCS 1 (高/高)", "II": "BCS 2 (低/高)", "III": "BCS 3 (高/低)", "IV": "BCS 4 (低/低)"}
     for i, (b, c) in enumerate(BCSCOL.items()):
-        E.append(f'<circle cx="{px+13}" cy="{py+14+i*16}" r="5" fill="{c}"/><text x="{px+22}" y="{py+18+i*16}" font-size="10" fill="#1b2127">BCS {b}</text>')
-    E.append(f'<text x="{px+pw-6}" y="{py+ph-8}" font-size="9.5" text-anchor="end" fill="#828a92">옅은 점 = S0&lt;1 (과대예측 영역*)</text>')
-    # per-BCS bars (right)
+        E.append(f'<circle cx="{px+14}" cy="{py+16+i*17}" r="6" fill="{c}" stroke="#fffdf9" stroke-width="1"/>'
+                 f'<text x="{px+25}" y="{py+20+i*17}" font-size="10.5" fill="#1b2127">{names[b]}</text>')
+    # per-BCS bars (right) — ONE bar per class (I/II/III/IV)
     bx, by = 510, 165
     E.append(f'<text x="{bx}" y="{by-8}" font-size="13" font-weight="bold" fill="#1b2127">BCS class별 정확도 (2-fold 이내율)</text>')
-    items = [("BCS I (null≈1.0)", 100 if "I" in by_bcs and by_bcs["I"]["w2"]==by_bcs["I"]["n_s"] else (by_bcs.get("I",{}).get("w2",0)/max(1,by_bcs.get("I",{}).get("n_s",1))*100), "#3a5fa8", f"{by_bcs.get('I',{}).get('n_s',0)}건"),
-             ("BCS II S0≥1", sm["w2"]/max(1,sm["n_s"])*100, "#0d6b63", f"{sm['n_s']}건"),
-             ("BCS II S0&lt;1*", su["w2"]/max(1,su["n_s"])*100, "#9aa0a6", f"{su['n_s']}건 과대"),
-             ("BCS III (null≈1.0)", by_bcs.get("III",{}).get("w2",0)/max(1,by_bcs.get("III",{}).get("n_s",1))*100, "#6b4e9e", f"{by_bcs.get('III',{}).get('n_s',0)}건")]
+    items = []
+    for b in ["I", "II", "III", "IV"]:
+        st = by_bcs.get(b)
+        if not st:
+            continue
+        val = st["w2"] / max(1, st["n_s"]) * 100
+        items.append((names[b], val, BCSCOL[b], f"{st['n_s']}건"))
     for i, (lab, val, col, sub) in enumerate(items):
         yy = by + 12 + i*54
         E.append(f'<text x="{bx}" y="{yy}" font-size="11.5" fill="#1b2127">{lab}</text>')
@@ -151,6 +155,8 @@ def svg():
         E.append(f'<rect x="{bx}" y="{yy+6}" width="430" height="16" fill="#ebe6da" rx="3"/>')
         E.append(f'<rect x="{bx}" y="{yy+6}" width="{430*val/100:.0f}" height="16" fill="{col}" rx="3"/>')
         E.append(f'<text x="{bx+430-4}" y="{yy+19}" font-size="10.5" text-anchor="end" fill="#fff">{val:.0f}%</text>')
+    E.append(f'<text x="{bx}" y="{by+12+len(items)*54+4}" font-size="9.5" fill="#828a92">'
+             f'* BCS 4=albendazole(초난용성, 모델 과대예측) · BCS 1/3=salt 무효과(≈1.0)</text>')
     # verdict
     vy = by + 250
     E.append(f'<rect x="{bx}" y="{vy}" width="440" height="155" rx="9" fill="#fffdf9" stroke="#ded8cb"/>')

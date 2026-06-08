@@ -1,7 +1,7 @@
 <svg xmlns="http://www.w3.org/2000/svg" width="1000" height="770" font-family="Helvetica,Arial,sans-serif">
 <rect width="1000" height="770" fill="#f5f2ec"/>
 <text x="500.0" y="38" font-size="23" font-weight="bold" text-anchor="middle" fill="#073d39">염 스크리닝 PK 예측기 — 최종 실행 결과 &amp; 정확도</text>
-<text x="500.0" y="60" font-size="12.5" text-anchor="middle" fill="#828a92">BCS I–IV · free base vs 염형태 · IVIVE · 문헌 31건 검증 (BCS I 2·II 27·III 2)</text>
+<text x="500.0" y="60" font-size="12.5" text-anchor="middle" fill="#828a92">BCS I–IV · free base vs 염형태 · IVIVE · 문헌 31건 검증 (BCS1 2·2 22·3 2·4 5)</text>
 <rect x="24" y="76" width="178" height="78" rx="10" fill="#fffdf9" stroke="#ded8cb"/>
 <text x="39" y="100" font-size="12" fill="#828a92">단위 테스트</text>
 <text x="39" y="130" font-size="27" font-weight="bold" fill="#2f6b3a">8 / 8</text>
