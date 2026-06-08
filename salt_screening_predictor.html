@@ -1,0 +1,381 @@
+<!DOCTYPE html>
+<html lang="ko">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<title>염 스크리닝 PK 예측기 · Salt Screening IVIVE</title>
+<script src="https://cdn.jsdelivr.net/npm/chart.js@4.4.0/dist/chart.umd.min.js"></script>
+<style>
+ :root{--paper:#f5f2ec;--ink:#1b2127;--ink2:#444d56;--muted:#828a92;--line:#ded8cb;
+   --line2:#ebe6da;--card:#fffdf9;--teal:#0d6b63;--teal-s:#dcefec;--teal-d:#073d39;
+   --amber:#b5651d;--amber-s:#f5e6d4;--red:#9e2b25;--red-s:#f4dedb;--green:#2f6b3a;--green-s:#deecdf;}
+ *{margin:0;padding:0;box-sizing:border-box}
+ body{font-family:'Spline Sans',system-ui,sans-serif;background:var(--paper);color:var(--ink);
+   line-height:1.55;padding:24px 16px 60px}
+ .wrap{max-width:1180px;margin:0 auto}
+ h1,h2,h3{font-weight:600;letter-spacing:-.01em}
+ .top{border-bottom:2px solid var(--ink);padding-bottom:14px;display:flex;justify-content:space-between;align-items:flex-end;flex-wrap:wrap;gap:12px}
+ .top h1{font-size:26px}.top h1 em{color:var(--teal);font-style:italic}
+ .top .sub{font-size:12.5px;color:var(--muted);margin-top:3px}
+ .top .org{font-family:ui-monospace,monospace;font-size:10.5px;color:var(--ink2);text-transform:uppercase;letter-spacing:.08em;text-align:right}
+ .intro{background:var(--card);border:1px solid var(--line);border-radius:12px;padding:14px 16px;margin:16px 0;font-size:13px;color:var(--ink2)}
+ .intro b{color:var(--teal-d)}
+ .panel{background:var(--card);border:1px solid var(--line);border-radius:12px;margin-bottom:16px;overflow:hidden}
+ .panel-h{padding:12px 16px;background:linear-gradient(0deg,transparent,var(--teal-s));border-bottom:1px solid var(--line2);display:flex;align-items:center;gap:9px}
+ .panel-h h2{font-size:17px}.panel-h .gi{font-size:16px}
+ .panel-b{padding:14px 16px}
+ .row{display:grid;grid-template-columns:repeat(auto-fit,minmax(170px,1fr));gap:12px}
+ .fld label{display:block;font-size:12px;font-weight:600;color:var(--ink2);margin-bottom:4px}
+ .fld label .u{color:var(--muted);font-weight:400}
+ .fld input,.fld select{width:100%;padding:8px 10px;border:1px solid var(--line);border-radius:7px;
+   font-size:13.5px;background:#fff;color:var(--ink);font-family:ui-monospace,monospace}
+ .fld input:focus,.fld select:focus{outline:none;border-color:var(--teal);box-shadow:0 0 0 3px var(--teal-s)}
+ .fld .hint{font-size:10.5px;color:var(--muted);margin-top:3px}
+ .seg{display:flex;border:1px solid var(--line);border-radius:7px;overflow:hidden}
+ .seg button{flex:1;padding:8px;border:none;background:#fff;font-size:12.5px;font-weight:600;color:var(--ink2);cursor:pointer}
+ .seg button.on{background:var(--teal);color:#fff}.seg button+button{border-left:1px solid var(--line)}
+ .btn{padding:10px 16px;border:none;border-radius:8px;font-size:13.5px;font-weight:600;cursor:pointer}
+ .btn-pri{background:var(--ink);color:var(--paper);width:100%}
+ .btn-teal{background:var(--teal);color:#fff}
+ .btn-add{background:var(--teal-s);color:var(--teal-d);border:1px dashed var(--teal);width:100%;margin:6px 0 14px}
+ .btn-del{background:transparent;border:1px solid var(--line);color:var(--red);padding:5px 10px;font-size:12px;border-radius:6px}
+ .salt{border:1px solid var(--line);border-radius:10px;padding:12px;margin-bottom:10px;background:#fbfaf5}
+ .salt-top{display:flex;align-items:center;gap:10px;margin-bottom:10px}
+ .salt-top .sw{width:11px;height:22px;border-radius:3px;flex-shrink:0}
+ .salt-top input.nm{flex:1;font-size:15px;font-weight:600;border:none;background:transparent}
+ .saltcalc{font-size:11.5px;color:var(--teal-d);background:var(--teal-s);border-radius:7px;padding:7px 10px;margin-top:8px;font-family:ui-monospace,monospace}
+ details.prof{margin-top:9px;border:1px solid var(--line);border-radius:8px;background:#fff}
+ details.prof summary{cursor:pointer;padding:8px 11px;font-size:12px;font-weight:700;color:var(--ink2)}
+ details.prof .pb{padding:4px 11px 11px}
+ .proftbl{width:100%;border-collapse:collapse;font-family:ui-monospace,monospace;font-size:12px}
+ .proftbl th,.proftbl td{border:1px solid var(--line2);padding:4px;text-align:center}
+ .proftbl input{width:100%;border:none;text-align:center;font-family:ui-monospace,monospace;font-size:12px}
+ .sp-grid{display:grid;grid-template-columns:repeat(auto-fit,minmax(150px,1fr));gap:10px}
+ .sp{border:1px solid var(--line);border-radius:10px;padding:12px;text-align:center;cursor:pointer;background:var(--card)}
+ .sp.on{border:2px solid var(--teal);background:#fbfdfc}.sp .e{font-size:24px}.sp .l{font-weight:600;font-size:13px}
+ table.res{width:100%;border-collapse:collapse;font-size:12.5px}
+ table.res th,table.res td{padding:8px;text-align:right;border-bottom:1px solid var(--line2)}
+ table.res th:first-child,table.res td:first-child{text-align:left}
+ table.res th{background:var(--paper);font-size:11px;text-transform:uppercase;letter-spacing:.03em;color:var(--ink2)}
+ table.res td{font-family:ui-monospace,monospace}table.res td.nm{font-family:inherit;font-weight:600}
+ .badge{display:inline-block;padding:2px 9px;border-radius:20px;font-size:10.5px;font-weight:600}
+ .b-green{background:var(--green-s);color:#21492a}.b-teal{background:var(--teal-s);color:var(--teal-d)}
+ .b-amber{background:var(--amber-s);color:#6e3d12}.b-red{background:var(--red-s);color:var(--red)}
+ .al{padding:10px 13px;border-radius:8px;margin-bottom:8px;font-size:12.5px;border-left:3px solid}
+ .al-warn{background:var(--amber-s);border-color:var(--amber);color:#6e3d12}
+ .al-info{background:var(--teal-s);border-color:var(--teal);color:var(--teal-d)}
+ .chart{height:380px}.foot{font-size:11px;color:var(--muted);margin-top:8px;line-height:1.6}
+ .nav{display:flex;gap:10px;margin-top:8px}
+</style>
+</head>
+<body>
+<div class="wrap">
+ <div class="top">
+  <div><h1>염 스크리닝 <em>PK 예측기</em></h1>
+   <div class="sub">Free base 대비 염형태(HCl·tosylate·phosphate·esylate·oxalate…)별 in vivo 노출 예측 · BCS I–IV · IVIVE</div></div>
+  <div class="org">대웅제약<br>신약합성연구팀</div>
+ </div>
+
+ <div class="intro">
+  <b>작동 원리.</b> 대사·분포·결합·투과는 <b>free base의 성질</b>이라 모든 염에서 동일합니다.
+  염이 바꾸는 것은 <b>흡수(용해·용출·과포화·공통이온)</b>뿐이므로,
+  <b>AUC(염)/AUC(free base) ≈ Fa(염)/Fa(free base)</b> 입니다.
+  각 염의 <b>counterion·염 용해도·(선택) 측정 용출 프로파일</b>을 넣으면 pHmax·공통이온 효과를
+  반영해 어떤 염이 노출이 높은지 순위를 매깁니다.
+  <span style="color:var(--amber)">절대값보다 <b>후보 간 상대비교·순위</b>가 신뢰구간입니다.</span>
+ </div>
+
+ <div id="alerts"></div>
+
+ <!-- FREE BASE -->
+ <div class="panel">
+  <div class="panel-h"><span class="gi">🧬</span><h2>Free base 물성 · Disposition (모든 염 공유)</h2></div>
+  <div class="panel-b">
+   <div class="row">
+    <div class="fld"><label>물질명</label><input id="name" value="후보물질-1"></div>
+    <div class="fld"><label>이온화</label>
+     <div class="seg"><button id="bBase" class="on" onclick="setBase(true)">약염기</button>
+      <button id="bAcid" onclick="setBase(false)">약산</button></div></div>
+    <div class="fld"><label>용량 <span class="u">mg/kg (free base)</span></label><input id="dose" type="number" value="30"></div>
+    <div class="fld"><label>MW <span class="u">g/mol</span></label><input id="mw" type="number" value="420"></div>
+    <div class="fld"><label>pKa</label><input id="pka" type="number" step="0.1" value="6.0"></div>
+    <div class="fld"><label>고유용해도 S0 <span class="u">µg/mL</span></label><input id="s0" type="number" step="0.1" value="6"></div>
+    <div class="fld"><label>Caco-2 Papp <span class="u">10⁻⁶cm/s</span></label><input id="caco2" type="number" step="0.1" value="18"></div>
+    <div class="fld"><label>CLint <span class="u">µL/min/mg</span></label><input id="clint" type="number" step="0.1" value="22"></div>
+    <div class="fld"><label>PPB <span class="u">%</span></label><input id="ppb" type="number" step="0.1" value="92"></div>
+    <div class="fld"><label>Vss <span class="u">L/kg</span></label><input id="vss" type="number" step="0.01" value="2.5" placeholder="비우면 추정"></div>
+   </div>
+  </div>
+ </div>
+
+ <!-- SPECIES -->
+ <div class="panel">
+  <div class="panel-h"><span class="gi">🐾</span><h2>종 선택</h2></div>
+  <div class="panel-b"><div class="sp-grid" id="spGrid"></div></div>
+ </div>
+
+ <!-- SALT FORMS -->
+ <div class="panel">
+  <div class="panel-h"><span class="gi">💊</span><h2>염형태 (Counterion별로 추가)</h2></div>
+  <div class="panel-b">
+   <div id="salts"></div>
+   <button class="btn btn-add" onclick="addSalt()">＋ 염형태 추가</button>
+   <button class="btn btn-pri" onclick="run()">PK 예측 · 염 순위 계산 →</button>
+  </div>
+ </div>
+
+ <div id="results"></div>
+</div>
+
+<script>
+/* ============ Counterion library (Python salt_pk.counterions와 동일) ============ */
+const COUNTERIONS={
+ free_base:{name:'free base',pka:NaN,common:false},
+ hcl:{name:'HCl',pka:-6.0,common:true},
+ mesylate:{name:'mesylate',pka:-1.9,common:false},
+ esylate:{name:'esylate',pka:-1.5,common:false},
+ besylate:{name:'besylate',pka:-2.5,common:false},
+ tosylate:{name:'tosylate',pka:-2.8,common:false},
+ sulfate:{name:'sulfate',pka:1.99,common:false},
+ phosphate:{name:'phosphate',pka:2.12,common:false},
+ oxalate:{name:'oxalate',pka:1.25,common:false},
+ maleate:{name:'maleate',pka:1.92,common:false},
+ tartrate:{name:'tartrate',pka:3.04,common:false},
+ citrate:{name:'citrate',pka:3.13,common:false},
+ fumarate:{name:'fumarate',pka:3.03,common:false},
+ succinate:{name:'succinate',pka:4.21,common:false},
+ benzoate:{name:'benzoate',pka:4.20,common:false},
+};
+const SPECIES={
+ mouse:{label:'🐀 Mouse',bw:0.025,Qh:90,liverWt:55,MPPGL:45,HPGL:135,Vsto:0.3,Vsi:1.5,Tsi:1.5,kge:6,pHs:2.0,pHi:6.5},
+ rat:{label:'🐀 Rat',bw:0.25,Qh:55,liverWt:40,MPPGL:45,HPGL:117,Vsto:1.0,Vsi:5.0,Tsi:1.5,kge:3,pHs:2.0,pHi:6.5},
+ dog:{label:'🐕 Dog',bw:10,Qh:31,liverWt:32,MPPGL:78,HPGL:215,Vsto:8,Vsi:45,Tsi:2.0,kge:2,pHs:2.0,pHi:6.5},
+ human:{label:'🧑 Human',bw:70,Qh:21,liverWt:21.4,MPPGL:40,HPGL:99,Vsto:50,Vsi:250,Tsi:3.3,kge:2,pHs:2.0,pHi:6.5},
+};
+const CL_GI={stomach:100,si:30}; // chloride mM
+const AP={kd0:0.5,kprecip:2.0,wet:4.0};
+const TPS=[5,10,15,30,45,60,90,120,180,240];
+const COLORS=['#5b6670','#0d6b63','#b5651d','#3a5fa8','#9e2b25','#6b4e9e','#2f6b3a'];
+
+let species='rat', isBase=true, salts=[], chart=null;
+
+/* ---- solubility ---- */
+function hhFactor(pH,pka){return isBase?1+Math.pow(10,pka-pH):1+Math.pow(10,pH-pka);}
+function pHmax(s0,sSalt,pka){if(!sSalt)return null;return isBase?pka+Math.log10(s0/sSalt):pka-Math.log10(s0/sSalt);}
+function bhPlus(sSalt,mw,common,region,ignore){
+ const sM=(sSalt/1000)/mw, ksp=sM*sM;
+ let bh;
+ if(ignore||!common)bh=sM;
+ else{const c=CL_GI[region]||0;bh=(-c+Math.sqrt(c*c+4*ksp))/2;}
+ return bh*mw*1000;
+}
+function solubility(s0,sSalt,mw,pka,common,pH,region,ignore){
+ const sBase=s0*hhFactor(pH,pka);
+ if(!sSalt)return sBase;
+ const pm=pHmax(s0,sSalt,pka);
+ const saltSolid=isBase?(pH<pm):(pH>pm);
+ if(!saltSolid)return sBase;
+ const bh=bhPlus(sSalt,mw,common,region,ignore);
+ return isBase?bh*(1+Math.pow(10,pH-pka)):bh*(1+Math.pow(10,pka-pH));
+}
+function surfSol(s0,sSalt,mw,pka,common,region,bulkPH,ignore){
+ if(!sSalt)return solubility(s0,0,mw,pka,common,bulkPH,region,ignore);
+ const pm=pHmax(s0,sSalt,pka);
+ const sPH=isBase?Math.min(bulkPH,Math.max(1,pm-0.5)):Math.max(bulkPH,Math.min(13,pm+0.5));
+ return solubility(s0,sSalt,mw,pka,common,sPH,region,ignore);
+}
+
+/* ---- disposition (shared) ---- */
+function disposition(d,sp){
+ const fuP=d.ppb?Math.max(0.001,(100-d.ppb)/100):0.1;
+ let CLh,Eh,Fh;
+ if(d.clint){const sf=sp.MPPGL*sp.liverWt/1000, CLintS=d.clint*sf, fub=fuP;
+  const CLhb=sp.Qh*fub*CLintS/(sp.Qh+fub*CLintS);Eh=CLhb/sp.Qh;CLh=CLhb;}
+ else{CLh=sp.Qh*0.3;Eh=0.3;}
+ Fh=1-Eh;
+ const CL=CLh; // mL/min/kg (Rb=1)
+ let Vss=d.vss;
+ if(!Vss){const fut=Math.max(5e-4,Math.min(1,1/(1+Math.pow(10,0.6*(1.5-0.5)))));
+  Vss=Math.max(0.1,0.0436*2.4+fuP*0.0436*(0.151/0.0436-1.4)+0.38*fuP/fut);}
+ const kel=CL*60/1000/Vss, thalf=Math.LN2/kel;
+ return{CL,Vss,kel,thalf,Fh};
+}
+
+/* ---- absorption ODE (Python engine과 동일) ---- */
+function predict(d,sp,salt){
+ const disp=disposition(d,sp), Fh=disp.Fh, Fg=1, kel=disp.kel, Vc=disp.Vss*sp.bw;
+ const dose_ug=d.dose*sp.bw*1000;
+ const mw=d.mw,pka=d.pka,s0=d.s0;
+ const sSalt=salt.sSalt||0, common=salt.common;
+ let ka=Math.max(0.02,Math.min(15,(0.30)*d.caco2));
+ const prof=[];
+ // dissolution toward intrinsic surface solubility (supersaturation)
+ const CsGdiss=surfSol(s0,sSalt,mw,pka,common,'stomach',sp.pHs,true);
+ const CsSIdiss=surfSol(s0,sSalt,mw,pka,common,'si',sp.pHi,true);
+ const CsGeq=solubility(s0,sSalt,mw,pka,common,sp.pHs,'stomach',false);
+ const CsSIeq=solubility(s0,0,mw,pka,common,sp.pHi,'si',false); // free-base floor
+ const CsGrate=CsGdiss, CsSIrate=CsSIdiss;
+ const S0REF=50,ENH=20;
+ const enhG=Math.min(CsGrate/S0REF,ENH), enhS=Math.min(CsSIrate/S0REF,ENH);
+ const wet=sSalt?AP.wet:1;
+ const kdG=Math.max(0.005,Math.min(50,AP.kd0*wet*enhG));
+ const kdS=Math.max(0.005,Math.min(50,AP.kd0*wet*enhS));
+ const kge=sp.kge, kt=1/sp.Tsi;
+ // measured profile
+ let pp=null;
+ if(salt.profile&&salt.profile.length){
+  pp=salt.profile.map(p=>[p[0]/60,Math.max(0,Math.min(1,p[1]/100))]).sort((a,b)=>a[0]-b[0]);
+  if(pp[0][0]>0)pp.unshift([0,0]);
+ }
+ const cum=t=>{if(t<=pp[0][0])return pp[0][1];for(let i=1;i<pp.length;i++){if(t<=pp[i][0]){const a=pp[i-1],b=pp[i];return a[1]+(b[1]-a[1])*(t-a[0])/(b[0]-a[0]);}}return pp[pp.length-1][1];};
+ const slope=t=>{const h=0.01;return Math.max(0,(cum(t+h)-cum(Math.max(0,t-h)))/(t-h<0?h:2*h));};
+ let Ags=dose_ug,Agd=0,As=0,Ad=0,Ac=0,absorbed=0;
+ const dv=(t,Ags,Agd,As,Ad,Ac)=>{
+  const Cg=Agd/sp.Vsto, Csi=Ad/sp.Vsi;
+  const dissG=pp?dose_ug*slope(t):kdG*Ags*Math.max(0,1-Cg/Math.max(CsGdiss,1e-9));
+  const dissS=kdS*As*Math.max(0,1-Csi/Math.max(CsSIdiss,1e-9));
+  const prG=AP.kprecip*Math.max(0,Cg-CsGeq)*sp.Vsto;
+  const prS=AP.kprecip*Math.max(0,Csi-CsSIeq)*sp.Vsi;
+  const ges=pp?0:kge*Ags, ged=kge*Agd, ab=ka*Ad;
+  return[-dissG+prG-ges, dissG-prG-ged, ges+prS-dissS-kt*As, ged+dissS-prS-ab-kt*Ad, Fh*Fg*ab-kel*Ac, ab];
+ };
+ const dt=0.002; let t=0,ns=0;
+ while(t<=48.0001){
+  if(t>=ns-1e-9){prof.push({time:+t.toFixed(3),conc:Ac/Vc});ns+=0.05;}
+  const a=dv(t,Ags,Agd,As,Ad,Ac),
+        b=dv(t+.5*dt,Ags+.5*dt*a[0],Agd+.5*dt*a[1],As+.5*dt*a[2],Ad+.5*dt*a[3],Ac+.5*dt*a[4]),
+        c=dv(t+.5*dt,Ags+.5*dt*b[0],Agd+.5*dt*b[1],As+.5*dt*b[2],Ad+.5*dt*b[3],Ac+.5*dt*b[4]),
+        e=dv(t+dt,Ags+dt*c[0],Agd+dt*c[1],As+dt*c[2],Ad+dt*c[3],Ac+dt*c[4]);
+  Ags=Math.max(0,Ags+dt/6*(a[0]+2*b[0]+2*c[0]+e[0]));
+  Agd=Math.max(0,Agd+dt/6*(a[1]+2*b[1]+2*c[1]+e[1]));
+  As=Math.max(0,As+dt/6*(a[2]+2*b[2]+2*c[2]+e[2]));
+  Ad=Math.max(0,Ad+dt/6*(a[3]+2*b[3]+2*c[3]+e[3]));
+  Ac=Math.max(0,Ac+dt/6*(a[4]+2*b[4]+2*c[4]+e[4]));
+  absorbed+=dt/6*(a[5]+2*b[5]+2*c[5]+e[5]);t+=dt;
+ }
+ const Fa=Math.min(1,absorbed/dose_ug), F=Fa*Fg*Fh;
+ const Cmax=Math.max(...prof.map(p=>p.conc)), Tmax=prof.find(p=>p.conc===Cmax).time;
+ let AUC=0;for(let i=1;i<prof.length;i++)AUC+=(prof[i-1].conc+prof[i].conc)*(prof[i].time-prof[i-1].time)/2;
+ return{prof,Fa,F,Cmax,Tmax,AUC,CL:disp.CL,Vss:disp.Vss,thalf:disp.thalf,Fh,
+   pm:pHmax(s0,sSalt,pka),CsGeq,CsGfb:s0*hhFactor(sp.pHs,pka)};
+}
+
+/* ============ UI ============ */
+function getDrug(){return{name:val('name'),dose:+val('dose'),mw:+val('mw'),pka:+val('pka'),
+  s0:+val('s0'),caco2:+val('caco2'),clint:+val('clint'),ppb:+val('ppb'),vss:val('vss')?+val('vss'):null};}
+const val=id=>document.getElementById(id).value;
+function setBase(b){isBase=b;document.getElementById('bBase').classList.toggle('on',b);
+  document.getElementById('bAcid').classList.toggle('on',!b);}
+
+function blankSalt(i){return{id:Date.now()+Math.random(),name:i===0?'free base':'염 '+i,
+  ci:i===0?'free_base':'hcl',sSalt:i===0?'':'1500',useProfile:false,profile:{}};}
+function addSalt(){salts.push(blankSalt(salts.length));renderSalts();}
+function delSalt(id){salts=salts.filter(s=>s.id!==id);renderSalts();}
+function updSalt(id,f,v){const s=salts.find(x=>x.id===id);if(s){s[f]=v;if(f==='ci'||f==='sSalt'||f==='useProfile')renderSalts();}}
+function updProf(id,tp,v){const s=salts.find(x=>x.id===id);if(s)s.profile[tp]=v;}
+
+function renderSalts(){
+ const drug=getDrug();
+ document.getElementById('salts').innerHTML=salts.map((s,i)=>{
+  const col=COLORS[i%COLORS.length], ci=COUNTERIONS[s.ci], isFB=s.ci==='free_base';
+  const sSalt=+s.sSalt||0;
+  let calc='';
+  if(!isFB&&sSalt){const pm=pHmax(drug.s0,sSalt,drug.pka);
+   const gEq=solubility(drug.s0,sSalt,drug.mw,drug.pka,ci.common,SPECIES[species].pHs,'stomach',false);
+   calc=`pHmax = ${pm.toFixed(2)} · 위(pH${SPECIES[species].pHs}) 평형용해도 = ${gEq.toFixed(1)} µg/mL`+
+    (ci.common?` <b style="color:var(--amber)">⚠ common-ion(Cl⁻)로 억제됨</b>`:'');
+  }
+  const opts=Object.entries(COUNTERIONS).map(([k,v])=>`<option value="${k}" ${k===s.ci?'selected':''}>${v.name}</option>`).join('');
+  const profRows=TPS.map(tp=>`<td><input value="${s.profile[tp]||''}" placeholder="–" onchange="updProf(${s.id},${tp},this.value)"></td>`).join('');
+  return `<div class="salt" style="border-left:4px solid ${col}">
+   <div class="salt-top"><span class="sw" style="background:${col}"></span>
+    <input class="nm" value="${s.name}" onchange="updSalt(${s.id},'name',this.value)">
+    ${salts.length>1?`<button class="btn-del" onclick="delSalt(${s.id})">삭제</button>`:''}</div>
+   <div class="row">
+    <div class="fld"><label>Counterion</label>
+     <select onchange="updSalt(${s.id},'ci',this.value)" ${isFB?'disabled':''}>${opts}</select>
+     ${isFB?'<div class="hint">기준 (free base)</div>':`<div class="hint">pKa(HX)=${ci.pka}${ci.common?' · common-ion':''}</div>`}</div>
+    ${isFB?'':`<div class="fld"><label>염 용해도 S_salt <span class="u">µg/mL(물)</span></label>
+     <input type="number" step="1" value="${s.sSalt}" onchange="updSalt(${s.id},'sSalt',this.value)">
+     <div class="hint">free base 환산 평형 용해도</div></div>`}
+   </div>
+   ${calc?`<div class="saltcalc">${calc}</div>`:''}
+   ${isFB?'':`<details class="prof" ${s.useProfile?'open':''}>
+    <summary>📈 측정 용출 프로파일 입력 (선택 · 염 간 차이를 가장 정확히 반영)</summary>
+    <div class="pb"><label style="font-size:11px;color:var(--muted)">
+     <input type="checkbox" ${s.useProfile?'checked':''} onchange="updSalt(${s.id},'useProfile',this.checked)"> 이 프로파일을 계산에 사용 (FaSSIF/FaSSGF 누적 용출 %)</label>
+     <table class="proftbl" style="margin-top:6px"><thead><tr>${TPS.map(t=>`<th>${t}분</th>`).join('')}</tr></thead>
+      <tbody><tr>${profRows}</tr></tbody></table></div></details>`}
+  </div>`;
+ }).join('');
+}
+
+function renderSpecies(){
+ document.getElementById('spGrid').innerHTML=Object.entries(SPECIES).map(([k,v])=>
+  `<div class="sp ${species===k?'on':''}" onclick="species='${k}';renderSpecies();renderSalts()">
+    <div class="e">${v.label.split(' ')[0]}</div><div class="l">${v.label.split(' ')[1]}</div></div>`).join('');
+}
+
+function run(){
+ const drug=getDrug(); const sp=SPECIES[species];
+ if(!salts.length){alert('염형태를 1개 이상 추가하세요');return;}
+ const out=salts.map((s,i)=>{
+  const ci=COUNTERIONS[s.ci];
+  const useP=s.useProfile&&Object.values(s.profile).some(v=>v!=='');
+  const profile=useP?TPS.filter(tp=>s.profile[tp]!==''&&s.profile[tp]!=null).map(tp=>[tp,+s.profile[tp]]):null;
+  const salt={sSalt:s.ci==='free_base'?0:(+s.sSalt||0),common:ci.common,profile};
+  return{name:s.name,color:COLORS[i%COLORS.length],ci:s.ci,r:predict(drug,sp,salt)};
+ });
+ const ref=out[0].r;
+ const f=(x,n=1)=>x==null?'—':(+x).toFixed(n), f0=x=>x==null?'—':Math.round(x).toLocaleString();
+ let alerts='';
+ const bestNoBenefit=out.every(o=>o.r.AUC/ref.AUC<1.2);
+ if(out.length>1&&bestNoBenefit)alerts+=`<div class="al al-info">이 조건에서는 염형태 간 노출 차이가 작습니다(≈BCS I/III). 염 선택은 PK보다 고체물성(안정성·흡습성·제조성)으로 판단하세요.</div>`;
+ const rows=out.map((o,i)=>{const p=o.r, rA=p.AUC/ref.AUC*100, rC=p.Cmax/ref.Cmax*100;
+  let v=i===0?'기준':(rA>120?'<span class="badge b-green">우수</span>':rA>=80?'<span class="badge b-teal">유사</span>':rA>=50?'<span class="badge b-amber">보통</span>':'<span class="badge b-red">낮음</span>');
+  return `<tr><td class="nm" style="border-left:3px solid ${o.color};padding-left:9px">${o.name}</td>
+   <td>${p.pm==null?'–':f(p.pm,2)}</td><td>${f(p.Fa*100)}%</td><td>${f0(p.Cmax)}</td><td>${f(p.Tmax)}</td>
+   <td>${f0(p.AUC)}</td><td>${f(p.F*100)}%</td>
+   <td>${i===0?'100%':f(rA,0)+'%'}</td><td>${i===0?'100%':f(rC,0)+'%'}</td><td style="text-align:left">${v}</td></tr>`;}).join('');
+ const best=out.reduce((a,b)=>b.r.AUC>a.r.AUC?b:a);
+ document.getElementById('results').innerHTML=`
+  ${alerts}
+  <div class="panel"><div class="panel-h"><span class="gi">📊</span><h2>혈중농도 곡선 · ${sp.label.split(' ')[1]}</h2></div>
+   <div class="panel-b"><div class="chart"><canvas id="ch"></canvas></div></div></div>
+  <div class="panel"><div class="panel-h"><span class="gi">🏆</span><h2>염 순위 · PK 파라미터</h2></div>
+   <div class="panel-b" style="overflow-x:auto">
+    <table class="res"><thead><tr><th>형태</th><th>pHmax</th><th>Fa</th><th>Cmax<br>ng/mL</th><th>Tmax<br>h</th>
+     <th>AUC<br>ng·h/mL</th><th>F</th><th>상대AUC</th><th>상대Cmax</th><th>판정</th></tr></thead>
+     <tbody>${rows}</tbody></table>
+    <div class="foot">▶ <b>예측 최고 노출: ${best.name}</b> (AUC ${f0(best.r.AUC)} ng·h/mL, free base의 ${f(best.r.AUC/ref.AUC,2)}배).
+     disposition은 모든 염 공유(CL=${f(ref.CL)} mL/min/kg, Vss=${f(ref.Vss,2)} L/kg, t½=${f(ref.thalf,2)} h).</div>
+   </div></div>
+  <div class="nav"><button class="btn btn-teal" style="flex:1" onclick="exportCSV()">CSV 내보내기</button>
+   <button class="btn btn-pri" style="flex:1" onclick="window.print()">인쇄 / PDF</button></div>`;
+ window._out=out;
+ setTimeout(()=>{const ctx=document.getElementById('ch');if(chart)chart.destroy();
+  chart=new Chart(ctx,{type:'line',data:{labels:ref.prof.map(p=>p.time.toFixed(1)),
+   datasets:out.map(o=>({label:o.name,data:o.r.prof.map(p=>p.conc),borderColor:o.color,
+    backgroundColor:o.color+'14',borderWidth:2.2,tension:.3,pointRadius:0,fill:false}))},
+   options:{responsive:true,maintainAspectRatio:false,interaction:{mode:'index',intersect:false},
+    plugins:{legend:{position:'top'},tooltip:{callbacks:{label:x=>x.dataset.label+': '+x.parsed.y.toFixed(1)+' ng/mL'}}},
+    scales:{x:{title:{display:true,text:'시간 (h)'},ticks:{maxTicksLimit:13}},
+     y:{title:{display:true,text:'혈중농도 (ng/mL)'},beginAtZero:true}}}});},60);
+ document.getElementById('results').scrollIntoView({behavior:'smooth'});
+}
+function exportCSV(){const out=window._out;if(!out)return;const ref=out[0].r;
+ let csv='Time(h),'+out.map(o=>o.name).join(',')+'\n';
+ for(let i=0;i<ref.prof.length;i++)csv+=ref.prof[i].time.toFixed(1)+','+out.map(o=>o.r.prof[i].conc.toFixed(3)).join(',')+'\n';
+ csv+='\nParam,'+out.map(o=>o.name).join(',')+'\n';
+ [['pHmax','pm',2],['Fa%','Fa',3],['Cmax','Cmax',1],['Tmax','Tmax',2],['AUC','AUC',1],['F%','F',3]].forEach(([l,k,n])=>{
+  csv+=l+','+out.map(o=>{let v=o.r[k];if(k==='Fa'||k==='F')v=v*100;return v==null?'':(+v).toFixed(n);}).join(',')+'\n';});
+ const b=new Blob(['﻿'+csv],{type:'text/csv'});const a=document.createElement('a');
+ a.href=URL.createObjectURL(b);a.download='salt_screening_'+species+'.csv';a.click();
+}
+
+/* init */
+salts=[blankSalt(0),blankSalt(1)];
+renderSpecies();renderSalts();
+</script>
+</body>
+</html>
