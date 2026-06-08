@@ -104,6 +104,15 @@ CSV는 폼당 1행(free base 포함), 용출은 `"분:%;분:%"` 형식(`data/dat
 `salt_pk.calibrate`는 ≥10개 reference로 `kd0·kprecip·salt_wettability`를 피팅해 **screening→decision
 등급**으로 올리는 경로입니다.
 
+### 신뢰구간 (점추정 대신 밴드)
+```python
+from salt_pk.uncertainty import ratio_ci, fmt
+print(fmt(ratio_ci(pk, io, SaltForm.free_base(), SaltForm.of("hcl",387), get_species("mouse"))))
+# AUC비 1.74 (90% CI 1.54–2.11) · Cmax비 1.82 (90% CI 1.60–2.16)
+```
+입력 불확실성(투과·용해도·석출·젖음)을 Monte-Carlo로 전파해 **노출비의 90% 구간**을 제시
+(입력 불확실성 한정; 구조적 모델 편향은 별도).
+
 ### 웹 도구
 `salt_screening_predictor.html` 을 브라우저로 열기 → free base 물성·종·염형태 입력 →
 **“PK 예측 · 염 순위 계산”**. counterion을 고르면 pKa·공통이온 여부가 자동 적용되고

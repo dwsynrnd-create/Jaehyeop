@@ -92,9 +92,22 @@ def test_batch_csv_import():
     print("ok  CSV batch import + scoring")
 
 
+def test_uncertainty_ci():
+    """Monte-Carlo ratio CI returns ordered, positive bounds bracketing the median."""
+    from salt_pk.uncertainty import ratio_ci
+    io = IonizableDrug(mw=400, pka=6.0, s0_ugml=5, is_base=True)
+    pk = DrugPK(dose_mgkg=20, caco2=20, clint=12, ppb_percent=92)
+    ci = ratio_ci(pk, io, SaltForm.free_base(), SaltForm.of("hcl", 2000),
+                  get_species("rat"), n=12, seed=1)
+    assert 0 < ci["auc_p05"] <= ci["auc_median"] <= ci["auc_p95"], ci
+    assert ci["auc_median"] > 1.0, "salt should help this BCS II base"
+    print("ok  Monte-Carlo uncertainty CI")
+
+
 if __name__ == "__main__":
     for fn in [test_pHmax_formula, test_mass_balance_and_Fa_le_1, test_bcs_behaviour,
                test_common_ion_suppresses_hcl, test_compendial_multi_pH_high_pH_discriminates,
-               test_measured_profile_is_absorption_ceiling, test_batch_csv_import]:
+               test_measured_profile_is_absorption_ceiling, test_batch_csv_import,
+               test_uncertainty_ci]:
         fn()
     print("\nALL TESTS PASSED")
