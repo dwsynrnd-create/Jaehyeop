@@ -135,6 +135,18 @@ def predict(drug: DrugPK, drug_io: IonizableDrug, form: SaltForm, sp: Species,
             ka = 3.0 if drug.logd > 1 else (0.7 if drug.logd > -0.5 else 0.2)
         ka = max(0.02, min(15.0, ka))
 
+        # Compendial multi-pH dissolution (Tier 3): LOW pH -> gastric release,
+        # HIGH pH -> intestinal solubility ceiling (parachute floor).
+        multi_ph = bool(form.ph_profiles)
+        si_ceiling_frac = None
+        prof_src = None
+        if multi_ph:
+            phs = sorted(form.ph_profiles)
+            prof_src = form.ph_profiles[phs[0]]               # lowest pH -> stomach
+            si_ceiling_frac = max(fr for _, fr in form.ph_profiles[phs[-1]])
+        else:
+            prof_src = form.diss_profile
+
         # region solubility CEILINGS (encode common-ion for HCl and pHmax).
         # DISSOLUTION proceeds toward the intrinsic (common-ion-free) surface
         # solubility -> a salt dissolves fast and can transiently SUPERSATURATE.
@@ -145,6 +157,9 @@ def predict(drug: DrugPK, drug_io: IonizableDrug, form: SaltForm, sp: Species,
         # for HCl salts; in the SI it is the stable free-base solubility.
         Cs_g_eq = solubility(drug_io, form, sp.pH_stomach, "stomach")  # common-ion included
         Cs_si_eq = solubility(drug_io, SaltForm.free_base(), sp.pH_si, "si")
+        if multi_ph:
+            # intestinal solubility ceiling from the measured high-pH (e.g. 6.8) plateau
+            Cs_si_eq = max(1e-6, si_ceiling_frac * dose_ug / sp.V_si)
         Cs_g_rate, Cs_si_rate = Cs_g_diss, Cs_si_diss                 # drive wetting/RATE edge
 
         # Dissolution RATE constants (1/h), Noyes-Whitney: rate ∝ surface
@@ -158,15 +173,23 @@ def predict(drug: DrugPK, drug_io: IonizableDrug, form: SaltForm, sp: Species,
         wet = ap.salt_wettability if form.s_salt_ugml is not None else 1.0
         kd_g = max(0.005, min(50.0, ap.kd0 * wet * size * enh_g))
         kd_si = max(0.005, min(50.0, ap.kd0 * wet * size * enh_si))
+        if multi_ph:
+            # intestinal re-dissolution rate from the measured high-pH (6.8) profile:
+            # first-order k from the time to reach ~63% of its plateau.
+            si_pts2 = sorted(form.ph_profiles[sorted(form.ph_profiles)[-1]])
+            plat = max(fr for _, fr in si_pts2)
+            t63 = next((t for t, fr in si_pts2 if fr >= 0.63 * plat and t > 0), None)
+            kd_si = max(0.02, min(50.0, (1.0 / t63) if t63 else 0.3))
 
         kge = sp.kge
         kt = 1.0 / sp.Tsi
 
-        # OPTIONAL measured dissolution profile -> input function for gastric release
+        # measured dissolution -> gastric release input function (single medium or
+        # the low-pH leg of the compendial multi-pH set, prepared above)
         prof_pts = None
-        if form.diss_profile:
+        if prof_src:
             prof_pts = sorted([(float(t), max(0.0, min(1.0, float(fr))))
-                               for t, fr in form.diss_profile])
+                               for t, fr in prof_src])
             if prof_pts[0][0] > 0:
                 prof_pts.insert(0, (0.0, 0.0))
 
@@ -227,10 +250,10 @@ def predict(drug: DrugPK, drug_io: IonizableDrug, form: SaltForm, sp: Species,
             # supersaturation -> precipitation toward local equilibrium solubility
             precip_g = ap.kprecip * max(0.0, Cg - Cs_g_eq) * sp.V_stomach
             precip_si = ap.kprecip * max(0.0, Csi - Cs_si_eq) * sp.V_si
-            # In measured-profile mode the profile IS the dissolution: undissolved
-            # solid is NOT emptied/re-dissolved (final cumulative % = absorption
-            # ceiling). In mechanistic mode the solid empties and dissolves in the SI.
-            ge_s = 0.0 if prof_pts is not None else kge * Ags
+            # Single-medium profile: undissolved solid is NOT re-dissolved (final
+            # cumulative % = absorption ceiling). Multi-pH and mechanistic modes let
+            # the solid empty and dissolve at the intestinal pH (re-dissolution).
+            ge_s = 0.0 if (prof_pts is not None and not multi_ph) else kge * Ags
             ge_d = kge * Agd
             ab = ka * Ad
             dAgs = -diss_g + precip_g - ge_s

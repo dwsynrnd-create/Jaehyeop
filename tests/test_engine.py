@@ -55,6 +55,21 @@ def test_common_ion_suppresses_hcl():
     print("ok  common-ion suppression")
 
 
+def test_compendial_multi_pH_high_pH_discriminates():
+    """A poor high-pH (6.8) dissolution must give lower exposure than a robust one,
+    even with identical gastric (pH 1.2) dissolution — the parachute matters."""
+    io = IonizableDrug(mw=400, pka=6.0, s0_ugml=5, is_base=True)
+    pk = DrugPK(dose_mgkg=20, caco2=20, clint=15, ppb_percent=92)
+    sp = get_species("rat")
+    g = [(0.25, 0.8), (0.5, 0.95), (1, 0.98)]                      # same gastric spring
+    poor = SaltForm.of("mesylate", 2000, ph_profiles={1.2: g, 6.8: [(1, 0.15), (2, 0.25), (6, 0.40)]})
+    good = SaltForm.of("mesylate", 2000, ph_profiles={1.2: g, 6.8: [(0.25, 0.7), (0.5, 0.9), (1, 0.95)]})
+    fa_poor = predict(pk, io, poor, sp)["Fa"]
+    fa_good = predict(pk, io, good, sp)["Fa"]
+    assert fa_good > fa_poor + 0.05, (fa_poor, fa_good)
+    print("ok  compendial multi-pH: high-pH (6.8) profile discriminates")
+
+
 def test_measured_profile_is_absorption_ceiling():
     io = IonizableDrug(mw=400, pka=6.5, s0_ugml=5, is_base=True)
     pk = DrugPK(dose_mgkg=10, caco2=20, clint=20, ppb_percent=90)
@@ -66,6 +81,7 @@ def test_measured_profile_is_absorption_ceiling():
 
 if __name__ == "__main__":
     for fn in [test_pHmax_formula, test_mass_balance_and_Fa_le_1, test_bcs_behaviour,
-               test_common_ion_suppresses_hcl, test_measured_profile_is_absorption_ceiling]:
+               test_common_ion_suppresses_hcl, test_compendial_multi_pH_high_pH_discriminates,
+               test_measured_profile_is_absorption_ceiling]:
         fn()
     print("\nALL TESTS PASSED")

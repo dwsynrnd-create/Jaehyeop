@@ -213,18 +213,29 @@ function predict(d,sp,salt){
  const CsGdiss=surfSol(s0,sSalt,mw,pka,common,'stomach',sp.pHs,true);
  const CsSIdiss=surfSol(s0,sSalt,mw,pka,common,'si',sp.pHi,true);
  const CsGeq=solubility(s0,sSalt,mw,pka,common,sp.pHs,'stomach',false);
- const CsSIeq=solubility(s0,0,mw,pka,common,sp.pHi,'si',false); // free-base floor
+ let CsSIeq=solubility(s0,0,mw,pka,common,sp.pHi,'si',false); // free-base floor
  const CsGrate=CsGdiss, CsSIrate=CsSIdiss;
  const S0REF=50,ENH=20;
  const enhG=Math.min(CsGrate/S0REF,ENH), enhS=Math.min(CsSIrate/S0REF,ENH);
  const wet=sSalt?AP.wet:1;
  const kdG=Math.max(0.005,Math.min(50,AP.kd0*wet*enhG));
- const kdS=Math.max(0.005,Math.min(50,AP.kd0*wet*enhS));
+ let kdS=Math.max(0.005,Math.min(50,AP.kd0*wet*enhS));
  const kge=sp.kge, kt=1/sp.Tsi;
- // measured profile
+ // COMPENDIAL multi-pH dissolution: low pH -> gastric release, high pH -> SI ceiling+rate
+ const mp=salt.phProfiles&&Object.keys(salt.phProfiles).length;
+ let gastricSrc=salt.profile;
+ if(mp){const phs=Object.keys(salt.phProfiles).map(Number).sort((a,b)=>a-b);
+  gastricSrc=salt.phProfiles[phs[0]];
+  const si=salt.phProfiles[phs[phs.length-1]].map(p=>[p[0]/60,p[1]/100]).sort((a,b)=>a[0]-b[0]);
+  const plat=Math.max(...si.map(p=>p[1]));
+  CsSIeq=Math.max(1e-6, plat*dose_ug/sp.Vsi);
+  const t63=(si.find(p=>p[1]>=0.63*plat&&p[0]>0)||[null])[0];
+  kdS=Math.max(0.02,Math.min(50,t63?1/t63:0.3));
+ }
+ // measured gastric/single-medium release profile
  let pp=null;
- if(salt.profile&&salt.profile.length){
-  pp=salt.profile.map(p=>[p[0]/60,Math.max(0,Math.min(1,p[1]/100))]).sort((a,b)=>a[0]-b[0]);
+ if(gastricSrc&&gastricSrc.length){
+  pp=gastricSrc.map(p=>[p[0]/60,Math.max(0,Math.min(1,p[1]/100))]).sort((a,b)=>a[0]-b[0]);
   if(pp[0][0]>0)pp.unshift([0,0]);
  }
  const cum=t=>{if(t<=pp[0][0])return pp[0][1];for(let i=1;i<pp.length;i++){if(t<=pp[i][0]){const a=pp[i-1],b=pp[i];return a[1]+(b[1]-a[1])*(t-a[0])/(b[0]-a[0]);}}return pp[pp.length-1][1];};
@@ -242,7 +253,7 @@ function predict(d,sp,salt){
   const dissS=kdS*As*Math.max(0,1-Csi/Math.max(CsSIdiss,1e-9));
   const prG=AP.kprecip*Math.max(0,Cg-CsGeq)*sp.Vsto;
   const prS=AP.kprecip*Math.max(0,Csi-CsSIeq)*sp.Vsi;
-  const ges=pp?0:kge*Ags, ged=kge*Agd, ab=ka*Ad;
+  const ges=(pp&&!mp)?0:kge*Ags, ged=kge*Agd, ab=ka*Ad;
   return[-dissG+prG-ges, dissG-prG-ged, ges+prS-dissS-kt*As, ged+dissS-prS-ab-kt*Ad, Fh*Fg*ab-kel*Ac, ab];
  };
  const dt=0.002; let t=0,ns=0;
@@ -273,13 +284,16 @@ const val=id=>document.getElementById(id).value;
 function setBase(b){isBase=b;document.getElementById('bBase').classList.toggle('on',b);
   document.getElementById('bAcid').classList.toggle('on',!b);}
 
+const PH_MEDIA=[1.2,4.5,6.8];   // compendial buffers (의약품동등성시험기준 / ICH / EMA)
 function blankSalt(i){return{id:Date.now()+Math.random(),name:i===0?'free base':'염 '+i,
-  ci:i===0?'free_base':'hcl',sSalt:i===0?'':'1500',mode:'sol',profile:{},intl:{}};}
+  ci:i===0?'free_base':'hcl',sSalt:i===0?'':'1500',mode:'compendial',profile:{},intl:{},
+  ph:{1.2:{},4.5:{},6.8:{}}};}
 function addSalt(){salts.push(blankSalt(salts.length));renderSalts();}
 function delSalt(id){salts=salts.filter(s=>s.id!==id);renderSalts();}
 function updSalt(id,f,v){const s=salts.find(x=>x.id===id);if(s){s[f]=v;if(f==='ci'||f==='sSalt'||f==='mode')renderSalts();}}
 function updProf(id,tp,v){const s=salts.find(x=>x.id===id);if(s)s.profile[tp]=v;}
 function updIntl(id,tp,v){const s=salts.find(x=>x.id===id);if(s)s.intl[tp]=v;}
+function updPh(id,ph,tp,v){const s=salts.find(x=>x.id===id);if(s){if(!s.ph[ph])s.ph[ph]={};s.ph[ph][tp]=v;}}
 
 function renderSalts(){
  const drug=getDrug();
@@ -295,22 +309,27 @@ function renderSalts(){
   const opts=Object.entries(COUNTERIONS).map(([k,v])=>`<option value="${k}" ${k===s.ci?'selected':''}>${v.name}</option>`).join('');
   const profRows=TPS.map(tp=>`<td><input value="${s.profile[tp]||''}" placeholder="–" onchange="updProf(${s.id},${tp},this.value)"></td>`).join('');
   const intlRows=TPS.map(tp=>`<td><input value="${s.intl[tp]||''}" placeholder="–" onchange="updIntl(${s.id},${tp},this.value)"></td>`).join('');
-  const m=s.mode||'sol';
-  const tierUI = isFB ? '' : `
+  const m=s.mode||'compendial';
+  const phTable=(ph)=>`<div style="margin-top:7px"><div style="font-size:11px;font-weight:600;color:var(--teal-d)">pH ${ph} 누적 용출 %</div>
+    <table class="proftbl" style="margin-top:3px"><thead><tr>${TPS.map(t=>`<th>${t}분</th>`).join('')}</tr></thead>
+     <tbody><tr>${TPS.map(tp=>`<td><input value="${(s.ph[ph]&&s.ph[ph][tp])||''}" placeholder="–" onchange="updPh(${s.id},${ph},${tp},this.value)"></td>`).join('')}</tr></tbody></table></div>`;
+  const tierUI = isFB ? `
+   <details class="prof" ${m==='compendial'?'open':''}><summary>📊 (기준) free base의 다중 pH 용출 입력</summary>
+    <div class="pb">${PH_MEDIA.map(phTable).join('')}<div class="hint">free base도 같은 다중 pH 용출을 넣으면 비교 기준이 정확해집니다.</div></div></details>` : `
    <div style="margin-top:9px"><label style="font-size:11px;font-weight:600;color:var(--ink2)">입력 정확도 (높을수록 신뢰도↑)</label>
     <div class="seg" style="margin-top:4px">
      <button class="${m==='sol'?'on':''}" onclick="updSalt(${s.id},'mode','sol')">① 용해도</button>
-     <button class="${m==='gastric'?'on':''}" onclick="updSalt(${s.id},'mode','gastric')">③ 용출(FaSSGF)</button>
-     <button class="${m==='intl'?'on':''}" onclick="updSalt(${s.id},'mode','intl')">④ 2-stage 이행</button></div></div>
+     <button class="${m==='compendial'?'on':''}" onclick="updSalt(${s.id},'mode','compendial')">② 다중pH 용출 (규제표준)</button>
+     <button class="${m==='intl'?'on':''}" onclick="updSalt(${s.id},'mode','intl')">③ 2-stage 이행</button></div></div>
    ${m==='sol'?`<div class="row" style="margin-top:9px"><div class="fld"><label>염 용해도 S_salt <span class="u">µg/mL(물)</span></label>
      <input type="number" step="1" value="${s.sSalt}" onchange="updSalt(${s.id},'sSalt',this.value)">
      <div class="hint">free base 환산 · pH·과포화는 추정(낮은 정확도)</div></div></div>${calc?`<div class="saltcalc">${calc}</div>`:''}`:''}
-   ${m==='gastric'?`<details class="prof" open><summary>③ 위(FaSSGF/단일매질) 시간대별 누적 용출 %</summary>
-     <div class="pb"><table class="proftbl"><thead><tr>${TPS.map(t=>`<th>${t}분</th>`).join('')}</tr></thead><tbody><tr>${profRows}</tr></tbody></table>
-      <div class="hint">위에서의 용출속도·도달%. 장내 석출은 부분 반영.</div></div></details>`:''}
-   ${m==='intl'?`<details class="prof" open><summary>④ 2-stage 이행시험 — 장 구획의 <b>용액 중 분율 %</b> (FaSSGF→FaSSIF)</summary>
+   ${m==='compendial'?`<details class="prof" open><summary>② 의약품동등성시험기준 다중 pH 용출 (pH 1.2 / 4.5 / 6.8)</summary>
+     <div class="pb">${PH_MEDIA.map(phTable).join('')}
+      <div class="hint"><b>위=pH 1.2(spring), 장=pH 6.8(parachute)</b>로 매핑 — 위→장 과포화·석출을 규제 데이터만으로 재구성. <b>규제표준이자 실험실 일상 데이터.</b><br>주의: 계면활성제(SLS) 포함 매질은 난용성 약물 용출을 과대평가할 수 있음.</div></div></details>${calc?`<div class="saltcalc">${calc}</div>`:''}`:''}
+   ${m==='intl'?`<details class="prof" open><summary>③ 2-stage 이행시험 — 장 구획의 <b>용액 중 분율 %</b> (FaSSGF→FaSSIF)</summary>
      <div class="pb"><table class="proftbl"><thead><tr>${TPS.map(t=>`<th>${t}분</th>`).join('')}</tr></thead><tbody><tr>${intlRows}</tr></tbody></table>
-      <div class="hint"><b>오르락내리락(비단조) 가능</b>: 상승=과포화/용해, 하강=석출. 과포화→석출을 직접 반영 → <b>가장 높은 정확도</b>.</div></div></details>`:''}`;
+      <div class="hint"><b>비단조 가능</b>: 상승=과포화, 하강=석출. 담즙 가용화+과포화/석출을 직접 반영 → 정밀.</div></div></details>`:''}`;
   return `<div class="salt" style="border-left:4px solid ${col}">
    <div class="salt-top"><span class="sw" style="background:${col}"></span>
     <input class="nm" value="${s.name}" onchange="updSalt(${s.id},'name',this.value)">
@@ -336,10 +355,15 @@ function run(){
  if(!salts.length){alert('염형태를 1개 이상 추가하세요');return;}
  const out=salts.map((s,i)=>{
   const ci=COUNTERIONS[s.ci];
-  const m=s.mode||'sol';
-  const profile=(m==='gastric')?TPS.filter(tp=>s.profile[tp]!==''&&s.profile[tp]!=null).map(tp=>[tp,+s.profile[tp]]):null;
+  const isFB=s.ci==='free_base';
+  const m=isFB?'compendial':(s.mode||'sol');
   const intl=(m==='intl')?TPS.filter(tp=>s.intl[tp]!==''&&s.intl[tp]!=null).map(tp=>[tp,+s.intl[tp]]):null;
-  const salt={sSalt:s.ci==='free_base'?0:(+s.sSalt||0),common:ci.common,profile,intl};
+  let phProfiles=null;
+  if(m==='compendial'){phProfiles={};PH_MEDIA.forEach(ph=>{
+    const pts=TPS.filter(tp=>s.ph[ph]&&s.ph[ph][tp]!==''&&s.ph[ph][tp]!=null).map(tp=>[tp,+s.ph[ph][tp]]);
+    if(pts.length)phProfiles[ph]=pts;});
+   if(!Object.keys(phProfiles).length)phProfiles=null;}
+  const salt={sSalt:isFB?0:(+s.sSalt||0),common:ci.common,profile:null,intl,phProfiles};
   return{name:s.name,color:COLORS[i%COLORS.length],ci:s.ci,r:predict(drug,sp,salt)};
  });
  const ref=out[0].r;

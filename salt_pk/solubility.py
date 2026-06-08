@@ -52,40 +52,39 @@ class SaltForm:
     # ----- INPUT ACCURACY TIERS (lowest -> highest predictivity) -------------
     # Tier 1: s_salt_ugml only (+ drug S0/pKa)  -> mechanistic, screening
     # Tier 2: ph_solubility {pH: µg/mL}          -> measured pH-solubility points
-    # Tier 3: diss_profile (gastric, FaSSGF)     -> time-resolved gastric release
-    # Tier 4: intestinal_profile (FaSSIF / two-stage transfer)  -> HIGHEST accuracy
-    #
-    # diss_profile (Tier 3): list of (time_h, cumulative_fraction_0to1) in a single
-    #   (usually gastric) medium. Drives gastric release.
+    # Tier 3: ph_profiles {pH: [(t,frac)]}       -> COMPENDIAL multi-pH dissolution
+    #         (pH 1.2 / 4.5 / 6.8) — the REGULATORY standard (MFDS/ICH/EMA). The
+    #         engine maps low pH -> gastric, high pH -> intestinal, reconstructing
+    #         gastric->intestinal supersaturation/precipitation from compendial data.
+    # Tier 3b: diss_profile (single medium, e.g. FaSSGF) -> gastric release only
+    # Tier 4: intestinal_profile (FaSSIF / two-stage transfer)  -> highest, adds
+    #         bile-salt solubilisation + measured supersaturation->precipitation.
     diss_profile: Optional[list] = None
     diss_medium: str = ""                  # label, e.g. 'FaSSGF'
-    # intestinal_profile (Tier 4): list of (time_h, fraction_of_dose_IN_SOLUTION_0to1)
-    #   measured in the intestinal compartment of a TWO-STAGE / TRANSFER test
-    #   (FaSSGF -> FaSSIF, or FaSSIF with pH shift). May be NON-MONOTONIC: the rise
-    #   is supersaturation/dissolution, the fall is precipitation. This single curve
-    #   captures the spring-and-parachute behaviour that governs weak-base-salt PK.
     intestinal_profile: Optional[list] = None
     transfer_medium: str = "FaSSGF->FaSSIF"
-    # Optional measured pH-solubility points (Tier 2), µg/mL free-base equivalent.
     ph_solubility: Optional[dict] = None
+    # COMPENDIAL multi-pH dissolution: {pH(float): [(time_h, cumulative_fraction_0to1)]}
+    ph_profiles: Optional[dict] = None
     # Optional counterion molar mass (g/mol) -> salt/free-base weight factor for dosing.
     counterion_mw: Optional[float] = None
 
     @classmethod
-    def free_base(cls, label="free base", diss_profile=None, intestinal_profile=None):
+    def free_base(cls, label="free base", diss_profile=None, intestinal_profile=None,
+                  ph_profiles=None):
         return cls(counterion=get_counterion("free_base"), s_salt_ugml=None,
                    label=label, diss_profile=diss_profile,
-                   intestinal_profile=intestinal_profile)
+                   intestinal_profile=intestinal_profile, ph_profiles=ph_profiles)
 
     @classmethod
     def of(cls, counterion_name: str, s_salt_ugml: float, label: str = "",
            diss_profile=None, diss_medium="", intestinal_profile=None,
-           ph_solubility=None, counterion_mw=None):
+           ph_solubility=None, ph_profiles=None, counterion_mw=None):
         ci = get_counterion(counterion_name)
         return cls(counterion=ci, s_salt_ugml=s_salt_ugml,
                    label=label or f"{counterion_name} salt",
                    diss_profile=diss_profile, diss_medium=diss_medium,
-                   intestinal_profile=intestinal_profile,
+                   intestinal_profile=intestinal_profile, ph_profiles=ph_profiles,
                    ph_solubility=ph_solubility, counterion_mw=counterion_mw)
 
 
