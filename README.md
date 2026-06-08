@@ -58,6 +58,28 @@ python download_dissolution_pdfs.py --drugs ibuprofen ketoprofen --require-ph an
 | `--require-ph` | `both` | pH 1.2/6.8 필터 (`both`/`any`/`off`) |
 | `--email` | `dwsynrnd@gmail.com` | Unpaywall API 정책상 필요한 이메일 |
 
+## 🌐 브라우저 자동화 버전 (`browser_collect.py`)
+
+데이터 최대화를 위한 하이브리드 수집기. **API 발굴 → pH 검증 → 일반 다운로드,
+막히면 실제 Chrome(Playwright)이 페이지에 들어가 PDF를 직접 받음**(headed=창 보임).
+
+```bash
+pip install playwright requests
+playwright install chromium          # 브라우저 1회 설치
+
+python browser_collect.py                          # 전체, 창 보임
+python browser_collect.py --classes II --per-drug 20
+python browser_collect.py --headless               # 창 숨김
+python browser_collect.py --no-browser             # HTTP 다운로드만
+python browser_collect.py --scholar                # Google Scholar 보강(주의)
+```
+
+- `--scholar`: Google Scholar를 브라우저로 검색해 `[PDF]` 직링크를 추가 확보합니다.
+  Scholar는 자동 검색에 CAPTCHA를 띄울 수 있어 기본 비활성이며, 뜨면 보이는 창에서
+  직접 풀면 진행됩니다. (Scholar ToS 유의, 요청 간 지연 적용)
+- API 버전(`download_dissolution_pdfs.py`)이 더 가볍고 안정적이며, 브라우저 버전은
+  JS/Cloudflare 뒤에 있는 OA PDF까지 추가로 잡는 용도입니다.
+
 ## 📁 저장 구조
 
 ```
