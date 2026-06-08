@@ -101,6 +101,21 @@ pHmax·위 평형용해도가 실시간 표시된다. 용출표는 **분 / 누�
 
 ## 문헌 기반 검증 (실제 결과와 비교)
 
+**확장 데이터셋 (문헌 10건/8개 약물 + haloperidol 순위)** — `python validation/validate_dataset.py`
+([요약·산점도: docs/VALIDATION_SUMMARY.md](docs/VALIDATION_SUMMARY.md)):
+
+| 지표 | 결과 |
+|---|---|
+| **방향(염이 노출↑/유사) 정확** | **9/10** |
+| **2-fold 이내 (배율)** | **8/8** (salt-vs-base + plateau) |
+| **평균 AUC 정확도** | **~75%** |
+| plateau(이미 잘 녹으면 이득 없음) | phenytoin 염-염 ~1.0 ✅ |
+| **한계: counterion 미세차이**(mesylate vs HCl) | 측정 용출 없으면 ~동일로 예측 ❌ |
+
+화합물: IIIM-290·cilostazol(mesylate/besylate)·canertinib·NK-1(tartrate/malate)·mesembrine·
+phenytoin·RPR2000765·PKC·haloperidol. 입력은 문헌 physchem만 사용(관측 PK비로 튜닝 안 함).
+
+### 메커니즘·BCS 단위검증
 ```
 $ python validation/run_validation.py
 ```

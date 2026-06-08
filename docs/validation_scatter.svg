@@ -1,0 +1,52 @@
+<svg xmlns="http://www.w3.org/2000/svg" width="720" height="560" font-family="sans-serif">
+<rect width="720" height="560" fill="#fffdf9"/>
+<polygon points="70.0,359.4 650.0,70.0 650.0,200.6 70.0,490.0" fill="#0d6b63" opacity="0.07"/>
+<line x1="70.0" y1="490.0" x2="650.0" y2="70.0" stroke="#1b2127" stroke-width="1.5"/>
+<line x1="70.0" y1="359.4" x2="650.0" y2="70.0" stroke="#9e2b25" stroke-width="1" stroke-dasharray="5 4" opacity="0.6"/>
+<line x1="70.0" y1="490.0" x2="650.0" y2="200.6" stroke="#9e2b25" stroke-width="1" stroke-dasharray="5 4" opacity="0.6"/>
+<line x1="162.8" y1="490" x2="162.8" y2="495" stroke="#444"/>
+<text x="162.8" y="510" font-size="12" text-anchor="middle" fill="#444">1x</text>
+<line x1="65" y1="422.8" x2="70" y2="422.8" stroke="#444"/>
+<text x="60" y="426.8" font-size="12" text-anchor="end" fill="#444">1x</text>
+<line x1="343.2" y1="490" x2="343.2" y2="495" stroke="#444"/>
+<text x="343.2" y="510" font-size="12" text-anchor="middle" fill="#444">2x</text>
+<line x1="65" y1="292.1" x2="70" y2="292.1" stroke="#444"/>
+<text x="60" y="296.1" font-size="12" text-anchor="end" fill="#444">2x</text>
+<line x1="448.8" y1="490" x2="448.8" y2="495" stroke="#444"/>
+<text x="448.8" y="510" font-size="12" text-anchor="middle" fill="#444">3x</text>
+<line x1="65" y1="215.7" x2="70" y2="215.7" stroke="#444"/>
+<text x="60" y="219.7" font-size="12" text-anchor="end" fill="#444">3x</text>
+<line x1="523.6" y1="490" x2="523.6" y2="495" stroke="#444"/>
+<text x="523.6" y="510" font-size="12" text-anchor="middle" fill="#444">4x</text>
+<line x1="65" y1="161.5" x2="70" y2="161.5" stroke="#444"/>
+<text x="60" y="165.5" font-size="12" text-anchor="end" fill="#444">4x</text>
+<line x1="581.7" y1="490" x2="581.7" y2="495" stroke="#444"/>
+<text x="581.7" y="510" font-size="12" text-anchor="middle" fill="#444">5x</text>
+<line x1="65" y1="119.4" x2="70" y2="119.4" stroke="#444"/>
+<text x="60" y="123.4" font-size="12" text-anchor="end" fill="#444">5x</text>
+<line x1="629.2" y1="490" x2="629.2" y2="495" stroke="#444"/>
+<text x="629.2" y="510" font-size="12" text-anchor="middle" fill="#444">6x</text>
+<line x1="65" y1="85.1" x2="70" y2="85.1" stroke="#444"/>
+<text x="60" y="89.1" font-size="12" text-anchor="end" fill="#444">6x</text>
+<text x="360.0" y="545" font-size="13" text-anchor="middle" fill="#1b2127">예측 노출비 (predicted AUC ratio, salt/free base)</text>
+<text x="18" y="280.0" font-size="13" text-anchor="middle" fill="#1b2127" transform="rotate(-90 18 280.0)">실측 노출비 (observed)</text>
+<text x="360.0" y="28" font-size="16" font-weight="bold" text-anchor="middle" fill="#073d39">Predicted vs Observed — 2-fold 밴드 안: 8/8</text>
+<circle cx="308.3" cy="354.1" r="6" fill="#2f6b3a" opacity="0.85"/>
+<text x="317.3" y="358.1" font-size="10.5" fill="#1b2127">IIIM-290 HCl</text>
+<circle cx="380.1" cy="167.2" r="6" fill="#2f6b3a" opacity="0.85"/>
+<text x="389.1" y="171.2" font-size="10.5" fill="#1b2127">Cilostazol mesylate</text>
+<circle cx="389.0" cy="219.5" r="6" fill="#2f6b3a" opacity="0.85"/>
+<text x="398.0" y="223.5" font-size="10.5" fill="#1b2127">Cilostazol besylate</text>
+<circle cx="317.3" cy="292.1" r="6" fill="#2f6b3a" opacity="0.85"/>
+<text x="326.3" y="296.1" font-size="10.5" fill="#1b2127">Canertinib-type maleate</text>
+<circle cx="267.5" cy="301.8" r="6" fill="#2f6b3a" opacity="0.85"/>
+<text x="276.5" y="305.8" font-size="10.5" fill="#1b2127">NK-1 antag. tartrate</text>
+<circle cx="269.1" cy="222.1" r="6" fill="#2f6b3a" opacity="0.85"/>
+<text x="278.1" y="226.1" font-size="10.5" fill="#1b2127">NK-1 antag. malate</text>
+<circle cx="168.7" cy="346.4" r="6" fill="#2f6b3a" opacity="0.85"/>
+<text x="177.7" y="350.4" font-size="10.5" fill="#1b2127">Mesembrine besylate</text>
+<circle cx="187.3" cy="422.8" r="6" fill="#2f6b3a" opacity="0.85"/>
+<text x="196.3" y="426.8" font-size="10.5" fill="#1b2127">Phenytoin Na/piperazine</text>
+<circle cx="162.9" cy="250.1" r="6" fill="#9e2b25"/>
+<text x="171.9" y="254.1" font-size="10.5" fill="#9e2b25">PKC inhib. mesylate/HCl (한계)</text>
+</svg>
