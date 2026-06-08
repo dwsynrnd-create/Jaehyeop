@@ -1,0 +1,104 @@
+<svg xmlns="http://www.w3.org/2000/svg" width="1000" height="770" font-family="Helvetica,Arial,sans-serif">
+<rect width="1000" height="770" fill="#f5f2ec"/>
+<text x="500.0" y="38" font-size="23" font-weight="bold" text-anchor="middle" fill="#073d39">염 스크리닝 PK 예측기 — 최종 실행 결과 &amp; 정확도</text>
+<text x="500.0" y="60" font-size="12.5" text-anchor="middle" fill="#828a92">BCS I–IV · free base vs 염형태 · IVIVE · 문헌 18건 검증</text>
+<rect x="24" y="76" width="178" height="78" rx="10" fill="#fffdf9" stroke="#ded8cb"/>
+<text x="39" y="100" font-size="12" fill="#828a92">단위 테스트</text>
+<text x="39" y="130" font-size="27" font-weight="bold" fill="#2f6b3a">8 / 8</text>
+<text x="39" y="147" font-size="10.5" fill="#828a92">통과</text>
+<rect x="212" y="76" width="178" height="78" rx="10" fill="#fffdf9" stroke="#ded8cb"/>
+<text x="227" y="100" font-size="12" fill="#828a92">문헌 검증</text>
+<text x="227" y="130" font-size="27" font-weight="bold" fill="#0d6b63">18건</text>
+<text x="227" y="147" font-size="10.5" fill="#828a92">8 약물군</text>
+<rect x="400" y="76" width="178" height="78" rx="10" fill="#fffdf9" stroke="#ded8cb"/>
+<text x="415" y="100" font-size="12" fill="#828a92">방향 정확</text>
+<text x="415" y="130" font-size="27" font-weight="bold" fill="#2f6b3a">16/18</text>
+<text x="415" y="147" font-size="10.5" fill="#828a92">염 효과 방향</text>
+<rect x="588" y="76" width="178" height="78" rx="10" fill="#fffdf9" stroke="#ded8cb"/>
+<text x="603" y="100" font-size="12" fill="#828a92">2-fold 이내</text>
+<text x="603" y="130" font-size="27" font-weight="bold" fill="#0d6b63">9/9</text>
+<text x="603" y="147" font-size="10.5" fill="#828a92">정량입력군</text>
+<rect x="776" y="76" width="178" height="78" rx="10" fill="#fffdf9" stroke="#ded8cb"/>
+<text x="791" y="100" font-size="12" fill="#828a92">평균 정확도</text>
+<text x="791" y="130" font-size="27" font-weight="bold" fill="#b5651d">77%</text>
+<text x="791" y="147" font-size="10.5" fill="#828a92">AUC 배율</text>
+<text x="250.0" y="190" font-size="13.5" font-weight="bold" text-anchor="middle" fill="#1b2127">예측 vs 실측 AUC비 (음영 = 2-fold)</text>
+<rect x="50" y="200" width="400" height="360" fill="#fffdf9" stroke="#ded8cb"/>
+<polygon points="50,441 450,200 450,319 50,560" fill="#0d6b63" opacity="0.08"/>
+<line x1="50" y1="560" x2="450" y2="200" stroke="#1b2127" stroke-width="1.5"/>
+<text x="93" y="576" font-size="10.5" text-anchor="middle" fill="#666">1x</text>
+<text x="43" y="526" font-size="10.5" text-anchor="end" fill="#666">1x</text>
+<text x="225" y="576" font-size="10.5" text-anchor="middle" fill="#666">2x</text>
+<text x="43" y="407" font-size="10.5" text-anchor="end" fill="#666">2x</text>
+<text x="302" y="576" font-size="10.5" text-anchor="middle" fill="#666">3x</text>
+<text x="43" y="337" font-size="10.5" text-anchor="end" fill="#666">3x</text>
+<text x="357" y="576" font-size="10.5" text-anchor="middle" fill="#666">4x</text>
+<text x="43" y="287" font-size="10.5" text-anchor="end" fill="#666">4x</text>
+<text x="400" y="576" font-size="10.5" text-anchor="middle" fill="#666">5x</text>
+<text x="43" y="249" font-size="10.5" text-anchor="end" fill="#666">5x</text>
+<text x="435" y="576" font-size="10.5" text-anchor="middle" fill="#666">6x</text>
+<text x="43" y="218" font-size="10.5" text-anchor="end" fill="#666">6x</text>
+<text x="250.0" y="593" font-size="10.5" text-anchor="middle" fill="#444">예측 →</text>
+<text x="16" y="380.0" font-size="10.5" text-anchor="middle" fill="#444" transform="rotate(-90 16 380.0)">실측 →</text>
+<circle cx="199" cy="459" r="6" fill="#2f6b3a" opacity="0.85"/>
+<circle cx="252" cy="289" r="6" fill="#2f6b3a" opacity="0.85"/>
+<circle cx="259" cy="336" r="6" fill="#2f6b3a" opacity="0.85"/>
+<circle cx="111" cy="522" r="6" fill="#2f6b3a" opacity="0.85"/>
+<circle cx="206" cy="403" r="6" fill="#2f6b3a" opacity="0.85"/>
+<circle cx="169" cy="411" r="6" fill="#2f6b3a" opacity="0.85"/>
+<circle cx="171" cy="339" r="6" fill="#2f6b3a" opacity="0.85"/>
+<circle cx="97" cy="452" r="6" fill="#2f6b3a" opacity="0.85"/>
+<circle cx="93" cy="364" r="6" fill="#9e2b25" opacity="0.85"/>
+<circle cx="174" cy="452" r="6" fill="#2f6b3a" opacity="0.85"/>
+<circle cx="197" cy="357" r="5" fill="#9aa0a6" opacity="0.85"/>
+<circle cx="206" cy="245" r="5" fill="#9aa0a6" opacity="0.85"/>
+<circle cx="197" cy="333" r="5" fill="#9aa0a6" opacity="0.85"/>
+<circle cx="195" cy="283" r="5" fill="#9aa0a6" opacity="0.85"/>
+<circle cx="197" cy="245" r="5" fill="#9aa0a6" opacity="0.85"/>
+<circle cx="197" cy="245" r="5" fill="#9aa0a6" opacity="0.85"/>
+<circle cx="359" cy="425" r="5" fill="#9aa0a6" opacity="0.85"/>
+<circle cx="63" cy="214" r="5" fill="#2f6b3a"/><text x="73" y="218" font-size="10" fill="#1b2127">문헌 in vitro 정량(n=9)</text>
+<circle cx="63" cy="231" r="5" fill="#9aa0a6"/><text x="73" y="235" font-size="10" fill="#1b2127">template(방향)</text>
+<circle cx="63" cy="248" r="5" fill="#9e2b25"/><text x="73" y="252" font-size="10" fill="#1b2127">counterion 한계</text>
+<text x="500" y="190" font-size="13.5" font-weight="bold" fill="#1b2127">입력 방식별 정확도 (cilostazol)</text>
+<rect x="500" y="200" width="450" height="150" rx="10" fill="#fffdf9" stroke="#ded8cb"/>
+<text x="516" y="228" font-size="11.5" fill="#1b2127">용해도 입력 (Tier1)</text>
+<rect x="516" y="234" width="380" height="20" fill="#ebe6da" rx="4"/>
+<rect x="516" y="234" width="114" height="20" fill="#b5651d" rx="4"/>
+<text x="904" y="249" font-size="12" font-weight="bold" fill="#b5651d">30%</text>
+<text x="516" y="280" font-size="11.5" fill="#1b2127">pH-용출 입력 (Tier2)</text>
+<rect x="516" y="286" width="380" height="20" fill="#ebe6da" rx="4"/>
+<rect x="516" y="286" width="266" height="20" fill="#0d6b63" rx="4"/>
+<text x="904" y="301" font-size="12" font-weight="bold" fill="#0d6b63">70%</text>
+<text x="516" y="340" font-size="10.5" fill="#828a92">측정 용출 입력이 +40%p (Cmax는 56%→98%)</text>
+<text x="500" y="372" font-size="13.5" font-weight="bold" fill="#1b2127">총평 — 무엇을 얼마나 잘 하나</text>
+<rect x="500" y="380" width="450" height="180" rx="10" fill="#fffdf9" stroke="#ded8cb"/>
+<text x="516" y="408" font-size="11.5" fill="#1b2127">방향·순위 (어느 염이 best)</text>
+<text x="934" y="408" font-size="11.5" font-weight="bold" text-anchor="end" fill="#2f6b3a">매우 우수 ~90-100%</text>
+<text x="516" y="434" font-size="11.5" fill="#1b2127">AUC 배율 (BCS II/IV)</text>
+<text x="934" y="434" font-size="11.5" font-weight="bold" text-anchor="end" fill="#0d6b63">양호 · 2-fold · 평균 77%</text>
+<text x="516" y="460" font-size="11.5" fill="#1b2127">Cmax 배율</text>
+<text x="934" y="460" font-size="11.5" font-weight="bold" text-anchor="end" fill="#0d6b63">양호 · 평균 1.26 fold</text>
+<text x="516" y="486" font-size="11.5" fill="#1b2127">plateau (잘 녹으면 무이득)</text>
+<text x="934" y="486" font-size="11.5" font-weight="bold" text-anchor="end" fill="#2f6b3a">우수 (phenytoin 1.0)</text>
+<text x="516" y="512" font-size="11.5" fill="#1b2127">counterion 미세차이</text>
+<text x="934" y="512" font-size="11.5" font-weight="bold" text-anchor="end" fill="#b5651d">측정용출 시 부분반영</text>
+<text x="516" y="538" font-size="11.5" fill="#1b2127">절대값 · 규제 판단</text>
+<text x="934" y="538" font-size="11.5" font-weight="bold" text-anchor="end" fill="#9e2b25">부적합</text>
+<text x="50" y="594" font-size="12.5" font-weight="bold" fill="#1b2127">실행 모듈 (전부 ✓)</text>
+<rect x="50" y="600" width="89" height="26" rx="13" fill="#deecdf" stroke="#2f6b3a"/>
+<text x="94" y="617" font-size="11" text-anchor="middle" fill="#21492a">✓ tests (8/8)</text>
+<rect x="147.0" y="600" width="124" height="26" rx="13" fill="#deecdf" stroke="#2f6b3a"/>
+<text x="209" y="617" font-size="11" text-anchor="middle" fill="#21492a">✓ validate_dataset</text>
+<rect x="279.0" y="600" width="159" height="26" rx="13" fill="#deecdf" stroke="#2f6b3a"/>
+<text x="358" y="617" font-size="11" text-anchor="middle" fill="#21492a">✓ input_mode_comparison</text>
+<rect x="446.0" y="600" width="103" height="26" rx="13" fill="#deecdf" stroke="#2f6b3a"/>
+<text x="498" y="617" font-size="11" text-anchor="middle" fill="#21492a">✓ salt_pk.batch</text>
+<rect x="557.0" y="600" width="194" height="26" rx="13" fill="#deecdf" stroke="#2f6b3a"/>
+<text x="654" y="617" font-size="11" text-anchor="middle" fill="#21492a">✓ salt_pk.calibrate (77→84%)</text>
+<rect x="759.0" y="600" width="208" height="26" rx="13" fill="#deecdf" stroke="#2f6b3a"/>
+<text x="863" y="617" font-size="11" text-anchor="middle" fill="#21492a">✓ salt_pk.uncertainty (90% CI)</text>
+<rect x="50" y="634" width="110" height="26" rx="13" fill="#deecdf" stroke="#2f6b3a"/>
+<text x="105" y="651" font-size="11" text-anchor="middle" fill="#21492a">✓ salt_pk.report</text>
+<text x="50" y="744" font-size="11" fill="#828a92">정직성: 없는 데이터 안 지어냄 · 등급 A(측정)/B(부분)/C(template) 분리 · 사내 10–20개 + 측정 용출로 decision 등급 승격 가능</text>
+</svg>
