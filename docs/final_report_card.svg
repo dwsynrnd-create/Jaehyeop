@@ -1,65 +1,76 @@
 <svg xmlns="http://www.w3.org/2000/svg" width="1000" height="770" font-family="Helvetica,Arial,sans-serif">
 <rect width="1000" height="770" fill="#f5f2ec"/>
 <text x="500.0" y="38" font-size="23" font-weight="bold" text-anchor="middle" fill="#073d39">염 스크리닝 PK 예측기 — 최종 실행 결과 &amp; 정확도</text>
-<text x="500.0" y="60" font-size="12.5" text-anchor="middle" fill="#828a92">BCS I–IV · free base vs 염형태 · IVIVE · 문헌 18건 검증</text>
+<text x="500.0" y="60" font-size="12.5" text-anchor="middle" fill="#828a92">BCS I–IV · free base vs 염형태 · IVIVE · 문헌 31건 검증 (BCS I 2·II 27·III 2)</text>
 <rect x="24" y="76" width="178" height="78" rx="10" fill="#fffdf9" stroke="#ded8cb"/>
 <text x="39" y="100" font-size="12" fill="#828a92">단위 테스트</text>
 <text x="39" y="130" font-size="27" font-weight="bold" fill="#2f6b3a">8 / 8</text>
 <text x="39" y="147" font-size="10.5" fill="#828a92">통과</text>
 <rect x="212" y="76" width="178" height="78" rx="10" fill="#fffdf9" stroke="#ded8cb"/>
 <text x="227" y="100" font-size="12" fill="#828a92">문헌 검증</text>
-<text x="227" y="130" font-size="27" font-weight="bold" fill="#0d6b63">18건</text>
-<text x="227" y="147" font-size="10.5" fill="#828a92">8 약물군</text>
+<text x="227" y="130" font-size="27" font-weight="bold" fill="#0d6b63">31건</text>
+<text x="227" y="147" font-size="10.5" fill="#828a92">BCS I·II·III</text>
 <rect x="400" y="76" width="178" height="78" rx="10" fill="#fffdf9" stroke="#ded8cb"/>
 <text x="415" y="100" font-size="12" fill="#828a92">방향 정확</text>
-<text x="415" y="130" font-size="27" font-weight="bold" fill="#2f6b3a">16/18</text>
+<text x="415" y="130" font-size="27" font-weight="bold" fill="#2f6b3a">29/31</text>
 <text x="415" y="147" font-size="10.5" fill="#828a92">염 효과 방향</text>
 <rect x="588" y="76" width="178" height="78" rx="10" fill="#fffdf9" stroke="#ded8cb"/>
 <text x="603" y="100" font-size="12" fill="#828a92">2-fold 이내</text>
-<text x="603" y="130" font-size="27" font-weight="bold" fill="#0d6b63">9/9</text>
-<text x="603" y="147" font-size="10.5" fill="#828a92">정량입력군</text>
+<text x="603" y="130" font-size="27" font-weight="bold" fill="#0d6b63">10/10</text>
+<text x="603" y="147" font-size="10.5" fill="#828a92">측정입력 S0≥1</text>
 <rect x="776" y="76" width="178" height="78" rx="10" fill="#fffdf9" stroke="#ded8cb"/>
 <text x="791" y="100" font-size="12" fill="#828a92">평균 정확도</text>
-<text x="791" y="130" font-size="27" font-weight="bold" fill="#b5651d">77%</text>
-<text x="791" y="147" font-size="10.5" fill="#828a92">AUC 배율</text>
+<text x="791" y="130" font-size="27" font-weight="bold" fill="#b5651d">75%</text>
+<text x="791" y="147" font-size="10.5" fill="#828a92">측정입력 AUC</text>
 <text x="250.0" y="190" font-size="13.5" font-weight="bold" text-anchor="middle" fill="#1b2127">예측 vs 실측 AUC비 (음영 = 2-fold)</text>
 <rect x="50" y="200" width="400" height="360" fill="#fffdf9" stroke="#ded8cb"/>
-<polygon points="50,441 450,200 450,319 50,560" fill="#0d6b63" opacity="0.08"/>
+<polygon points="50,488 450,200 450,272 50,560" fill="#0d6b63" opacity="0.08"/>
 <line x1="50" y1="560" x2="450" y2="200" stroke="#1b2127" stroke-width="1.5"/>
-<text x="93" y="576" font-size="10.5" text-anchor="middle" fill="#666">1x</text>
-<text x="43" y="526" font-size="10.5" text-anchor="end" fill="#666">1x</text>
-<text x="225" y="576" font-size="10.5" text-anchor="middle" fill="#666">2x</text>
-<text x="43" y="407" font-size="10.5" text-anchor="end" fill="#666">2x</text>
-<text x="302" y="576" font-size="10.5" text-anchor="middle" fill="#666">3x</text>
-<text x="43" y="337" font-size="10.5" text-anchor="end" fill="#666">3x</text>
-<text x="357" y="576" font-size="10.5" text-anchor="middle" fill="#666">4x</text>
-<text x="43" y="287" font-size="10.5" text-anchor="end" fill="#666">4x</text>
-<text x="400" y="576" font-size="10.5" text-anchor="middle" fill="#666">5x</text>
-<text x="43" y="249" font-size="10.5" text-anchor="end" fill="#666">5x</text>
-<text x="435" y="576" font-size="10.5" text-anchor="middle" fill="#666">6x</text>
-<text x="43" y="218" font-size="10.5" text-anchor="end" fill="#666">6x</text>
+<text x="91" y="576" font-size="10.5" text-anchor="middle" fill="#666">1x</text>
+<text x="43" y="527" font-size="10.5" text-anchor="end" fill="#666">1x</text>
+<text x="172" y="576" font-size="10.5" text-anchor="middle" fill="#666">2x</text>
+<text x="43" y="454" font-size="10.5" text-anchor="end" fill="#666">2x</text>
+<text x="278" y="576" font-size="10.5" text-anchor="middle" fill="#666">5x</text>
+<text x="43" y="359" font-size="10.5" text-anchor="end" fill="#666">5x</text>
+<text x="359" y="576" font-size="10.5" text-anchor="middle" fill="#666">10x</text>
+<text x="43" y="286" font-size="10.5" text-anchor="end" fill="#666">10x</text>
+<text x="439" y="576" font-size="10.5" text-anchor="middle" fill="#666">20x</text>
+<text x="43" y="214" font-size="10.5" text-anchor="end" fill="#666">20x</text>
 <text x="250.0" y="593" font-size="10.5" text-anchor="middle" fill="#444">예측 →</text>
 <text x="16" y="380.0" font-size="10.5" text-anchor="middle" fill="#444" transform="rotate(-90 16 380.0)">실측 →</text>
-<circle cx="199" cy="459" r="6" fill="#2f6b3a" opacity="0.85"/>
-<circle cx="252" cy="289" r="6" fill="#2f6b3a" opacity="0.85"/>
-<circle cx="259" cy="336" r="6" fill="#2f6b3a" opacity="0.85"/>
-<circle cx="111" cy="522" r="6" fill="#2f6b3a" opacity="0.85"/>
-<circle cx="206" cy="403" r="6" fill="#2f6b3a" opacity="0.85"/>
-<circle cx="169" cy="411" r="6" fill="#2f6b3a" opacity="0.85"/>
-<circle cx="171" cy="339" r="6" fill="#2f6b3a" opacity="0.85"/>
-<circle cx="97" cy="452" r="6" fill="#2f6b3a" opacity="0.85"/>
-<circle cx="93" cy="364" r="6" fill="#9e2b25" opacity="0.85"/>
-<circle cx="174" cy="452" r="6" fill="#2f6b3a" opacity="0.85"/>
-<circle cx="197" cy="357" r="5" fill="#9aa0a6" opacity="0.85"/>
-<circle cx="206" cy="245" r="5" fill="#9aa0a6" opacity="0.85"/>
-<circle cx="197" cy="333" r="5" fill="#9aa0a6" opacity="0.85"/>
-<circle cx="195" cy="283" r="5" fill="#9aa0a6" opacity="0.85"/>
-<circle cx="197" cy="245" r="5" fill="#9aa0a6" opacity="0.85"/>
-<circle cx="197" cy="245" r="5" fill="#9aa0a6" opacity="0.85"/>
-<circle cx="359" cy="425" r="5" fill="#9aa0a6" opacity="0.85"/>
-<circle cx="63" cy="214" r="5" fill="#2f6b3a"/><text x="73" y="218" font-size="10" fill="#1b2127">문헌 in vitro 정량(n=9)</text>
-<circle cx="63" cy="231" r="5" fill="#9aa0a6"/><text x="73" y="235" font-size="10" fill="#1b2127">template(방향)</text>
-<circle cx="63" cy="248" r="5" fill="#9e2b25"/><text x="73" y="252" font-size="10" fill="#1b2127">counterion 한계</text>
+<circle cx="156" cy="485" r="6" fill="#2f6b3a" opacity="0.9"/>
+<circle cx="188" cy="381" r="6" fill="#2f6b3a" opacity="0.9"/>
+<circle cx="192" cy="410" r="6" fill="#2f6b3a" opacity="0.9"/>
+<circle cx="141" cy="467" r="6" fill="#2f6b3a" opacity="0.9"/>
+<circle cx="160" cy="450" r="6" fill="#2f6b3a" opacity="0.9"/>
+<circle cx="138" cy="456" r="6" fill="#2f6b3a" opacity="0.9"/>
+<circle cx="139" cy="412" r="6" fill="#2f6b3a" opacity="0.9"/>
+<circle cx="94" cy="480" r="6" fill="#2f6b3a" opacity="0.9"/>
+<circle cx="141" cy="480" r="6" fill="#2f6b3a" opacity="0.9"/>
+<circle cx="152" cy="412" r="6" fill="#2f6b3a" opacity="0.9"/>
+<circle cx="450" cy="415" r="5" fill="#9aa0a6" opacity="0.35"/>
+<circle cx="160" cy="450" r="5" fill="#c9a24b" opacity="0.7"/>
+<circle cx="155" cy="355" r="5" fill="#c9a24b" opacity="0.7"/>
+<circle cx="155" cy="355" r="5" fill="#c9a24b" opacity="0.7"/>
+<circle cx="155" cy="408" r="5" fill="#c9a24b" opacity="0.7"/>
+<circle cx="154" cy="378" r="5" fill="#c9a24b" opacity="0.7"/>
+<circle cx="155" cy="423" r="5" fill="#c9a24b" opacity="0.7"/>
+<circle cx="160" cy="355" r="5" fill="#c9a24b" opacity="0.7"/>
+<circle cx="398" cy="395" r="5" fill="#9aa0a6" opacity="0.35"/>
+<circle cx="398" cy="351" r="5" fill="#9aa0a6" opacity="0.35"/>
+<circle cx="398" cy="296" r="5" fill="#9aa0a6" opacity="0.35"/>
+<circle cx="398" cy="311" r="5" fill="#9aa0a6" opacity="0.35"/>
+<circle cx="398" cy="208" r="5" fill="#9aa0a6" opacity="0.35"/>
+<circle cx="102" cy="523" r="6" fill="#2f6b3a" opacity="0.9"/>
+<circle cx="253" cy="464" r="5" fill="#c9a24b" opacity="0.7"/>
+<circle cx="91" cy="427" r="6" fill="#9e2b25" opacity="0.9"/>
+<circle cx="92" cy="523" r="6" fill="#2f6b3a" opacity="0.9"/>
+<circle cx="92" cy="523" r="6" fill="#2f6b3a" opacity="0.9"/>
+<circle cx="92" cy="523" r="6" fill="#2f6b3a" opacity="0.9"/>
+<circle cx="92" cy="523" r="6" fill="#2f6b3a" opacity="0.9"/>
+<circle cx="63" cy="214" r="5" fill="#2f6b3a"/><text x="73" y="218" font-size="10" fill="#1b2127">측정입력(S0≥1)</text>
+<circle cx="63" cy="231" r="5" fill="#c9a24b"/><text x="73" y="235" font-size="10" fill="#1b2127">template(방향)</text>
+<circle cx="63" cy="248" r="5" fill="#9aa0a6"/><text x="73" y="252" font-size="10" fill="#1b2127">S0&lt;1 과대*</text>
 <text x="500" y="190" font-size="13.5" font-weight="bold" fill="#1b2127">입력 방식별 정확도 (cilostazol)</text>
 <rect x="500" y="200" width="450" height="150" rx="10" fill="#fffdf9" stroke="#ded8cb"/>
 <text x="516" y="228" font-size="11.5" fill="#1b2127">용해도 입력 (Tier1)</text>
@@ -75,15 +86,15 @@
 <rect x="500" y="380" width="450" height="180" rx="10" fill="#fffdf9" stroke="#ded8cb"/>
 <text x="516" y="408" font-size="11.5" fill="#1b2127">방향·순위 (어느 염이 best)</text>
 <text x="934" y="408" font-size="11.5" font-weight="bold" text-anchor="end" fill="#2f6b3a">매우 우수 ~90-100%</text>
-<text x="516" y="434" font-size="11.5" fill="#1b2127">AUC 배율 (BCS II/IV)</text>
-<text x="934" y="434" font-size="11.5" font-weight="bold" text-anchor="end" fill="#0d6b63">양호 · 2-fold · 평균 77%</text>
-<text x="516" y="460" font-size="11.5" fill="#1b2127">Cmax 배율</text>
-<text x="934" y="460" font-size="11.5" font-weight="bold" text-anchor="end" fill="#0d6b63">양호 · 평균 1.26 fold</text>
-<text x="516" y="486" font-size="11.5" fill="#1b2127">plateau (잘 녹으면 무이득)</text>
-<text x="934" y="486" font-size="11.5" font-weight="bold" text-anchor="end" fill="#2f6b3a">우수 (phenytoin 1.0)</text>
-<text x="516" y="512" font-size="11.5" fill="#1b2127">counterion 미세차이</text>
-<text x="934" y="512" font-size="11.5" font-weight="bold" text-anchor="end" fill="#b5651d">측정용출 시 부분반영</text>
-<text x="516" y="538" font-size="11.5" fill="#1b2127">절대값 · 규제 판단</text>
+<text x="516" y="434" font-size="11.5" fill="#1b2127">BCS II 측정입력 AUC (S0≥1)</text>
+<text x="934" y="434" font-size="11.5" font-weight="bold" text-anchor="end" fill="#0d6b63">2-fold 10/10 · 평균 75%</text>
+<text x="516" y="460" font-size="11.5" fill="#1b2127">BCS I/III (salt 무효과)</text>
+<text x="934" y="460" font-size="11.5" font-weight="bold" text-anchor="end" fill="#3a5fa8">정확히 ≈1.0 예측</text>
+<text x="516" y="486" font-size="11.5" fill="#1b2127">초난용성 S0&lt;1</text>
+<text x="934" y="486" font-size="11.5" font-weight="bold" text-anchor="end" fill="#b5651d">과대예측 (*FaSSIF 보정)</text>
+<text x="516" y="512" font-size="11.5" fill="#1b2127">template 입력 magnitude</text>
+<text x="934" y="512" font-size="11.5" font-weight="bold" text-anchor="end" fill="#c9a24b">방향만(배율 비신뢰)</text>
+<text x="516" y="538" font-size="11.5" fill="#1b2127">counterion 미세차이·절대값·규제</text>
 <text x="934" y="538" font-size="11.5" font-weight="bold" text-anchor="end" fill="#9e2b25">부적합</text>
 <text x="50" y="594" font-size="12.5" font-weight="bold" fill="#1b2127">실행 모듈 (전부 ✓)</text>
 <rect x="50" y="600" width="89" height="26" rx="13" fill="#deecdf" stroke="#2f6b3a"/>

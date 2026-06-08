@@ -1,99 +1,92 @@
-<svg xmlns="http://www.w3.org/2000/svg" width="940" height="720" font-family="Helvetica,Arial,sans-serif">
-<rect width="940" height="720" fill="#f5f2ec"/>
-<text x="470.0" y="34" font-size="20" font-weight="bold" text-anchor="middle" fill="#073d39">염 스크리닝 예측기 — 문헌 검증 종합 (18건)</text>
-<rect x="30" y="50" width="200" height="64" rx="9" fill="#fffdf9" stroke="#ded8cb"/>
-<text x="44" y="76" font-size="12" fill="#828a92">검증 건수</text>
-<text x="44" y="103" font-size="26" font-weight="bold" fill="#0d6b63">18</text>
-<rect x="242" y="50" width="200" height="64" rx="9" fill="#fffdf9" stroke="#ded8cb"/>
-<text x="256" y="76" font-size="12" fill="#828a92">방향 정확</text>
-<text x="256" y="103" font-size="26" font-weight="bold" fill="#2f6b3a">16/18</text>
-<rect x="454" y="50" width="200" height="64" rx="9" fill="#fffdf9" stroke="#ded8cb"/>
-<text x="468" y="76" font-size="12" fill="#828a92">2-fold 이내</text>
-<text x="468" y="103" font-size="26" font-weight="bold" fill="#0d6b63">9/9</text>
-<rect x="666" y="50" width="200" height="64" rx="9" fill="#fffdf9" stroke="#ded8cb"/>
-<text x="680" y="76" font-size="12" fill="#828a92">평균 정확도</text>
-<text x="680" y="103" font-size="26" font-weight="bold" fill="#b5651d">77%</text>
-<text x="270.0" y="142" font-size="13" font-weight="bold" text-anchor="middle" fill="#1b2127">예측 vs 실측 AUC비 (log-log, 음영=2-fold)</text>
-<rect x="60" y="150" width="420" height="420" fill="#fffdf9" stroke="#ded8cb"/>
-<polygon points="60,431 480,150 480,289 60,570" fill="#0d6b63" opacity="0.08"/>
-<line x1="60" y1="570" x2="480" y2="150" stroke="#1b2127" stroke-width="1.5"/>
-<text x="105" y="586" font-size="11" text-anchor="middle" fill="#666">1x</text>
-<text x="52" y="529" font-size="11" text-anchor="end" fill="#666">1x</text>
-<text x="244" y="586" font-size="11" text-anchor="middle" fill="#666">2x</text>
-<text x="52" y="390" font-size="11" text-anchor="end" fill="#666">2x</text>
-<text x="325" y="586" font-size="11" text-anchor="middle" fill="#666">3x</text>
-<text x="52" y="309" font-size="11" text-anchor="end" fill="#666">3x</text>
-<text x="383" y="586" font-size="11" text-anchor="middle" fill="#666">4x</text>
-<text x="52" y="251" font-size="11" text-anchor="end" fill="#666">4x</text>
-<text x="427" y="586" font-size="11" text-anchor="middle" fill="#666">5x</text>
-<text x="52" y="207" font-size="11" text-anchor="end" fill="#666">5x</text>
-<text x="464" y="586" font-size="11" text-anchor="middle" fill="#666">6x</text>
-<text x="52" y="170" font-size="11" text-anchor="end" fill="#666">6x</text>
-<text x="270.0" y="604" font-size="11" text-anchor="middle" fill="#444">예측 (predicted)</text>
-<text x="20" y="360.0" font-size="11" text-anchor="middle" fill="#444" transform="rotate(-90 20 360.0)">실측 (observed)</text>
-<circle cx="217" cy="452" r="6" fill="#2f6b3a" opacity="0.85"/>
-<circle cx="272" cy="253" r="6" fill="#2f6b3a" opacity="0.85"/>
-<circle cx="279" cy="309" r="6" fill="#2f6b3a" opacity="0.85"/>
-<circle cx="124" cy="525" r="6" fill="#2f6b3a" opacity="0.85"/>
-<circle cx="224" cy="386" r="6" fill="#2f6b3a" opacity="0.85"/>
-<circle cx="185" cy="397" r="6" fill="#2f6b3a" opacity="0.85"/>
-<circle cx="187" cy="312" r="6" fill="#2f6b3a" opacity="0.85"/>
-<circle cx="109" cy="444" r="6" fill="#2f6b3a" opacity="0.85"/>
-<circle cx="191" cy="444" r="6" fill="#2f6b3a" opacity="0.85"/>
-<circle cx="214" cy="334" r="5" fill="#9aa0a6" opacity="0.85"/>
-<circle cx="224" cy="203" r="5" fill="#9aa0a6" opacity="0.85"/>
-<circle cx="214" cy="305" r="5" fill="#9aa0a6" opacity="0.85"/>
-<circle cx="213" cy="247" r="5" fill="#9aa0a6" opacity="0.85"/>
-<circle cx="214" cy="203" r="5" fill="#9aa0a6" opacity="0.85"/>
-<circle cx="214" cy="203" r="5" fill="#9aa0a6" opacity="0.85"/>
-<circle cx="385" cy="413" r="5" fill="#9aa0a6" opacity="0.85"/>
-<circle cx="105" cy="342" r="7" fill="#9e2b25" opacity="0.85"/>
-<circle cx="74" cy="164" r="5" fill="#2f6b3a"/>
-<text x="84" y="168" font-size="10.5" fill="#1b2127">문헌 in vitro (정량)</text>
-<circle cx="74" cy="182" r="5" fill="#9aa0a6"/>
-<text x="84" y="186" font-size="10.5" fill="#1b2127">template 입력 (방향만)</text>
-<circle cx="74" cy="200" r="5" fill="#9e2b25"/>
-<text x="84" y="204" font-size="10.5" fill="#1b2127">counterion 한계</text>
-<text x="540" y="142" font-size="13" font-weight="bold" fill="#1b2127">정량 검증 화합물별 정확도</text>
-<text x="540" y="163" font-size="10.5" fill="#1b2127">AXL inhib. L-tartrate</text>
-<rect x="690" y="153" width="210" height="16" fill="#ebe6da" rx="3"/>
-<rect x="690" y="153" width="205" height="16" fill="#2f6b3a" rx="3"/>
-<text x="906" y="166" font-size="10.5" fill="#444">98%</text>
-<text x="540" y="193" font-size="10.5" fill="#1b2127">Canertinib-type maleat</text>
-<rect x="690" y="183" width="210" height="16" fill="#ebe6da" rx="3"/>
-<rect x="690" y="183" width="190" height="16" fill="#2f6b3a" rx="3"/>
-<text x="906" y="196" font-size="10.5" fill="#444">91%</text>
-<text x="540" y="223" font-size="10.5" fill="#1b2127">Phenytoin Na/piperazin</text>
-<rect x="690" y="213" width="210" height="16" fill="#ebe6da" rx="3"/>
-<rect x="690" y="213" width="189" height="16" fill="#2f6b3a" rx="3"/>
-<text x="906" y="226" font-size="10.5" fill="#444">90%</text>
-<text x="540" y="253" font-size="10.5" fill="#1b2127">Cilostazol besylate</text>
-<rect x="690" y="243" width="210" height="16" fill="#ebe6da" rx="3"/>
-<rect x="690" y="243" width="170" height="16" fill="#2f6b3a" rx="3"/>
-<text x="906" y="256" font-size="10.5" fill="#444">81%</text>
-<text x="540" y="283" font-size="10.5" fill="#1b2127">NK-1 antag. tartrate</text>
-<rect x="690" y="273" width="210" height="16" fill="#ebe6da" rx="3"/>
-<rect x="690" y="273" width="165" height="16" fill="#b5651d" rx="3"/>
-<text x="906" y="286" font-size="10.5" fill="#444">79%</text>
-<text x="540" y="313" font-size="10.5" fill="#1b2127">IIIM-290 HCl</text>
-<rect x="690" y="303" width="210" height="16" fill="#ebe6da" rx="3"/>
-<rect x="690" y="303" width="165" height="16" fill="#b5651d" rx="3"/>
-<text x="906" y="316" font-size="10.5" fill="#444">79%</text>
-<text x="540" y="343" font-size="10.5" fill="#1b2127">Mesembrine besylate</text>
-<rect x="690" y="333" width="210" height="16" fill="#ebe6da" rx="3"/>
-<rect x="690" y="333" width="143" height="16" fill="#b5651d" rx="3"/>
-<text x="906" y="346" font-size="10.5" fill="#444">68%</text>
-<text x="540" y="373" font-size="10.5" fill="#1b2127">Cilostazol mesylate</text>
-<rect x="690" y="363" width="210" height="16" fill="#ebe6da" rx="3"/>
-<rect x="690" y="363" width="125" height="16" fill="#9e2b25" rx="3"/>
-<text x="906" y="376" font-size="10.5" fill="#444">59%</text>
-<text x="540" y="403" font-size="10.5" fill="#1b2127">NK-1 antag. malate</text>
-<rect x="690" y="393" width="210" height="16" fill="#ebe6da" rx="3"/>
-<rect x="690" y="393" width="109" height="16" fill="#9e2b25" rx="3"/>
-<text x="906" y="406" font-size="10.5" fill="#444">52%</text>
-<rect x="540" y="438" width="390" height="120" rx="9" fill="#fffdf9" stroke="#ded8cb"/>
-<text x="552" y="462" font-size="11.5" fill="#1b2127">• <tspan font-weight="bold">방향·plateau</tspan>: <tspan fill="#2f6b3a">매우 우수 ~90-100%</tspan></text>
-<text x="552" y="488" font-size="11.5" fill="#1b2127">• <tspan font-weight="bold">AUC·Cmax 배율</tspan>: <tspan fill="#0d6b63">양호 2-fold (평균 1.2-1.3 fold)</tspan></text>
-<text x="552" y="514" font-size="11.5" fill="#1b2127">• <tspan font-weight="bold">counterion 미세차이</tspan>: <tspan fill="#b5651d">측정용출 시 부분반영</tspan></text>
-<text x="552" y="540" font-size="11.5" fill="#1b2127">• <tspan font-weight="bold">절대값·규제</tspan>: <tspan fill="#9e2b25">부적합</tspan></text>
+<svg xmlns="http://www.w3.org/2000/svg" width="980" height="760" font-family="Helvetica,Arial,sans-serif">
+<rect width="980" height="760" fill="#f5f2ec"/>
+<text x="490.0" y="34" font-size="20" font-weight="bold" text-anchor="middle" fill="#073d39">염 스크리닝 검증 — 문헌 31건 · BCS class별</text>
+<rect x="24" y="50" width="224" height="66" rx="9" fill="#fffdf9" stroke="#ded8cb"/>
+<text x="38" y="74" font-size="11.5" fill="#828a92">총 검증</text>
+<text x="38" y="102" font-size="22" font-weight="bold" fill="#0d6b63">31건</text>
+<rect x="256" y="50" width="224" height="66" rx="9" fill="#fffdf9" stroke="#ded8cb"/>
+<text x="270" y="74" font-size="11.5" fill="#828a92">측정입력 2-fold</text>
+<text x="270" y="102" font-size="22" font-weight="bold" fill="#0d6b63">10/10 · 75%</text>
+<rect x="488" y="50" width="224" height="66" rx="9" fill="#fffdf9" stroke="#ded8cb"/>
+<text x="502" y="74" font-size="11.5" fill="#828a92">방향 정확</text>
+<text x="502" y="102" font-size="22" font-weight="bold" fill="#2f6b3a">28/30</text>
+<rect x="720" y="50" width="224" height="66" rx="9" fill="#fffdf9" stroke="#ded8cb"/>
+<text x="734" y="74" font-size="11.5" fill="#828a92">BCS I/III null</text>
+<text x="734" y="102" font-size="22" font-weight="bold" fill="#3a5fa8">≈1.0 ✓</text>
+<text x="261.0" y="141" font-size="13" font-weight="bold" text-anchor="middle" fill="#1b2127">예측 vs 실측 AUC비 (log, 음영=2-fold)</text>
+<rect x="56" y="150" width="410" height="410" fill="#fffdf9" stroke="#ded8cb"/>
+<polygon points="56,478 466,150 466,232 56,560" fill="#0d6b63" opacity="0.07"/>
+<line x1="56" y1="560" x2="466" y2="150" stroke="#1b2127" stroke-width="1.4"/>
+<text x="98" y="575" font-size="10" text-anchor="middle" fill="#666">1x</text>
+<text x="50" y="521" font-size="10" text-anchor="end" fill="#666">1x</text>
+<text x="181" y="575" font-size="10" text-anchor="middle" fill="#666">2x</text>
+<text x="50" y="438" font-size="10" text-anchor="end" fill="#666">2x</text>
+<text x="290" y="575" font-size="10" text-anchor="middle" fill="#666">5x</text>
+<text x="50" y="329" font-size="10" text-anchor="end" fill="#666">5x</text>
+<text x="372" y="575" font-size="10" text-anchor="middle" fill="#666">10x</text>
+<text x="50" y="247" font-size="10" text-anchor="end" fill="#666">10x</text>
+<text x="455" y="575" font-size="10" text-anchor="middle" fill="#666">20x</text>
+<text x="50" y="164" font-size="10" text-anchor="end" fill="#666">20x</text>
+<circle cx="165" cy="474" r="6" fill="#0d6b63" opacity="0.9"/>
+<circle cx="198" cy="356" r="6" fill="#0d6b63" opacity="0.9"/>
+<circle cx="202" cy="389" r="6" fill="#0d6b63" opacity="0.9"/>
+<circle cx="149" cy="454" r="6" fill="#0d6b63" opacity="0.9"/>
+<circle cx="169" cy="435" r="6" fill="#0d6b63" opacity="0.9"/>
+<circle cx="146" cy="441" r="6" fill="#0d6b63" opacity="0.9"/>
+<circle cx="147" cy="391" r="6" fill="#0d6b63" opacity="0.9"/>
+<circle cx="101" cy="469" r="6" fill="#0d6b63" opacity="0.9"/>
+<circle cx="149" cy="469" r="6" fill="#0d6b63" opacity="0.9"/>
+<circle cx="161" cy="391" r="6" fill="#0d6b63" opacity="0.9"/>
+<circle cx="466" cy="395" r="6" fill="#0d6b63" opacity="0.4"/>
+<circle cx="169" cy="435" r="6" fill="#0d6b63" opacity="0.9"/>
+<circle cx="163" cy="326" r="6" fill="#0d6b63" opacity="0.9"/>
+<circle cx="163" cy="326" r="6" fill="#0d6b63" opacity="0.9"/>
+<circle cx="163" cy="387" r="6" fill="#0d6b63" opacity="0.9"/>
+<circle cx="162" cy="353" r="6" fill="#0d6b63" opacity="0.9"/>
+<circle cx="163" cy="404" r="6" fill="#0d6b63" opacity="0.9"/>
+<circle cx="169" cy="326" r="6" fill="#0d6b63" opacity="0.9"/>
+<circle cx="413" cy="372" r="6" fill="#0d6b63" opacity="0.4"/>
+<circle cx="413" cy="322" r="6" fill="#0d6b63" opacity="0.4"/>
+<circle cx="413" cy="259" r="6" fill="#0d6b63" opacity="0.4"/>
+<circle cx="413" cy="276" r="6" fill="#0d6b63" opacity="0.4"/>
+<circle cx="413" cy="160" r="6" fill="#0d6b63" opacity="0.4"/>
+<circle cx="110" cy="518" r="6" fill="#0d6b63" opacity="0.9"/>
+<circle cx="265" cy="451" r="6" fill="#0d6b63" opacity="0.9"/>
+<circle cx="98" cy="409" r="6" fill="#0d6b63" opacity="0.9"/>
+<circle cx="99" cy="518" r="6" fill="#3a5fa8" opacity="0.9"/>
+<circle cx="99" cy="518" r="6" fill="#3a5fa8" opacity="0.9"/>
+<circle cx="99" cy="518" r="6" fill="#6b4e9e" opacity="0.9"/>
+<circle cx="99" cy="518" r="6" fill="#6b4e9e" opacity="0.9"/>
+<circle cx="69" cy="164" r="5" fill="#3a5fa8"/><text x="78" y="168" font-size="10" fill="#1b2127">BCS I</text>
+<circle cx="69" cy="180" r="5" fill="#0d6b63"/><text x="78" y="184" font-size="10" fill="#1b2127">BCS II</text>
+<circle cx="69" cy="196" r="5" fill="#6b4e9e"/><text x="78" y="200" font-size="10" fill="#1b2127">BCS III</text>
+<circle cx="69" cy="212" r="5" fill="#b5651d"/><text x="78" y="216" font-size="10" fill="#1b2127">BCS IV</text>
+<text x="460" y="552" font-size="9.5" text-anchor="end" fill="#828a92">옅은 점 = S0&lt;1 (과대예측 영역*)</text>
+<text x="510" y="157" font-size="13" font-weight="bold" fill="#1b2127">BCS class별 정확도 (2-fold 이내율)</text>
+<text x="510" y="177" font-size="11.5" fill="#1b2127">BCS I (null≈1.0)</text>
+<text x="940" y="177" font-size="10.5" text-anchor="end" fill="#828a92">2건</text>
+<rect x="510" y="183" width="430" height="16" fill="#ebe6da" rx="3"/>
+<rect x="510" y="183" width="430" height="16" fill="#3a5fa8" rx="3"/>
+<text x="936" y="196" font-size="10.5" text-anchor="end" fill="#fff">100%</text>
+<text x="510" y="231" font-size="11.5" fill="#1b2127">BCS II S0≥1</text>
+<text x="940" y="231" font-size="10.5" text-anchor="end" fill="#828a92">18건</text>
+<rect x="510" y="237" width="430" height="16" fill="#ebe6da" rx="3"/>
+<rect x="510" y="237" width="311" height="16" fill="#0d6b63" rx="3"/>
+<text x="936" y="250" font-size="10.5" text-anchor="end" fill="#fff">72%</text>
+<text x="510" y="285" font-size="11.5" fill="#1b2127">BCS II S0&lt;1*</text>
+<text x="940" y="285" font-size="10.5" text-anchor="end" fill="#828a92">6건 과대</text>
+<rect x="510" y="291" width="430" height="16" fill="#ebe6da" rx="3"/>
+<rect x="510" y="291" width="215" height="16" fill="#9aa0a6" rx="3"/>
+<text x="936" y="304" font-size="10.5" text-anchor="end" fill="#fff">50%</text>
+<text x="510" y="339" font-size="11.5" fill="#1b2127">BCS III (null≈1.0)</text>
+<text x="940" y="339" font-size="10.5" text-anchor="end" fill="#828a92">2건</text>
+<rect x="510" y="345" width="430" height="16" fill="#ebe6da" rx="3"/>
+<rect x="510" y="345" width="430" height="16" fill="#6b4e9e" rx="3"/>
+<text x="936" y="358" font-size="10.5" text-anchor="end" fill="#fff">100%</text>
+<rect x="510" y="415" width="440" height="155" rx="9" fill="#fffdf9" stroke="#ded8cb"/>
+<text x="522" y="441" font-size="11.5" fill="#1b2127">• 방향·순위: <tspan font-weight="bold" fill="#2f6b3a">매우 우수 ~90-100%</tspan></text>
+<text x="522" y="467" font-size="11.5" fill="#1b2127">• BCS II 염 vs free base (S0≥1): <tspan font-weight="bold" fill="#0d6b63">양호 2-fold 13/18</tspan></text>
+<text x="522" y="493" font-size="11.5" fill="#1b2127">• BCS I/III (salt 무효과): <tspan font-weight="bold" fill="#3a5fa8">정확히 ≈1.0 예측</tspan></text>
+<text x="522" y="519" font-size="11.5" fill="#1b2127">• ultra-insoluble S0&lt;1: <tspan font-weight="bold" fill="#b5651d">과대예측(*FaSSIF 보정 필요)</tspan></text>
+<text x="522" y="545" font-size="11.5" fill="#1b2127">• counterion 미세차이·절대값: <tspan font-weight="bold" fill="#9e2b25">부적합</tspan></text>
 </svg>

@@ -40,9 +40,9 @@ python -m salt_pk.report                 # 예제 리포트
 - **JS 엔진은 Python과 수치 일치 유지** (변경 시 node로 교차검증: `validation`의 비교 참고).
 - **정직성:** 없는 데이터 안 지어냄. 검증은 등급(A 측정 / B 부분 / C template) 분리.
 
-## 정확도 현황 (문헌 18건)
-방향 16/18 · 정량입력군(n=9) 2-fold 9/9·평균 ~77% · Cmax 평균 1.26 fold · plateau 정확.
-한계: counterion 미세차이(측정 용출 시 부분반영), 절대값·규제 부적합. → `docs/ACCURACY_ASSESSMENT.md`.
+## 정확도 현황 (문헌 31건, BCS class별)
+BCS I/III(salt 무효과) ≈1.0 정확 · BCS II 측정입력(S0≥1, n=10) 2-fold 10/10·평균 75% · 방향 29/31.
+초난용성(S0<1) 과대예측(FaSSIF 보정 필요) · template 입력 magnitude·counterion·절대값 부적합. → `docs/VALIDATION_SUMMARY.md`.
 
 ## 확장 경로
 사내 pH1.2/4.5/6.8 용출+PK를 `data/*.csv`로 적재 → `batch`로 검증 → `calibrate`로 보정 →

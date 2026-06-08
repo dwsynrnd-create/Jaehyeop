@@ -53,6 +53,8 @@ class AbsParams:
     """Tunable absorption/dissolution constants (defaults validated on BCS I-IV)."""
     kd0: float = 0.5         # free-base dissolution rate constant, 1/h (fine particles)
     kprecip: float = 2.0     # precipitation rate constant (1/h) toward equilibrium solubility
+    fassif_floor_ugml: float = 3.0   # min effective SI solubility (bile-salt solubilisation,
+                                     # FaSSIF) -> keeps ultra-insoluble free bases from Fa->0
     salt_wettability: float = 4.0   # faster intrinsic dissolution / wetting of salts (>=1)
     d50_um: Optional[float] = None  # particle size; scales dissolution if given
 
@@ -172,6 +174,12 @@ def predict(drug: DrugPK, drug_io: IonizableDrug, form: SaltForm, sp: Species,
             else:
                 Cs_si_eq = max(1e-6, si_ceiling_frac * dose_ug / sp.V_si)
             Cs_si_diss = Cs_si_eq
+        else:
+            # FaSSIF bile-salt solubilisation floor (mechanistic mode): the effective
+            # intestinal solubility of a lipophilic free base is not its (near-zero)
+            # aqueous S0 but a bile-solubilised value -> avoids unstable ratio->inf.
+            Cs_si_eq = max(Cs_si_eq, ap.fassif_floor_ugml)
+            Cs_si_diss = max(Cs_si_diss, ap.fassif_floor_ugml)
         Cs_g_rate, Cs_si_rate = Cs_g_diss, Cs_si_diss                 # drive wetting/RATE edge
 
         # Dissolution RATE constants (1/h), Noyes-Whitney: rate ∝ surface

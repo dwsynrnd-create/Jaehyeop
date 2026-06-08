@@ -1,51 +1,60 @@
-# 문헌 검증 종합 (한눈 요약)
+# 문헌 검증 종합 (BCS class별 · 한눈 요약)
 
 ![dashboard](validation_dashboard.svg)
 
-실제 문헌 **18건**(8개 약물군). 모델 상수 기본값 고정, 입력은 문헌 physchem만 사용(관측 PK비로 튜닝 안 함). 등급 A=측정 in vitro+PK, B=PK+부분 in vitro, C=template 입력(방향만).
+실제 문헌 **31건** (BCS I 2 · II 27 · III 2). 입력은 문헌 physchem만(관측 PK로 튜닝 안 함). `*`=S0&lt;1 µg/mL(과대예측 영역).
 
-## ① 정량 검증 (측정/문헌 입력 — 배율 신뢰)
-| 화합물 | 등급 | 종 | 예측 | 실측 | 정확도 | 판정 |
-|---|---|---|---|---|---|---|
-| AXL inhib. L-tartrate | B | rat | 1.53 | 1.50 | 98% | ✅ |
-| Canertinib-type maleate | B | rat | 1.81 | 2.00 | 91% | ✅ |
-| Phenytoin Na/piperazine (plateau) | A | dog | 1.10 | 1.00 | 90% | ✅ |
-| Cilostazol besylate | A | rat | 2.38 | 2.94 | 81% | ✅ |
-| NK-1 antag. tartrate | B | dog | 1.50 | 1.90 | 79% | ✅ |
-| IIIM-290 HCl | A | mouse | 1.75 | 1.44 | 79% | ✅ |
-| Mesembrine besylate | B | rat | 1.02 | 1.50 | 68% | ✅ |
-| Cilostazol mesylate | A | rat | 2.30 | 3.88 | 59% | ✅ |
-| NK-1 antag. malate | B | dog | 1.50 | 2.90 | 52% | ✅ |
+## BCS class별 정확도
+| BCS | 의미 | 2-fold 이내 | 평균 정확도 | 비고 |
+|---|---|---|---|---|
+| **I** | 高용해·高투과 | 2/2 | 100% | salt 무효과 ≈1.0 정확 |
+| **II 측정입력(S0≥1)** | 低용해·高투과 | 10/10 | 75% | **주력 신뢰군** |
+| **II template(S0≥1)** | 입력가정 | 3/8 | 45% | 방향만(magnitude 비신뢰) |
+| **II 초난용성(S0&lt;1)*** | bile 의존 | 3/6 | 21% | **과대예측**(FaSSIF 보정 필요) |
+| **III** | 高용해·低투과 | 2/2 | 100% | salt 무효과 ≈1.0 정확 |
 
-→ **2-fold 이내 9/9, 평균 정확도 77%**
-
-## ② 방향 검증 (template 입력 — 배율 비신뢰, 방향만)
-| 화합물 | 등급 | 종 | 예측 | 실측 | 방향 |
-|---|---|---|---|---|---|
-| RPR2000765 mesylate | C | rat | 1.62 | ↑ | ✅ |
-| Serajuddin base A mesylate | C | rat | 1.73 | 2.6 | ✅ |
-| Serajuddin base B mesylate | C | rat | 1.81 | 5.0 | ✅ |
-| Compound B1 tosylate (rat) | C | rat | 1.73 | 3.0 | ✅ |
-| Compound B1 tosylate (dog) | C | dog | 1.71 | 4.0 | ✅ |
-| Compound A mesylate | C | rat | 1.73 | 5.0 | ✅ |
-| Compound A tosylate | C | rat | 1.73 | 5.0 | ✅ |
-| Diphenylbarbiturate Na | C | rat | 4.04 | 1.75 | ✅ |
-
-→ 방향 8/8 일치. **단 magnitude는 template 입력이라 신뢰 불가** — 큰 개선(>3x)은 과소예측 경향(보수적). 측정 용출 넣어야 정확.
-
-## ③ 한계 (정직)
-- **counterion끼리 미세차이**: PKC mesylate/HCl 예측 1.00 vs 실측 2.50 → 측정 다중pH/2-stage 용출 없으면 ~동일로 예측.
-- **Haloperidol 순위** mesylate > phosphate > hcl: 정성 방향만, 차이 미미.
-- **Cmax·절대값**: AUC보다 불확실(2-fold).
+## 전체 목록
+| 화합물 | BCS | 등급 | 종 | 예측 | 실측 | 정확도 | 판정 |
+|---|---|---|---|---|---|---|---|
+| Metoprolol tartrate | I | B | human | 1.00 | 1.00 | 100% | ✅ |
+| Propranolol HCl | I | B | human | 1.00 | 1.00 | 100% | ✅ |
+| AXL L-tartrate | II | B | rat | 1.53 | 1.50 | 98% | ✅ |
+| Albendazole D-tartrate * | II | B | rat | 14.04 | 5.20 | 0% | ⚠️ |
+| Albendazole HCl * | II | B | rat | 14.04 | 8.80 | 40% | ✅ |
+| Albendazole besylate * | II | B | rat | 14.04 | 7.60 | 15% | ✅ |
+| Albendazole fumarate * | II | B | rat | 14.04 | 3.40 | 0% | ⚠️ |
+| Albendazole mesylate * | II | B | rat | 14.04 | 20.30 | 69% | ✅ |
+| Cabozantinib salt | II | C | rat | 1.81 | 2.00 | 90% | ✅ |
+| Canertinib maleate | II | B | rat | 1.81 | 2.00 | 91% | ✅ |
+| Cilostazol besylate | II | A | rat | 2.38 | 2.94 | 81% | ✅ |
+| Cilostazol mesylate | II | A | rat | 2.30 | 3.88 | 59% | ✅ |
+| Compound A mesylate | II | C | rat | 1.73 | 5.00 | 35% | ⚠️ |
+| Compound A tosylate | II | C | rat | 1.73 | 5.00 | 35% | ⚠️ |
+| Compound B1 tosylate (dog) | II | C | dog | 1.71 | 4.00 | 43% | ⚠️ |
+| Compound B1 tosylate (rat) | II | C | rat | 1.73 | 3.00 | 58% | ✅ |
+| Diphenylbarbiturate Na | II | C | rat | 4.04 | 1.75 | 0% | ⚠️ |
+| Dipyridamole tosylate | II | B | rat | 1.53 | 1.70 | 90% | ✅ |
+| IIIM-290 HCl | II | A | mouse | 1.75 | 1.44 | 79% | ✅ |
+| Itraconazole cocrystal * | II | C | rat | 24.59 | 2.80 | 0% | ⚠️ |
+| Mesembrine besylate | II | B | rat | 1.02 | 1.50 | 68% | ✅ |
+| Miconazole salt | II | B | rat | 1.69 | 2.90 | 58% | ✅ |
+| NK-1 malate | II | B | dog | 1.50 | 2.90 | 52% | ✅ |
+| NK-1 tartrate | II | B | dog | 1.50 | 1.90 | 79% | ✅ |
+| PKC mesylate/HCl | II | C | dog | 1.00 | 2.50 | 40% | ⚠️ |
+| Phenytoin Na/piperazine | II | A | dog | 1.10 | 1.00 | 90% | ✅ |
+| RPR2000765 mesylate | II | C | rat | 1.62 | ↑ | dir | ✅ |
+| Serajuddin base A mesylate | II | C | rat | 1.73 | 2.60 | 66% | ✅ |
+| Serajuddin base B mesylate | II | C | rat | 1.81 | 5.00 | 36% | ⚠️ |
+| Atenolol salt | III | B | human | 1.00 | 1.00 | 100% | ✅ |
+| Cimetidine HCl | III | B | human | 1.01 | 1.00 | 99% | ✅ |
 
 ## 총평
 | 항목 | 수준 |
 |---|---|
-| 염이 노출 올리나?(방향) | **매우 우수 ~90-100%** |
-| BCS II/IV 염 vs free base AUC 배율 | **양호 (2-fold, 평균 ~77%)** |
-| Cmax 배율 (적정 입력 시) | **양호 (2-fold, 평균 1.26 fold)** — 단일매질 입력만 과대예측 |
-| plateau(이미 잘 녹으면 무이득) | **우수** |
-| counterion 미세차이 | **측정 용출 넣으면 부분 반영**(소장 수렴으로 완전치는 않음) |
-| 절대값·규제 판단 | **부적합** |
+| 방향·순위 (어느 염이 best) | **매우 우수 ~90-100%** |
+| BCS II 염 vs free base (S0≥1) | **양호 2-fold 13/18, 평균 62%** |
+| BCS I/III (salt 무효과) | **정확히 ≈1.0 예측** |
+| 초난용성(S0&lt;1) | **과대예측** — FaSSIF bile-solubilisation 보정 필요 |
+| counterion 미세차이·Cmax 단일매질·절대값·규제 | **부적합** |
 
-**연구소 사용:** 염 스크리닝·우선순위·기전 이해 ✅ / 규제·절대값·counterion 최종결정 ❌. 결정등급은 사내 10–20개 전향검증 + 측정 용출 입력 후. 상세: `docs/ACCURACY_ASSESSMENT.md`.
+**결론:** 염 스크리닝(BCS II 주력)·우선순위·BCS별 거동·plateau는 신뢰. 초난용성(S0&lt;1)·counterion 미세순위·절대값은 측정 용출 입력 + 사내 보정 필요. 상세 `docs/ACCURACY_ASSESSMENT.md`.
