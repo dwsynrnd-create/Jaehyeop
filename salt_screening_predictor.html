@@ -77,12 +77,12 @@
  </div>
 
  <div class="intro">
-  <b>작동 원리.</b> 대사·분포·결합·투과는 <b>free base의 성질</b>이라 모든 염에서 동일합니다.
-  염이 바꾸는 것은 <b>흡수(용해·용출·과포화·공통이온)</b>뿐이므로,
-  <b>AUC(염)/AUC(free base) ≈ Fa(염)/Fa(free base)</b> 입니다.
-  각 염의 <b>counterion·염 용해도·(선택) 측정 용출 프로파일</b>을 넣으면 pHmax·공통이온 효과를
-  반영해 어떤 염이 노출이 높은지 순위를 매깁니다.
-  <span style="color:var(--amber)">절대값보다 <b>후보 간 상대비교·순위</b>가 신뢰구간입니다.</span>
+  <b>작동 원리.</b> 용액에서 염은 해리되므로 <b>막투과(Caco-2)·대사·분포·결합·MW(활성분자=free base)</b>는
+  모든 염에서 <b>동일</b>합니다 (free base 값 1회만 입력·공유). 염이 바꾸는 것은
+  <b>용해·용출·과포화/석출</b>뿐이라 <b>AUC(염)/AUC(free base) ≈ Fa(염)/Fa(free base)</b>.
+  <br><b>입력 정확도 계층:</b> ① 물 용해도(스크리닝) → ③ 시간대별 용출(FaSSGF) →
+  <b>④ 2-stage 이행시험(FaSSGF→FaSSIF)이 가장 정확</b> — 약염기 염의 과포화→석출(spring-and-parachute)을
+  직접 담기 때문입니다. <span style="color:var(--amber)">절대값보다 <b>후보 간 상대비교·순위</b>가 신뢰구간입니다.</span>
  </div>
 
  <div id="alerts"></div>
@@ -229,8 +229,14 @@ function predict(d,sp,salt){
  }
  const cum=t=>{if(t<=pp[0][0])return pp[0][1];for(let i=1;i<pp.length;i++){if(t<=pp[i][0]){const a=pp[i-1],b=pp[i];return a[1]+(b[1]-a[1])*(t-a[0])/(b[0]-a[0]);}}return pp[pp.length-1][1];};
  const slope=t=>{const h=0.01;return Math.max(0,(cum(t+h)-cum(Math.max(0,t-h)))/(t-h<0?h:2*h));};
+ // Tier 4: two-stage / transfer intestinal profile (frac in solution vs time, non-monotonic)
+ let ip=null;
+ if(salt.intl&&salt.intl.length){ip=salt.intl.map(p=>[p[0]/60,Math.max(0,Math.min(1,p[1]/100))]).sort((a,b)=>a[0]-b[0]);if(ip[0][0]>0)ip.unshift([0,0]);}
+ const icum=t=>{if(t<=ip[0][0])return ip[0][1];for(let i=1;i<ip.length;i++){if(t<=ip[i][0]){const a=ip[i-1],b=ip[i];return a[1]+(b[1]-a[1])*(t-a[0])/(b[0]-a[0]);}}return ip[ip.length-1][1];};
+ const islope=t=>{const h=0.01;return(icum(t+h)-icum(Math.max(0,t-h)))/(t-h<0?h:2*h);};
  let Ags=dose_ug,Agd=0,As=0,Ad=0,Ac=0,absorbed=0;
  const dv=(t,Ags,Agd,As,Ad,Ac)=>{
+  if(ip){const inp=dose_ug*islope(t), ab=ka*Ad; return[0,0,0, inp-ab-kt*Ad, Fh*Fg*ab-kel*Ac, ab];}
   const Cg=Agd/sp.Vsto, Csi=Ad/sp.Vsi;
   const dissG=pp?dose_ug*slope(t):kdG*Ags*Math.max(0,1-Cg/Math.max(CsGdiss,1e-9));
   const dissS=kdS*As*Math.max(0,1-Csi/Math.max(CsSIdiss,1e-9));
@@ -268,11 +274,12 @@ function setBase(b){isBase=b;document.getElementById('bBase').classList.toggle('
   document.getElementById('bAcid').classList.toggle('on',!b);}
 
 function blankSalt(i){return{id:Date.now()+Math.random(),name:i===0?'free base':'염 '+i,
-  ci:i===0?'free_base':'hcl',sSalt:i===0?'':'1500',useProfile:false,profile:{}};}
+  ci:i===0?'free_base':'hcl',sSalt:i===0?'':'1500',mode:'sol',profile:{},intl:{}};}
 function addSalt(){salts.push(blankSalt(salts.length));renderSalts();}
 function delSalt(id){salts=salts.filter(s=>s.id!==id);renderSalts();}
-function updSalt(id,f,v){const s=salts.find(x=>x.id===id);if(s){s[f]=v;if(f==='ci'||f==='sSalt'||f==='useProfile')renderSalts();}}
+function updSalt(id,f,v){const s=salts.find(x=>x.id===id);if(s){s[f]=v;if(f==='ci'||f==='sSalt'||f==='mode')renderSalts();}}
 function updProf(id,tp,v){const s=salts.find(x=>x.id===id);if(s)s.profile[tp]=v;}
+function updIntl(id,tp,v){const s=salts.find(x=>x.id===id);if(s)s.intl[tp]=v;}
 
 function renderSalts(){
  const drug=getDrug();
@@ -287,6 +294,23 @@ function renderSalts(){
   }
   const opts=Object.entries(COUNTERIONS).map(([k,v])=>`<option value="${k}" ${k===s.ci?'selected':''}>${v.name}</option>`).join('');
   const profRows=TPS.map(tp=>`<td><input value="${s.profile[tp]||''}" placeholder="–" onchange="updProf(${s.id},${tp},this.value)"></td>`).join('');
+  const intlRows=TPS.map(tp=>`<td><input value="${s.intl[tp]||''}" placeholder="–" onchange="updIntl(${s.id},${tp},this.value)"></td>`).join('');
+  const m=s.mode||'sol';
+  const tierUI = isFB ? '' : `
+   <div style="margin-top:9px"><label style="font-size:11px;font-weight:600;color:var(--ink2)">입력 정확도 (높을수록 신뢰도↑)</label>
+    <div class="seg" style="margin-top:4px">
+     <button class="${m==='sol'?'on':''}" onclick="updSalt(${s.id},'mode','sol')">① 용해도</button>
+     <button class="${m==='gastric'?'on':''}" onclick="updSalt(${s.id},'mode','gastric')">③ 용출(FaSSGF)</button>
+     <button class="${m==='intl'?'on':''}" onclick="updSalt(${s.id},'mode','intl')">④ 2-stage 이행</button></div></div>
+   ${m==='sol'?`<div class="row" style="margin-top:9px"><div class="fld"><label>염 용해도 S_salt <span class="u">µg/mL(물)</span></label>
+     <input type="number" step="1" value="${s.sSalt}" onchange="updSalt(${s.id},'sSalt',this.value)">
+     <div class="hint">free base 환산 · pH·과포화는 추정(낮은 정확도)</div></div></div>${calc?`<div class="saltcalc">${calc}</div>`:''}`:''}
+   ${m==='gastric'?`<details class="prof" open><summary>③ 위(FaSSGF/단일매질) 시간대별 누적 용출 %</summary>
+     <div class="pb"><table class="proftbl"><thead><tr>${TPS.map(t=>`<th>${t}분</th>`).join('')}</tr></thead><tbody><tr>${profRows}</tr></tbody></table>
+      <div class="hint">위에서의 용출속도·도달%. 장내 석출은 부분 반영.</div></div></details>`:''}
+   ${m==='intl'?`<details class="prof" open><summary>④ 2-stage 이행시험 — 장 구획의 <b>용액 중 분율 %</b> (FaSSGF→FaSSIF)</summary>
+     <div class="pb"><table class="proftbl"><thead><tr>${TPS.map(t=>`<th>${t}분</th>`).join('')}</tr></thead><tbody><tr>${intlRows}</tr></tbody></table>
+      <div class="hint"><b>오르락내리락(비단조) 가능</b>: 상승=과포화/용해, 하강=석출. 과포화→석출을 직접 반영 → <b>가장 높은 정확도</b>.</div></div></details>`:''}`;
   return `<div class="salt" style="border-left:4px solid ${col}">
    <div class="salt-top"><span class="sw" style="background:${col}"></span>
     <input class="nm" value="${s.name}" onchange="updSalt(${s.id},'name',this.value)">
@@ -295,17 +319,8 @@ function renderSalts(){
     <div class="fld"><label>Counterion</label>
      <select onchange="updSalt(${s.id},'ci',this.value)" ${isFB?'disabled':''}>${opts}</select>
      ${isFB?'<div class="hint">기준 (free base)</div>':`<div class="hint">pKa(HX)=${ci.pka}${ci.common?' · common-ion':''}</div>`}</div>
-    ${isFB?'':`<div class="fld"><label>염 용해도 S_salt <span class="u">µg/mL(물)</span></label>
-     <input type="number" step="1" value="${s.sSalt}" onchange="updSalt(${s.id},'sSalt',this.value)">
-     <div class="hint">free base 환산 평형 용해도</div></div>`}
    </div>
-   ${calc?`<div class="saltcalc">${calc}</div>`:''}
-   ${isFB?'':`<details class="prof" ${s.useProfile?'open':''}>
-    <summary>📈 측정 용출 프로파일 입력 (선택 · 염 간 차이를 가장 정확히 반영)</summary>
-    <div class="pb"><label style="font-size:11px;color:var(--muted)">
-     <input type="checkbox" ${s.useProfile?'checked':''} onchange="updSalt(${s.id},'useProfile',this.checked)"> 이 프로파일을 계산에 사용 (FaSSIF/FaSSGF 누적 용출 %)</label>
-     <table class="proftbl" style="margin-top:6px"><thead><tr>${TPS.map(t=>`<th>${t}분</th>`).join('')}</tr></thead>
-      <tbody><tr>${profRows}</tr></tbody></table></div></details>`}
+   ${tierUI}
   </div>`;
  }).join('');
 }
@@ -321,9 +336,10 @@ function run(){
  if(!salts.length){alert('염형태를 1개 이상 추가하세요');return;}
  const out=salts.map((s,i)=>{
   const ci=COUNTERIONS[s.ci];
-  const useP=s.useProfile&&Object.values(s.profile).some(v=>v!=='');
-  const profile=useP?TPS.filter(tp=>s.profile[tp]!==''&&s.profile[tp]!=null).map(tp=>[tp,+s.profile[tp]]):null;
-  const salt={sSalt:s.ci==='free_base'?0:(+s.sSalt||0),common:ci.common,profile};
+  const m=s.mode||'sol';
+  const profile=(m==='gastric')?TPS.filter(tp=>s.profile[tp]!==''&&s.profile[tp]!=null).map(tp=>[tp,+s.profile[tp]]):null;
+  const intl=(m==='intl')?TPS.filter(tp=>s.intl[tp]!==''&&s.intl[tp]!=null).map(tp=>[tp,+s.intl[tp]]):null;
+  const salt={sSalt:s.ci==='free_base'?0:(+s.sSalt||0),common:ci.common,profile,intl};
   return{name:s.name,color:COLORS[i%COLORS.length],ci:s.ci,r:predict(drug,sp,salt)};
  });
  const ref=out[0].r;

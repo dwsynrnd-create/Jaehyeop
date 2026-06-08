@@ -183,10 +183,40 @@ def predict(drug: DrugPK, drug_io: IonizableDrug, form: SaltForm, sp: Species,
             h = 0.01
             return max(0.0, (cum_frac(t + h) - cum_frac(max(0.0, t - h))) / (h if t - h < 0 else 2 * h))
 
+        # Tier 4: two-stage / transfer intestinal profile (FaSSGF -> FaSSIF).
+        # fraction-of-dose IN SOLUTION in the intestinal compartment vs time; may be
+        # NON-MONOTONIC (rise = dissolution/supersaturation, fall = precipitation).
+        intl_pts = None
+        if form.intestinal_profile:
+            intl_pts = sorted([(float(t), max(0.0, min(1.0, float(fr))))
+                               for t, fr in form.intestinal_profile])
+            if intl_pts[0][0] > 0:
+                intl_pts.insert(0, (0.0, 0.0))
+
+        def intl_frac(t):
+            if t <= intl_pts[0][0]:
+                return intl_pts[0][1]
+            for i in range(1, len(intl_pts)):
+                if t <= intl_pts[i][0]:
+                    a, b = intl_pts[i - 1], intl_pts[i]
+                    return a[1] + (b[1] - a[1]) * (t - a[0]) / (b[0] - a[0])
+            return intl_pts[-1][1]
+
+        def intl_signed_slope(t):
+            h = 0.01
+            return (intl_frac(t + h) - intl_frac(max(0.0, t - h))) / (h if t - h < 0 else 2 * h)
+
         Ags, Agd, As, Ad, Ac = dose_ug, 0.0, 0.0, 0.0, 0.0
         absorbed = 0.0
 
         def deriv(t, Ags, Agd, As, Ad, Ac):
+            if intl_pts is not None:
+                # measured transfer curve drives the SI dissolved pool directly:
+                # +slope = dissolution into solution, -slope = precipitation out.
+                inp = dose_ug * intl_signed_slope(t)
+                ab = ka * Ad
+                dAd = inp - ab - kt * Ad
+                return 0.0, 0.0, 0.0, dAd, Fh * Fg * ab - k_el * Ac, ab
             Cg = Agd / sp.V_stomach
             Csi = Ad / sp.V_si
             if prof_pts is not None:

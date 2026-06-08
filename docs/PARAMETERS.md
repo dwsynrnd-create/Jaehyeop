@@ -1,94 +1,103 @@
-# 염 스크리닝 PK 예측 — 필요한 파라미터 (Required Parameters)
+# 염 스크리닝 PK 예측 — 필요한 파라미터 & 정확도 계층
 
-신약 freebase에 대해 여러 염형태(HCl·tosylate·phosphate·esylate·oxalate …)를
-만들었을 때, **어떤 염형태가 in vivo 노출(AUC·Cmax)이 가장 높은지**를 in vitro
-데이터로 예측하기 위한 입력값을 정리한다.
-
-핵심 원리: **disposition(대사·분포·결합)과 막투과는 free base의 성질이라 모든 염에서
-동일**하다. 염형태가 바꾸는 것은 **오직 흡수(용해·용출·과포화)**뿐이다. 따라서
-`AUC(염)/AUC(free base) ≈ Fa(염)/Fa(free base)` 이고, 염 순위는 흡수 파라미터만으로
-결정된다.
+신약 freebase에 대해 여러 염형태(HCl·tosylate·phosphate·esylate·oxalate …)를 만들었을 때
+**어떤 형태가 in vivo 노출(AUC·Cmax)이 가장 높은지** in vitro 데이터로 예측하기 위한
+입력값과, **어떤 데이터가 얼마나 정확도를 올리는지**를 정리한다.
 
 ---
 
-## 1. 모든 염이 공유하는 파라미터 (Free base 1회만 측정)
+## 0. 먼저 — 염이 되면 무엇이 바뀌고 무엇이 안 바뀌나? (자주 하는 오해)
 
-| 파라미터 | 단위 | 무엇에 영향 | 비고 |
+| 물성 | 염형태에 따라 바뀌나? | 이유 |
+|---|---|---|
+| **용해도 / 용출속도 / 과포화·석출** | **✔ 바뀜 (핵심)** | 염의 결정격자·짝이온·확산층 pH가 달라짐 |
+| 고체물성(흡습성·안정성·결정형) | ✔ 바뀜 | 제제·보관에 중요 |
+| **막투과도 (Caco-2 Papp)** | **✗ 안 바뀜** | 용액에서 염은 **해리** → 막을 통과하는 분자는 동일한 free base/이온 평형 |
+| **대사(CLint)·분포(Vss)·단백결합(PPB)·청소율** | **✗ 안 바뀜** | 모두 **용해된 활성분자(free base)**의 성질 |
+| 분자량(MW) | 염은 ↑ (free base + 짝이온) | 단, **활성분자는 free base** → 모든 계산은 **free-base 환산**으로 수행 |
+
+> 즉 염스크리닝에서 **투과·대사·분포·결합은 free base 값 1회만 측정해 공유**하고,
+> **염마다 바꿔 측정해야 하는 것은 사실상 용해/용출 데이터뿐**이다. 그래서
+> `AUC(염)/AUC(free base) ≈ Fa(염)/Fa(free base)` 가 성립한다.
+> 근거: Serajuddin, *Adv. Drug Deliv. Rev.* 2007; FDA BCS 가이던스(투과도는 약물의 성질).
+
+**MW 처리:** 용량은 **free base 환산 mg/kg**로 입력. 염 분말을 칭량할 때의 환산계수
+(salt factor = 염MW/freeMW)는 `counterion_mw`를 주면 리포트에 표시된다. 약리·PK 계산
+자체에는 free base MW만 쓰인다(활성분자 기준).
+
+---
+
+## 1. 모든 염이 공유하는 파라미터 (Free base 1회 측정)
+
+| 파라미터 | 단위 | 영향 | 비고 |
 |---|---|---|---|
-| 용량 Dose | mg/kg | 전부 | **free base 환산** 값으로 입력 |
-| 분자량 MW (free base) | g/mol | common-ion 몰농도 환산 | 구조에서 계산 |
-| **pKa** | – | pH-용해도, pHmax | 약염기/약산의 주 이온화 |
-| **고유용해도 S0** (free base) | µg/mL | 용해/석출 한계 | 중성종 용해도 (intrinsic) |
-| **Caco-2 Papp** | 10⁻⁶ cm/s | Fa·Cmax (투과) | BCS III·IV에서 결정적 |
-| CLint (대사안정성) | µL/min/mg or /10⁶cells | **AUC** | microsome/hepatocyte |
-| PPB (혈장단백결합) | % | AUC·분포 | |
-| Vss | L/kg | Cmax·t½ | 없으면 logD로 추정(불확실) |
-| 간외 CL | mL/min/kg | AUC | 신/담즙 배설형 필수 |
-| Fg (장벽통과) | 0–1 | AUC | CYP3A 장대사 기질만 <1 |
-
-> 위 값들은 **염 순위에는 영향이 없다**(상쇄됨). 절대 AUC·Cmax 값을 위해 필요.
+| 용량 Dose | mg/kg (free base 환산) | 전부 | |
+| MW(free base) | g/mol | 환산·common-ion 몰농도 | |
+| **pKa** | – | pH-용해도·pHmax | |
+| **Caco-2 Papp** | 10⁻⁶ cm/s | Fa·Cmax | **염 무관(공유)** |
+| CLint·PPB·Vss·간외CL·Fg | – | AUC·Cmax·t½ | **염 무관(공유)** |
 
 ---
 
-## 2. 염형태마다 측정하는 파라미터 (Salt-specific)
+## 2. 염마다 측정하는 입력 — **정확도 계층 (낮음 → 높음)**
 
-| 파라미터 | 단위 | 어떻게 얻나 | 모델에서의 역할 |
+핵심 결론부터: **약염기 염은 “평형 용해도”보다 “시간대별 용출(특히 2-stage 이행시험)”이
+더 정확하다.** 염의 이점은 *과포화(supersaturation)* 라는 **동역학 현상**인데, 이는 평형
+용해도 값에는 보이지 않기 때문이다. (Haloperidol: “dissolution rate rather than solubility
+may be the best predictor of bioavailability.”)
+
+| Tier | 입력 | 무엇을 잡나 / 한계 | 정확도 |
 |---|---|---|---|
-| **Counterion 종류** | – | 합성 시 결정 | pKa(HX)·common-ion 여부 자동 결정 |
-| **염 용해도 S_salt** (물/완충액) | µg/mL (free base 환산) | 평형 용해도 측정 | 용출 속도·pHmax·과포화 |
-| (자동) **pHmax** | – | `pHmax = pKa + log10(S0/S_salt)` | 위(salt) → 장(free base) 전환 pH |
-| **측정 용출 프로파일** (생체관련 매질) | %, 시간 | FaSSGF/FaSSIF 2-stage 용출 | **염 간 차이의 가장 신뢰성 있는 입력** |
-| 입자크기 D50 | µm | 측정 | 용출 속도 보정 |
+| **1** | **물 용해도 1점** + (S0·pKa) | 메커니즘 추정. pH·과포화·석출 **못 잡음** → 순위 스크리닝만 | ★ |
+| **2** | **pH별 평형 용해도** (pH 1.2·4.5·6.8, FaSSGF·FaSSIF) | GI pH별 용해 한계. 단, 여전히 **동역학(과포화) 못 잡음** | ★★ |
+| **3** | **시간대별 용출율** (단일 매질, 보통 FaSSIF 또는 pH 6.8) | 용출속도·도달%·일부 과포화 | ★★★ |
+| **4 (권장)** | **2-stage 이행 용출** (FaSSGF→FaSSIF, pH-shift; 장 구획의 *용액 중 농도-시간*) | **과포화 + 석출(spring-and-parachute) 직접 측정** — 약염기 염 PK를 좌우 | ★★★★ |
 
-### 왜 "측정 용출 프로파일"이 핵심인가
-용해도 값 하나로는 **과포화(supersaturation)·불균등화(disproportionation)·
-입자/결정형 차이**를 구분할 수 없다. counterion 이름만으로는 in vivo 차이를
-정확히 예측하기 어렵다(아래 한계 참조). 생체관련 매질의 측정 용출 프로파일을
-form별로 넣으면 이런 실제 차이가 그대로 반영된다.
+### 왜 Tier 4(2-stage 이행시험)가 가장 정확한가
+약염기·염은 **위(산성, 高용해)에서 녹아 과포화 상태로 장(중성, 低용해)으로 넘어가며
+석출**한다. 흡수가 석출보다 빠른 만큼만 노출 이득이 실현된다. **이 과포화→석출 곡선을
+직접 측정**하는 것이 2-stage(또는 multicompartment transfer)이고, 이것을 흡수모델에 넣으면
+PK 예측이 가장 정확하다.
+근거: Fiolka 2018 (*J Pharm Pharmacol*); **Multicompartment transfer + mechanistic
+absorption, *J. Pharm. Sci.* 2018, S0022-3549(18)30683-X** — *“intestinal precipitation may
+be one of the factors contributing to variability in **Cmax** but not AUC.”* (본 모델 검증에서
+Cmax가 AUC보다 덜 맞은 이유와 정확히 일치.)
+
+### 어떤 buffer/매질이 필요한가 (실무 권고)
+- **필수:** **FaSSGF**(위, pH≈1.6) + **FaSSIF**(장, pH≈6.5) — 약염기 염엔 이 두 가지가 핵심.
+- **권장:** 위 두 매질을 잇는 **pH-shift / 2-stage 이행시험**(USP-II 또는 transfer model)에서
+  장 구획의 **용액 중 약물 농도 vs 시간** 곡선. 이 한 곡선이 과포화·석출을 모두 담는다.
+- 보조: pH 1.2·4.5·6.8 평형 용해도(Tier 2)와 D50(입자크기).
+- HCl 염은 **염화물 매질(예: FaSSGF, 0.01–0.1 M NaCl)**에서 common-ion 억제를 확인.
+
+### 이 도구에서의 입력 방법
+- **Tier 1:** `s_salt_ugml`(+ free base S0·pKa) → 메커니즘 모드(공통이온·pHmax 자동).
+- **Tier 3:** `diss_profile = [(시간h, 누적분율0–1), …]` (위/단일 매질 용출).
+- **Tier 4:** `intestinal_profile = [(시간h, 용액중분율0–1), …]` — 2-stage 이행시험의 장 구획
+  곡선. **비단조(오르락내리락) 가능**: 상승=과포화/용해, 하강=석출. 이 모드가 besylate처럼
+  “용출은 더 됐는데 노출은 낮은” 현상을 데이터로 직접 반영한다.
 
 ---
 
-## 3. BCS class별로 "꼭 챙겨야 하는" 파라미터
+## 3. BCS class별 우선순위
 
-| BCS | 용해도 | 투과 | 염이 도움? | 우선 측정 |
-|---|---|---|---|---|
-| **I** | 高 | 高 | ✗ (이미 완전흡수) | 염은 제제안정성 위주, PK 이득 적음 |
-| **II** | 低 | 高 | ✔ (용해/용출 律速) | **S0, S_salt, 용출 프로파일, pKa** |
-| **III** | 高 | 低 | ✗ (투과 律速) | Caco-2 — 염 바꿔도 Fa 안 변함 |
-| **IV** | 低 | 低 | △ (용해는 개선되나 투과가 상한) | S_salt·용출 **그리고** Caco-2 |
-
-요약: **염 스크리닝으로 노출을 올릴 수 있는 것은 사실상 BCS II(그리고 일부 IV).**
-BCS I·III에서는 염 선택이 PK가 아니라 고체물성(흡습성·안정성·제조성)으로 정당화된다.
-
----
-
-## 4. counterion 라이브러리(내장값)
-
-`pka_hx` = counterion 짝산의 pKa (낮을수록 강산 → 낮은 pHmax, 불균등화 위험↓).
-`gi_common_ion` = 위장관에 흔한 이온인가(염화물만 해당 → HCl 염 위(胃) 용해도 억제).
-
-| counterion | pKa(HX) | common ion | 특징 |
+| BCS | 용해/투과 | 염이 도움? | Tier 권고 |
 |---|---|---|---|
-| HCl | −6 | **예(Cl⁻)** | 강산이지만 위에서 common-ion으로 용해도 억제 |
-| mesylate | −1.9 | 아니오 | 강산, common-ion 없음 |
-| esylate | −1.5 | 아니오 | |
-| besylate | −2.5 | 아니오 | |
-| tosylate | −2.8 | 아니오 | 매우 강산·친유성 |
-| sulfate | 1.99 | 아니오 | 2가 |
-| phosphate | 2.12 | 아니오 | 약산 → 높은 pHmax, 불균등화 위험 |
-| oxalate | 1.25 | 아니오 | 2가 |
-| maleate / tartrate / citrate / fumarate / succinate / benzoate | 1.9–4.2 | 아니오 | 약산일수록 pHmax↑·불균등화↑ |
+| **I** | 高/高 | ✗ | 염은 PK가 아니라 고체물성으로 판단 |
+| **II** | 低/高 | ✔ (용출 律速) | **Tier 4 강력 권장** (과포화·석출이 좌우) |
+| **III** | 高/低 | ✗ (투과 律速) | Caco-2가 상한 — 염 바꿔도 Fa 거의 불변 |
+| **IV** | 低/低 | △ | Tier 4 + Caco-2 (용해 개선해도 투과가 상한) |
 
 ---
 
-## 5. 모델 보정 상수(AbsParams, 자사 데이터로 조정 가능)
+## 4. 보정 상수 (자사 reference로 1회 보정)
 
 | 상수 | 기본값 | 의미 |
 |---|---|---|
-| `kd0` | 0.5 /h | free base 용출속도상수(미세입자 기준) |
-| `salt_wettability` | 4.0 | 염의 빠른 용출·젖음성 이득 (≥1) |
-| `kprecip` | 2.0 /h | 과포화 → 석출 속도상수 (작을수록 parachute 유지 ↑) |
-| `d50_um` | – | 입자크기(주면 용출속도 보정) |
+| `kd0` | 0.5 /h | free base 용출속도상수(Tier 1–3 메커니즘 모드) |
+| `salt_wettability` | 4.0 | 염의 용출·젖음 이득(Tier 1–3) |
+| `kprecip` | 2.0 /h | 과포화→석출 속도(Tier 1–3). **Tier 4에선 측정 곡선이 대체** |
+| `kScale`(Caco-2→ka) | 0.30 | 자사 Caco-2 프로토콜 보정 |
 
-이 상수들은 **자사 Caco-2/용출 프로토콜과 reference 약물로 한 번 보정**한 뒤
-상대비교·순위에 쓰는 것이 정확하다(IVIVE의 표준 사용법).
+**Tier 4 입력을 쓰면 `kprecip` 추정이 측정값으로 대체되어 보정 의존도가 크게 줄고
+정확도가 올라간다.**

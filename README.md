@@ -31,6 +31,31 @@ in vivo 노출(AUC · Cmax)이 가장 높은지** 예측·순위화하는 도구
 > 확산층(Mooney/Serajuddin) 관점의 Noyes–Whitney 용출 + 위→소장 구획 + 과포화/석출
 > ODE(RK4)로 구현. 측정 용출 프로파일을 넣으면 그것이 용출을 직접 구동한다.
 
+## 염이 되면 무엇이 바뀌나 — 그리고 어떤 데이터가 정확도를 올리나
+
+**바뀌는 것:** 용해도·용출속도·과포화/석출·고체물성. **안 바뀌는 것:** 막투과(Caco-2)·
+대사·분포·단백결합 — 용액에서 염은 해리되어 막을 통과하는 분자가 동일한 free base이기
+때문(Serajuddin 2007; FDA BCS). 따라서 **투과·대사·분포는 free base 값 1회만 측정·공유**하고,
+**염마다 바꿔 측정할 것은 용해/용출뿐**이다. MW는 염마다 다르지만 **활성분자=free base**라
+모든 계산은 free-base 환산으로 한다.
+
+**“물 용해도만 있으면 되나?” — 아니다.** 입력의 정확도 계층(낮음→높음):
+
+| Tier | 입력 | 정확도 | 한계 |
+|---|---|---|---|
+| ① | 물 용해도 1점(+S0·pKa) | ★ | pH·과포화·석출 못 잡음(스크리닝용) |
+| ② | pH별 평형 용해도(1.2/4.5/6.8, FaSSGF/FaSSIF) | ★★ | 동역학(과포화) 못 잡음 |
+| ③ | 시간대별 용출(단일 매질, FaSSIF) | ★★★ | 위→장 석출 부분만 |
+| **④** | **2-stage 이행시험(FaSSGF→FaSSIF) 장 구획 용액농도-시간** | **★★★★** | **과포화→석출 직접 측정** |
+
+**평형 용해도 < 시간대별 용출.** 염의 이점은 *과포화*라는 동역학 현상이라 평형값엔 안
+보인다(haloperidol: “dissolution rate … best predictor of bioavailability”). 약염기 염은
+**위(산성)에서 녹아 과포화로 장(중성)에 넘어가 석출**하므로, 이 곡선을 직접 재는 **2-stage
+이행시험(Tier 4)** 이 가장 예측력이 높다(Fiolka 2018; *J. Pharm. Sci.* 2018,
+S0022-3549(18)30683-X — *장내 석출은 AUC가 아니라 **Cmax** 변동의 원인*, 본 검증의 Cmax
+오차와 일치). 엔진/웹툴 모두 Tier ①③④ 입력을 지원하며, **Tier 4는 비단조(과포화→석출)
+곡선을 그대로 흡수에 반영**한다. 자세한 buffer/매질 권고는 `docs/PARAMETERS.md`.
+
 ## 구성
 
 | 경로 | 내용 |
@@ -54,10 +79,14 @@ forms = [
     SaltForm.of("hcl",       s_salt_ugml=1500),
     SaltForm.of("tosylate",  s_salt_ugml=3000),
     SaltForm.of("phosphate", s_salt_ugml=900),
-    # 측정 용출 프로파일로 정밀 비교(권장): (시간[h], 누적분율 0–1)
+    # Tier 3 — 위/단일매질 시간대별 용출: (시간[h], 누적분율 0–1)
     SaltForm.of("esylate", 4000,
                 diss_profile=[(0.25, 0.60), (0.5, 0.85), (1.0, 0.95), (2.0, 0.98)],
-                diss_medium="FaSSIF"),
+                diss_medium="FaSSGF"),
+    # Tier 4 (권장) — 2-stage 이행시험 장 구획 '용액 중 분율'(비단조 가능)
+    SaltForm.of("tosylate", 4000,
+                intestinal_profile=[(0.25, 0.55), (0.5, 0.80), (1.0, 0.78),
+                                    (2.0, 0.70), (4.0, 0.62)]),   # 과포화→석출
 ]
 for r in screen(drug, drug_io, forms, get_species("rat")):
     print(r["form"].label, round(r["AUC"]), round(r["rel_AUC"], 2))

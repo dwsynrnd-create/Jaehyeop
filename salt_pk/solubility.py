@@ -49,25 +49,44 @@ class SaltForm:
     # water/buffer. None for the free base (uses the drug's S0 instead).
     s_salt_ugml: Optional[float] = None
     label: str = ""
-    # OPTIONAL measured biorelevant dissolution profile: list of
-    # (time_h, cumulative_fraction_0to1). When given it OVERRIDES the mechanistic
-    # dissolution and captures real form differences (supersaturation, particle
-    # size, disproportionation) that solubility alone cannot predict.
+    # ----- INPUT ACCURACY TIERS (lowest -> highest predictivity) -------------
+    # Tier 1: s_salt_ugml only (+ drug S0/pKa)  -> mechanistic, screening
+    # Tier 2: ph_solubility {pH: µg/mL}          -> measured pH-solubility points
+    # Tier 3: diss_profile (gastric, FaSSGF)     -> time-resolved gastric release
+    # Tier 4: intestinal_profile (FaSSIF / two-stage transfer)  -> HIGHEST accuracy
+    #
+    # diss_profile (Tier 3): list of (time_h, cumulative_fraction_0to1) in a single
+    #   (usually gastric) medium. Drives gastric release.
     diss_profile: Optional[list] = None
-    diss_medium: str = ""     # label only, e.g. 'FaSSGF', 'FaSSIF'
+    diss_medium: str = ""                  # label, e.g. 'FaSSGF'
+    # intestinal_profile (Tier 4): list of (time_h, fraction_of_dose_IN_SOLUTION_0to1)
+    #   measured in the intestinal compartment of a TWO-STAGE / TRANSFER test
+    #   (FaSSGF -> FaSSIF, or FaSSIF with pH shift). May be NON-MONOTONIC: the rise
+    #   is supersaturation/dissolution, the fall is precipitation. This single curve
+    #   captures the spring-and-parachute behaviour that governs weak-base-salt PK.
+    intestinal_profile: Optional[list] = None
+    transfer_medium: str = "FaSSGF->FaSSIF"
+    # Optional measured pH-solubility points (Tier 2), µg/mL free-base equivalent.
+    ph_solubility: Optional[dict] = None
+    # Optional counterion molar mass (g/mol) -> salt/free-base weight factor for dosing.
+    counterion_mw: Optional[float] = None
 
     @classmethod
-    def free_base(cls, label="free base", diss_profile=None):
+    def free_base(cls, label="free base", diss_profile=None, intestinal_profile=None):
         return cls(counterion=get_counterion("free_base"), s_salt_ugml=None,
-                   label=label, diss_profile=diss_profile)
+                   label=label, diss_profile=diss_profile,
+                   intestinal_profile=intestinal_profile)
 
     @classmethod
     def of(cls, counterion_name: str, s_salt_ugml: float, label: str = "",
-           diss_profile=None, diss_medium=""):
+           diss_profile=None, diss_medium="", intestinal_profile=None,
+           ph_solubility=None, counterion_mw=None):
         ci = get_counterion(counterion_name)
         return cls(counterion=ci, s_salt_ugml=s_salt_ugml,
                    label=label or f"{counterion_name} salt",
-                   diss_profile=diss_profile, diss_medium=diss_medium)
+                   diss_profile=diss_profile, diss_medium=diss_medium,
+                   intestinal_profile=intestinal_profile,
+                   ph_solubility=ph_solubility, counterion_mw=counterion_mw)
 
 
 # Typical GI chloride concentration (mM) used for the common-ion calculation.
