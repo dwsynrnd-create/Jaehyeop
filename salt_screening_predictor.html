@@ -124,6 +124,24 @@
   </div>
  </div>
 
+ <!-- CSV BATCH -->
+ <div class="panel">
+  <div class="panel-h"><span class="gi">📑</span><h2>배치 검증 (CSV 일괄) — 사내 데이터로 표본 확장</h2></div>
+  <div class="panel-b">
+   <div class="intro" style="margin:0 0 10px">
+    여러 약물·염의 <b>pH 1.2/4.5/6.8 용출 + 관측 PK</b>를 CSV로 올리면 일괄 예측·채점합니다.
+    형식: 폼당 1행(free base 포함), 용출은 <code>"분:%;분:%"</code>. 컬럼:
+    <code>drug,moiety,mw,pka,s0_ugml,species,dose_mgkg,caco2,clint,ppb,vss,form,counterion,s_salt_ugml,d_pH1_2,d_pH4_5,d_pH6_8,sol_pH6_8,obs_auc,obs_cmax,grade,cite</code>
+    (저장소 <code>data/dataset_template.csv</code> 참고)
+   </div>
+   <input type="file" id="csvFile" accept=".csv" onchange="loadCSV(event)" style="font-size:13px">
+   <span class="hint" style="display:inline-block;margin-left:8px">또는 붙여넣기 후 “검증” ↓</span>
+   <textarea id="csvText" rows="4" style="width:100%;margin-top:8px;font-family:ui-monospace,monospace;font-size:11.5px;border:1px solid var(--line);border-radius:7px;padding:8px" placeholder="drug,moiety,mw,pka,s0_ugml,species,dose_mgkg,caco2,clint,ppb,vss,form,counterion,s_salt_ugml,d_pH1_2,d_pH4_5,d_pH6_8,sol_pH6_8,obs_auc,obs_cmax,grade,cite"></textarea>
+   <button class="btn btn-teal" style="margin-top:8px" onclick="runBatch()">CSV 배치 검증 →</button>
+   <div id="batchOut" style="margin-top:12px"></div>
+  </div>
+ </div>
+
  <div id="results"></div>
 </div>
 
@@ -415,6 +433,55 @@ function exportCSV(){const out=window._out;if(!out)return;const ref=out[0].r;
 }
 
 /* init */
+/* ============ CSV 배치 검증 (Python salt_pk.batch와 동일 로직) ============ */
+function loadCSV(ev){const f=ev.target.files[0];if(!f)return;const r=new FileReader();
+  r.onload=e=>{document.getElementById('csvText').value=e.target.result;runBatch();};r.readAsText(f);}
+function parseCSV(txt){const lines=txt.trim().split(/\r?\n/).filter(l=>l.trim());
+  const hdr=lines[0].split(',').map(s=>s.trim());
+  return lines.slice(1).map(line=>{const cells=line.split(',');const o={};hdr.forEach((h,i)=>o[h]=(cells[i]||'').trim());return o;});}
+function parseProf(s){s=(s||'').trim();if(!s)return null;
+  const pts=s.replace(/,/g,';').split(';').filter(x=>x.trim()).map(ch=>{const[t,p]=ch.split(':');return[+t,+p];});
+  return pts.length?pts.sort((a,b)=>a[0]-b[0]):null;}
+function runBatch(){
+  const txt=document.getElementById('csvText').value;
+  if(!txt.trim()){document.getElementById('batchOut').innerHTML='<div class="al al-warn">CSV를 올리거나 붙여넣으세요.</div>';return;}
+  let rows;try{rows=parseCSV(txt);}catch(e){document.getElementById('batchOut').innerHTML='<div class="al al-warn">CSV 파싱 오류.</div>';return;}
+  const groups={};rows.forEach(r=>{(groups[r.drug]=groups[r.drug]||[]).push(r);});
+  const out=[];
+  for(const drug in groups){const rws=groups[drug];
+    const base=rws.find(r=>['free_base','free base','freebase',''].includes((r.counterion||'').toLowerCase()))||rws[0];
+    const isBaseSav=isBase; isBase=(base.moiety||'base').toLowerCase()!=='acid';
+    const d={name:drug,dose:+base.dose_mgkg||10,mw:+base.mw||350,pka:+base.pka||7,s0:+base.s0_ugml||10,
+      caco2:+base.caco2||10,clint:+base.clint||0,ppb:+base.ppb||0,vss:base.vss?+base.vss:null};
+    const sp=SPECIES[(base.species||'rat').toLowerCase()]||SPECIES.rat;
+    const preds=rws.map(r=>{const ci=(r.counterion||'free_base').toLowerCase().replace(/ /g,'_');
+      const php={};[['d_pH1_2',1.2],['d_pH4_5',4.5],['d_pH6_8',6.8]].forEach(([c,ph])=>{const p=parseProf(r[c]);if(p)php[ph]=p;});
+      const phP=Object.keys(php).length?php:null;
+      const salt={sSalt:ci==='free_base'?0:(+r.s_salt_ugml||1000),common:(COUNTERIONS[ci]||{}).common||false,profile:null,intl:null,phProfiles:phP};
+      return{r,ci,res:predict(d,sp,salt)};});
+    const ref=preds.find(p=>p.ci==='free_base')||preds[0];
+    preds.forEach(p=>{if(p.ci==='free_base')return;
+      const rA=p.res.AUC/ref.res.AUC, rC=p.res.Cmax/ref.res.Cmax;
+      const oA=p.r.obs_auc?+p.r.obs_auc:null, oC=p.r.obs_cmax?+p.r.obs_cmax:null;
+      out.push({drug,form:p.r.form||p.ci,grade:p.r.grade||'',rA,rC,oA,oC,
+        acc:oA?Math.max(0,100*(1-Math.abs(rA-oA)/oA)):null, w2:oA?(Math.max(rA/oA,oA/rA)<=2):null});});
+    isBase=isBaseSav;
+  }
+  const scored=out.filter(o=>o.oA);
+  const n2=scored.filter(o=>o.w2).length, macc=scored.length?scored.reduce((a,o)=>a+o.acc,0)/scored.length:NaN;
+  const dir=scored.filter(o=>(o.rA>1.15)===(o.oA>1.15)).length;
+  const f=(x,n=2)=>x==null?'—':(+x).toFixed(n);
+  document.getElementById('batchOut').innerHTML=`
+   <table class="res"><thead><tr><th>약물</th><th>폼</th><th>등급</th><th>예측 AUC비</th><th>실측</th><th>정확도</th><th>2-fold</th></tr></thead><tbody>
+   ${out.map(o=>`<tr><td class="nm">${o.drug}</td><td>${o.form}</td><td>${o.grade}</td><td>${f(o.rA)}</td>
+     <td>${o.oA?f(o.oA):'—'}</td><td>${o.acc!=null?f(o.acc,0)+'%':'—'}</td>
+     <td>${o.w2==null?'—':(o.w2?'<span class="badge b-green">✓</span>':'<span class="badge b-red">✗</span>')}</td></tr>`).join('')}
+   </tbody></table>
+   ${scored.length?`<div class="foot" style="margin-top:8px"><b>요약:</b> 폼 ${out.length}개 · 채점 ${scored.length}개 ·
+     <b>2-fold ${n2}/${scored.length}</b> · 방향 ${dir}/${scored.length} · <b>평균 정확도 ${f(macc,0)}%</b></div>`:
+     '<div class="foot" style="margin-top:8px">관측값(obs_auc) 없는 행은 예측만 표시.</div>'}`;
+}
+
 salts=[blankSalt(0),blankSalt(1)];
 renderSpecies();renderSalts();
 </script>
