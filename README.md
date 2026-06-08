@@ -17,18 +17,31 @@ BCS(생물약제학적 분류체계) 모델 약물에 대해 **"pH / buffer 에 
 - 페이월(유료) 논문은 PDF 없이 **서지정보만 `manifest.csv`** 에 기록됩니다.
   → 이 목록으로 소속 기관 도서관/구독을 통해 합법적으로 원문을 받으세요.
 
+## 🧪 pH buffer 검증
+
+각 논문이 **pH 1.2 와 pH 6.8 용출 데이터를 실제로 담고 있는지** 초록 + OA 전문
+텍스트에서 검증한 뒤에만 다운로드합니다 (`--require-ph` 로 조절).
+
+- `both` (기본): pH 1.2 **AND** pH 6.8 둘 다 확인된 논문만
+- `any`: 둘 중 하나라도
+- `off`: 검증 끔
+
+검출 키워드: `pH 1.2`, `0.1 N HCl`, `simulated gastric fluid(SGF)` ↔
+`pH 6.8`, `phosphate buffer 6.8`, `simulated intestinal fluid(SIF)`.
+
 ## 🚀 설치 & 실행 (본인 PC에서)
 
 ```bash
 # 1) 의존성 설치
 pip install requests
 
-# 2) 기본 실행 (BCS 모델약물 전체, 약물당 5편, 홈폴더/dissolution_pdfs 에 저장)
+# 2) 기본 실행 (BCS 전체 104종, 약물당 8편, pH 1.2&6.8 필수)
 python download_dissolution_pdfs.py
 
 # 3) 옵션 예시
-python download_dissolution_pdfs.py --outdir "D:/논문/용출" --per-drug 8
-python download_dissolution_pdfs.py --drugs ibuprofen ketoprofen indomethacin
+python download_dissolution_pdfs.py --outdir "D:/논문/용출" --per-drug 10
+python download_dissolution_pdfs.py --classes II --per-drug 15     # Class II만
+python download_dissolution_pdfs.py --drugs ibuprofen ketoprofen --require-ph any
 ```
 
 > ⚠️ 이 저장소가 돌아가는 클라우드 환경은 네트워크가 차단(403)되어 있어
@@ -39,8 +52,10 @@ python download_dissolution_pdfs.py --drugs ibuprofen ketoprofen indomethacin
 | 옵션 | 기본값 | 설명 |
 |------|--------|------|
 | `--outdir` | `~/dissolution_pdfs` | 저장 폴더 |
-| `--per-drug` | `5` | 약물당 최대 PDF 수 |
+| `--per-drug` | `8` | 약물당 최대 PDF 수 |
+| `--classes` | (전체) | 대상 BCS 클래스 (`I II III IV`) |
 | `--drugs` | (전체) | 대상 약물 직접 지정 |
+| `--require-ph` | `both` | pH 1.2/6.8 필터 (`both`/`any`/`off`) |
 | `--email` | `dwsynrnd@gmail.com` | Unpaywall API 정책상 필요한 이메일 |
 
 ## 📁 저장 구조
@@ -55,14 +70,23 @@ dissolution_pdfs/
 └── manifest.csv        # 전체 서지정보 (다운로드/페이월/실패 상태 포함)
 ```
 
-## 💊 기본 대상 약물 (BCS 분류별)
+## 💊 기본 대상 약물 (BCS 분류별, 총 104종)
 
-- **Class I** (고용해도·고투과): metoprolol, propranolol, diltiazem, verapamil, metformin
-- **Class II** (저용해도·고투과, *pH 의존 용출 핵심*): ibuprofen, ketoprofen,
-  indomethacin, naproxen, diclofenac, carbamazepine, nifedipine, glibenclamide,
-  ketoconazole, itraconazole, danazol
-- **Class III** (고용해도·저투과): atenolol, ranitidine, cimetidine, acyclovir
-- **Class IV** (저용해도·저투과): furosemide, hydrochlorothiazide, chlorthalidone
+각 클래스 20종 이상. 전체 목록은 `download_dissolution_pdfs.py` 의
+`BCS_MODEL_DRUGS` 참고.
+
+- **Class I** (고용해도·고투과) — 24종: metoprolol, propranolol, diltiazem,
+  verapamil, metformin, captopril, enalapril, labetalol, levodopa, theophylline …
+- **Class II** (저용해도·고투과, *pH 의존 용출 핵심*) — 32종: ibuprofen,
+  ketoprofen, indomethacin, naproxen, diclofenac, piroxicam, carbamazepine,
+  nifedipine, glibenclamide, ketoconazole, itraconazole, atorvastatin …
+- **Class III** (고용해도·저투과) — 24종: atenolol, ranitidine, cimetidine,
+  famotidine, acyclovir, amoxicillin, lisinopril, gabapentin …
+- **Class IV** (저용해도·저투과) — 24종: furosemide, hydrochlorothiazide,
+  chlorthalidone, sulfasalazine, nitrofurantoin, methotrexate, ritonavir …
+
+> ⚠️ BCS 분류는 문헌(WHO/Lindenberg 2004, Takagi 2006 등)에 따라 다를 수 있고,
+> 염·용량·실험조건에 따라 경계 약물의 분류가 갈릴 수 있습니다.
 
 ## 📝 비고
 
