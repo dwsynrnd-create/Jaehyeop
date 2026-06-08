@@ -146,9 +146,9 @@ def svg():
     vy = by + len(barset)*bh + 18
     el.append(f'<rect x="{bx}" y="{vy}" width="{bw+30}" height="120" rx="9" fill="#fffdf9" stroke="#ded8cb"/>')
     verdict = [("방향·plateau", "매우 우수 ~90-100%", "#2f6b3a"),
-               ("BCS II/IV 배율", "양호 2-fold·평균 ~77%", "#0d6b63"),
-               ("counterion 미세차이", "약함 (측정용출 필요)", "#9e2b25"),
-               ("절대값·Cmax·규제", "부적합", "#9e2b25")]
+               ("AUC·Cmax 배율", "양호 2-fold (평균 1.2-1.3 fold)", "#0d6b63"),
+               ("counterion 미세차이", "측정용출 시 부분반영", "#b5651d"),
+               ("절대값·규제", "부적합", "#9e2b25")]
     for i, (k, v, c) in enumerate(verdict):
         el.append(f'<text x="{bx+12}" y="{vy+24+i*26}" font-size="11.5" fill="#1b2127">• <tspan font-weight="bold">{k}</tspan>: <tspan fill="{c}">{v}</tspan></text>')
     el.append('</svg>')
@@ -192,9 +192,11 @@ L += ["", f"→ 방향 {templ_dir_ok}/{len(templ)} 일치. **단 magnitude는 te
       "## 총평",
       "| 항목 | 수준 |", "|---|---|",
       "| 염이 노출 올리나?(방향) | **매우 우수 ~90-100%** |",
-      "| BCS II/IV 염 vs free base 배율 | **양호 (2-fold, 평균 ~77%)** |",
+      "| BCS II/IV 염 vs free base AUC 배율 | **양호 (2-fold, 평균 ~77%)** |",
+      "| Cmax 배율 (적정 입력 시) | **양호 (2-fold, 평균 1.26 fold)** — 단일매질 입력만 과대예측 |",
       "| plateau(이미 잘 녹으면 무이득) | **우수** |",
-      "| counterion 미세순위·Cmax·절대값·규제 | **부적합** |",
+      "| counterion 미세차이 | **측정 용출 넣으면 부분 반영**(소장 수렴으로 완전치는 않음) |",
+      "| 절대값·규제 판단 | **부적합** |",
       "",
       "**연구소 사용:** 염 스크리닝·우선순위·기전 이해 ✅ / 규제·절대값·counterion 최종결정 ❌. "
       "결정등급은 사내 10–20개 전향검증 + 측정 용출 입력 후. 상세: `docs/ACCURACY_ASSESSMENT.md`."]

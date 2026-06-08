@@ -93,7 +93,7 @@
 <text x="906" y="406" font-size="10.5" fill="#444">52%</text>
 <rect x="540" y="438" width="390" height="120" rx="9" fill="#fffdf9" stroke="#ded8cb"/>
 <text x="552" y="462" font-size="11.5" fill="#1b2127">• <tspan font-weight="bold">방향·plateau</tspan>: <tspan fill="#2f6b3a">매우 우수 ~90-100%</tspan></text>
-<text x="552" y="488" font-size="11.5" fill="#1b2127">• <tspan font-weight="bold">BCS II/IV 배율</tspan>: <tspan fill="#0d6b63">양호 2-fold·평균 ~77%</tspan></text>
-<text x="552" y="514" font-size="11.5" fill="#1b2127">• <tspan font-weight="bold">counterion 미세차이</tspan>: <tspan fill="#9e2b25">약함 (측정용출 필요)</tspan></text>
-<text x="552" y="540" font-size="11.5" fill="#1b2127">• <tspan font-weight="bold">절대값·Cmax·규제</tspan>: <tspan fill="#9e2b25">부적합</tspan></text>
+<text x="552" y="488" font-size="11.5" fill="#1b2127">• <tspan font-weight="bold">AUC·Cmax 배율</tspan>: <tspan fill="#0d6b63">양호 2-fold (평균 1.2-1.3 fold)</tspan></text>
+<text x="552" y="514" font-size="11.5" fill="#1b2127">• <tspan font-weight="bold">counterion 미세차이</tspan>: <tspan fill="#b5651d">측정용출 시 부분반영</tspan></text>
+<text x="552" y="540" font-size="11.5" fill="#1b2127">• <tspan font-weight="bold">절대값·규제</tspan>: <tspan fill="#9e2b25">부적합</tspan></text>
 </svg>
