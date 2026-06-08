@@ -144,6 +144,48 @@ entry(id="RPR2000765 mesylate", ctype="base", bcs="II", species="rat", grade="C"
       cite="Pudipeddi 2002; salt screening (S0 10 µg/mL -> mesylate 39 mg/mL)")
 
 
+# ---- additional documented in-vivo ratios (template inputs flagged) -------- #
+def p_axl_tartrate():
+    io = IonizableDrug(mw=480.0, pka=5.5, s0_ugml=8.0, is_base=True)
+    pk = DrugPK(dose_mgkg=10, caco2=20, clint=12, ppb_percent=92)
+    return _ratio(io, pk, get_species("rat"),
+                  SaltForm.free_base(), SaltForm.of("tartrate", 1500))
+entry(id="AXL inhib. L-tartrate", ctype="base", bcs="II", species="rat", grade="B",
+      obs_auc=1.5, obs_cmax=1.3, predict=p_axl_tartrate,
+      cite="US 11,400,091 (AXL inhibitor L-tartrate): Cmax +30%, AUC +50%")
+
+
+def _template_base(s0, caco2, salt_sol, ci="mesylate", sp="rat", dose=20):
+    io = IonizableDrug(mw=450.0, pka=6.0, s0_ugml=s0, is_base=True)
+    pk = DrugPK(dose_mgkg=dose, caco2=caco2, clint=12, ppb_percent=92)
+    return _ratio(io, pk, get_species(sp),
+                  SaltForm.free_base(), SaltForm.of(ci, salt_sol))
+
+
+entry(id="Serajuddin base A mesylate", ctype="base", bcs="II", species="rat", grade="C",
+      obs_auc=2.6, obs_cmax=2.6, predict=lambda: _template_base(4, 15, 8000),
+      cite="Serajuddin 2007 ADDR 59:603 (mesylate ~2.6x in animal)")
+entry(id="Serajuddin base B mesylate", ctype="base", bcs="II", species="rat", grade="C",
+      obs_auc=5.0, obs_cmax=5.0, predict=lambda: _template_base(2, 14, 12000),
+      cite="Serajuddin 2007 ADDR 59:603 (mesylate ~5x in animal)")
+entry(id="Compound B1 tosylate (rat)", ctype="base", bcs="II", species="rat", grade="C",
+      obs_auc=3.0, obs_cmax=3.0, predict=lambda: _template_base(3, 16, 6000, ci="tosylate"),
+      cite="US 6,015,807 (PTSA salt ~3x rat)")
+entry(id="Compound B1 tosylate (dog)", ctype="base", bcs="II", species="dog", grade="C",
+      obs_auc=4.0, obs_cmax=4.0, predict=lambda: _template_base(3, 16, 6000, ci="tosylate", sp="dog"),
+      cite="US 6,015,807 (PTSA salt ~4x dog)")
+
+
+def p_barbiturate_na():
+    io = IonizableDrug(mw=240.0, pka=7.8, s0_ugml=30.0, is_base=False)
+    pk = DrugPK(dose_mgkg=20, caco2=20, clint=8, ppb_percent=80)
+    return _ratio(io, pk, get_species("rat"),
+                  SaltForm.free_base(), SaltForm.of("hcl", 9000, label="sodium"))
+entry(id="Diphenylbarbiturate Na", ctype="acid", bcs="II", species="rat", grade="C",
+      obs_auc=1.75, obs_cmax=1.75, predict=p_barbiturate_na,
+      cite="US 7,683,071 (sodium salt >=1.5-2x free acid)")
+
+
 # Haloperidol counterion RANKING (mesylate > phosphate > HCl) — special case
 def haloperidol_rank():
     io = IonizableDrug(mw=375.9, pka=8.3, s0_ugml=2.5, is_base=True)

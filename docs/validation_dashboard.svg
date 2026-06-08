@@ -1,0 +1,97 @@
+<svg xmlns="http://www.w3.org/2000/svg" width="940" height="720" font-family="Helvetica,Arial,sans-serif">
+<rect width="940" height="720" fill="#f5f2ec"/>
+<text x="470.0" y="34" font-size="20" font-weight="bold" text-anchor="middle" fill="#073d39">염 스크리닝 예측기 — 문헌 검증 종합 (16건)</text>
+<rect x="30" y="50" width="200" height="64" rx="9" fill="#fffdf9" stroke="#ded8cb"/>
+<text x="44" y="76" font-size="12" fill="#828a92">검증 건수</text>
+<text x="44" y="103" font-size="26" font-weight="bold" fill="#0d6b63">16</text>
+<rect x="242" y="50" width="200" height="64" rx="9" fill="#fffdf9" stroke="#ded8cb"/>
+<text x="256" y="76" font-size="12" fill="#828a92">방향 정확</text>
+<text x="256" y="103" font-size="26" font-weight="bold" fill="#2f6b3a">14/16</text>
+<rect x="454" y="50" width="200" height="64" rx="9" fill="#fffdf9" stroke="#ded8cb"/>
+<text x="468" y="76" font-size="12" fill="#828a92">2-fold 이내</text>
+<text x="468" y="103" font-size="26" font-weight="bold" fill="#0d6b63">9/9</text>
+<rect x="666" y="50" width="200" height="64" rx="9" fill="#fffdf9" stroke="#ded8cb"/>
+<text x="680" y="76" font-size="12" fill="#828a92">평균 정확도</text>
+<text x="680" y="103" font-size="26" font-weight="bold" fill="#b5651d">77%</text>
+<text x="270.0" y="142" font-size="13" font-weight="bold" text-anchor="middle" fill="#1b2127">예측 vs 실측 AUC비 (log-log, 음영=2-fold)</text>
+<rect x="60" y="150" width="420" height="420" fill="#fffdf9" stroke="#ded8cb"/>
+<polygon points="60,431 480,150 480,289 60,570" fill="#0d6b63" opacity="0.08"/>
+<line x1="60" y1="570" x2="480" y2="150" stroke="#1b2127" stroke-width="1.5"/>
+<text x="105" y="586" font-size="11" text-anchor="middle" fill="#666">1x</text>
+<text x="52" y="529" font-size="11" text-anchor="end" fill="#666">1x</text>
+<text x="244" y="586" font-size="11" text-anchor="middle" fill="#666">2x</text>
+<text x="52" y="390" font-size="11" text-anchor="end" fill="#666">2x</text>
+<text x="325" y="586" font-size="11" text-anchor="middle" fill="#666">3x</text>
+<text x="52" y="309" font-size="11" text-anchor="end" fill="#666">3x</text>
+<text x="383" y="586" font-size="11" text-anchor="middle" fill="#666">4x</text>
+<text x="52" y="251" font-size="11" text-anchor="end" fill="#666">4x</text>
+<text x="427" y="586" font-size="11" text-anchor="middle" fill="#666">5x</text>
+<text x="52" y="207" font-size="11" text-anchor="end" fill="#666">5x</text>
+<text x="464" y="586" font-size="11" text-anchor="middle" fill="#666">6x</text>
+<text x="52" y="170" font-size="11" text-anchor="end" fill="#666">6x</text>
+<text x="270.0" y="604" font-size="11" text-anchor="middle" fill="#444">예측 (predicted)</text>
+<text x="20" y="360.0" font-size="11" text-anchor="middle" fill="#444" transform="rotate(-90 20 360.0)">실측 (observed)</text>
+<circle cx="217" cy="452" r="6" fill="#2f6b3a" opacity="0.85"/>
+<circle cx="272" cy="253" r="6" fill="#2f6b3a" opacity="0.85"/>
+<circle cx="279" cy="309" r="6" fill="#2f6b3a" opacity="0.85"/>
+<circle cx="124" cy="525" r="6" fill="#2f6b3a" opacity="0.85"/>
+<circle cx="224" cy="386" r="6" fill="#2f6b3a" opacity="0.85"/>
+<circle cx="185" cy="397" r="6" fill="#2f6b3a" opacity="0.85"/>
+<circle cx="187" cy="312" r="6" fill="#2f6b3a" opacity="0.85"/>
+<circle cx="109" cy="444" r="6" fill="#2f6b3a" opacity="0.85"/>
+<circle cx="191" cy="444" r="6" fill="#2f6b3a" opacity="0.85"/>
+<circle cx="214" cy="334" r="5" fill="#9aa0a6" opacity="0.85"/>
+<circle cx="224" cy="203" r="5" fill="#9aa0a6" opacity="0.85"/>
+<circle cx="214" cy="305" r="5" fill="#9aa0a6" opacity="0.85"/>
+<circle cx="213" cy="247" r="5" fill="#9aa0a6" opacity="0.85"/>
+<circle cx="385" cy="413" r="5" fill="#9aa0a6" opacity="0.85"/>
+<circle cx="105" cy="342" r="7" fill="#9e2b25" opacity="0.85"/>
+<circle cx="74" cy="164" r="5" fill="#2f6b3a"/>
+<text x="84" y="168" font-size="10.5" fill="#1b2127">문헌 in vitro (정량)</text>
+<circle cx="74" cy="182" r="5" fill="#9aa0a6"/>
+<text x="84" y="186" font-size="10.5" fill="#1b2127">template 입력 (방향만)</text>
+<circle cx="74" cy="200" r="5" fill="#9e2b25"/>
+<text x="84" y="204" font-size="10.5" fill="#1b2127">counterion 한계</text>
+<text x="540" y="142" font-size="13" font-weight="bold" fill="#1b2127">정량 검증 화합물별 정확도</text>
+<text x="540" y="163" font-size="10.5" fill="#1b2127">AXL inhib. L-tartrate</text>
+<rect x="690" y="153" width="210" height="16" fill="#ebe6da" rx="3"/>
+<rect x="690" y="153" width="205" height="16" fill="#2f6b3a" rx="3"/>
+<text x="906" y="166" font-size="10.5" fill="#444">98%</text>
+<text x="540" y="193" font-size="10.5" fill="#1b2127">Canertinib-type maleat</text>
+<rect x="690" y="183" width="210" height="16" fill="#ebe6da" rx="3"/>
+<rect x="690" y="183" width="190" height="16" fill="#2f6b3a" rx="3"/>
+<text x="906" y="196" font-size="10.5" fill="#444">91%</text>
+<text x="540" y="223" font-size="10.5" fill="#1b2127">Phenytoin Na/piperazin</text>
+<rect x="690" y="213" width="210" height="16" fill="#ebe6da" rx="3"/>
+<rect x="690" y="213" width="189" height="16" fill="#2f6b3a" rx="3"/>
+<text x="906" y="226" font-size="10.5" fill="#444">90%</text>
+<text x="540" y="253" font-size="10.5" fill="#1b2127">Cilostazol besylate</text>
+<rect x="690" y="243" width="210" height="16" fill="#ebe6da" rx="3"/>
+<rect x="690" y="243" width="170" height="16" fill="#2f6b3a" rx="3"/>
+<text x="906" y="256" font-size="10.5" fill="#444">81%</text>
+<text x="540" y="283" font-size="10.5" fill="#1b2127">NK-1 antag. tartrate</text>
+<rect x="690" y="273" width="210" height="16" fill="#ebe6da" rx="3"/>
+<rect x="690" y="273" width="165" height="16" fill="#b5651d" rx="3"/>
+<text x="906" y="286" font-size="10.5" fill="#444">79%</text>
+<text x="540" y="313" font-size="10.5" fill="#1b2127">IIIM-290 HCl</text>
+<rect x="690" y="303" width="210" height="16" fill="#ebe6da" rx="3"/>
+<rect x="690" y="303" width="165" height="16" fill="#b5651d" rx="3"/>
+<text x="906" y="316" font-size="10.5" fill="#444">79%</text>
+<text x="540" y="343" font-size="10.5" fill="#1b2127">Mesembrine besylate</text>
+<rect x="690" y="333" width="210" height="16" fill="#ebe6da" rx="3"/>
+<rect x="690" y="333" width="143" height="16" fill="#b5651d" rx="3"/>
+<text x="906" y="346" font-size="10.5" fill="#444">68%</text>
+<text x="540" y="373" font-size="10.5" fill="#1b2127">Cilostazol mesylate</text>
+<rect x="690" y="363" width="210" height="16" fill="#ebe6da" rx="3"/>
+<rect x="690" y="363" width="125" height="16" fill="#9e2b25" rx="3"/>
+<text x="906" y="376" font-size="10.5" fill="#444">59%</text>
+<text x="540" y="403" font-size="10.5" fill="#1b2127">NK-1 antag. malate</text>
+<rect x="690" y="393" width="210" height="16" fill="#ebe6da" rx="3"/>
+<rect x="690" y="393" width="109" height="16" fill="#9e2b25" rx="3"/>
+<text x="906" y="406" font-size="10.5" fill="#444">52%</text>
+<rect x="540" y="438" width="390" height="120" rx="9" fill="#fffdf9" stroke="#ded8cb"/>
+<text x="552" y="462" font-size="11.5" fill="#1b2127">• <tspan font-weight="bold">방향·plateau</tspan>: <tspan fill="#2f6b3a">매우 우수 ~90-100%</tspan></text>
+<text x="552" y="488" font-size="11.5" fill="#1b2127">• <tspan font-weight="bold">BCS II/IV 배율</tspan>: <tspan fill="#0d6b63">양호 2-fold·평균 ~77%</tspan></text>
+<text x="552" y="514" font-size="11.5" fill="#1b2127">• <tspan font-weight="bold">counterion 미세차이</tspan>: <tspan fill="#9e2b25">약함 (측정용출 필요)</tspan></text>
+<text x="552" y="540" font-size="11.5" fill="#1b2127">• <tspan font-weight="bold">절대값·Cmax·규제</tspan>: <tspan fill="#9e2b25">부적합</tspan></text>
+</svg>

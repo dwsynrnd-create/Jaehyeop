@@ -101,19 +101,21 @@ pHmax·위 평형용해도가 실시간 표시된다. 용출표는 **분 / 누�
 
 ## 문헌 기반 검증 (실제 결과와 비교)
 
-**확장 데이터셋 (문헌 10건/8개 약물 + haloperidol 순위)** — `python validation/validate_dataset.py`
-([요약·산점도: docs/VALIDATION_SUMMARY.md](docs/VALIDATION_SUMMARY.md)):
+**확장 데이터셋 (문헌 16건/8개 약물군 + haloperidol 순위)** — `python validation/validate_dataset.py`
+([대시보드·요약: docs/VALIDATION_SUMMARY.md](docs/VALIDATION_SUMMARY.md)):
 
 | 지표 | 결과 |
 |---|---|
-| **방향(염이 노출↑/유사) 정확** | **9/10** |
-| **2-fold 이내 (배율)** | **8/8** (salt-vs-base + plateau) |
-| **평균 AUC 정확도** | **~75%** |
+| **방향(염이 노출↑/유사) 정확** | **14/16** |
+| **2-fold 이내 (정량 입력군, n=9)** | **9/9** |
+| **평균 AUC 정확도 (정량군)** | **~77%** |
 | plateau(이미 잘 녹으면 이득 없음) | phenytoin 염-염 ~1.0 ✅ |
 | **한계: counterion 미세차이**(mesylate vs HCl) | 측정 용출 없으면 ~동일로 예측 ❌ |
 
-화합물: IIIM-290·cilostazol(mesylate/besylate)·canertinib·NK-1(tartrate/malate)·mesembrine·
-phenytoin·RPR2000765·PKC·haloperidol. 입력은 문헌 physchem만 사용(관측 PK비로 튜닝 안 함).
+> **표본 크기에 대한 정직한 한계.** "염 vs free base in vivo PK + 측정 용출"이 모두 갖춰진
+> 화합물은 공개 문헌에 **수십 개 수준**(100개 不可 — 지어내면 팩트체크 위반). 여기서는
+> 팩트체크 가능한 16건을 **A(측정 in vitro+PK)/B(PK+부분)/C(template 입력=방향만)** 등급으로
+> 나눠, **배율 정확도는 A·B군(n=9)에서만** 산정했습니다. C군은 방향(6/6)만 검증.
 
 ### 메커니즘·BCS 단위검증
 ```
