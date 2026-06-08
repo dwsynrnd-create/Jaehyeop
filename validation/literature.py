@@ -70,3 +70,19 @@ CLOFAZIMINE = dict(
     # over 60 min -> spring-and-parachute de-supersaturation.
     obs_supersat=dict(peak_ugml=10.0, plateau_ugml=5.0, window_min=60),
 )
+
+# Cilostazol — BCS II, has BOTH measured dissolution AND in vivo PK ratios
+# (best dataset for quantitative accuracy in measured-profile mode).
+CILOSTAZOL = dict(
+    name="Cilostazol (BCS II, antiplatelet)",
+    source=("Seo, Kim et al., 'Improved oral absorption of cilostazol via "
+            "sulfonate salt formation with mesylate and besylate', "
+            "Drug Des. Devel. Ther. 2015;9:3961-3968. PMC4524531 / PMID 26251575"),
+    mw=369.46, pka=11.8, s0_ugml=4.0, is_base=True,    # pKa 11.8 -> ~neutral in GI
+    species="rat", dose_mgkg=20.0,
+    # measured cumulative dissolution at pH 1.2, 6 h:
+    diss_6h={"free base": 0.254, "mesylate": 0.935, "besylate": 0.986},
+    # observed PK ratios vs free base:
+    obs_ratio={"mesylate": dict(AUC=3.88, Cmax=3.65),
+               "besylate": dict(AUC=2.94, Cmax=2.87)},
+)
