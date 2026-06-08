@@ -15,6 +15,7 @@ oa_catalog.csv  ->  dissolution_catalog.xlsx
 
 import csv
 from collections import Counter, defaultdict
+from pathlib import Path
 
 from openpyxl import Workbook
 from openpyxl.styles import Font, PatternFill, Alignment, Border, Side
@@ -164,6 +165,37 @@ def main():
     for c in ["I", "II", "III", "IV"]:
         sub = [r for r in rows if r["bcs_class"] == c]
         write_table(wb.create_sheet(f"BCS_{c}"), sub)
+
+    # ---- 수치데이터 (스니펫 best-effort) ----
+    vpath = Path("dissolution_values.csv")
+    if vpath.exists():
+        wsv = wb.create_sheet("수치데이터")
+        vhead = ["약물", "BCS", "pH", "시간", "%release/용해도", "매질", "출처", "비고"]
+        vcols = ["drug", "bcs_class", "pH", "time", "percent_released", "medium", "source", "note"]
+        for i, h in enumerate(vhead, start=1):
+            wsv.cell(row=1, column=i, value=h)
+        style_header(wsv, len(vhead))
+        with open(vpath, encoding="utf-8-sig") as f:
+            vrows = list(csv.DictReader(f))
+        vrows.sort(key=lambda r: (order.get(r["bcs_class"], 9), r["drug"].lower()))
+        for ri, r in enumerate(vrows, start=2):
+            for ci, col in enumerate(vcols, start=1):
+                cell = wsv.cell(row=ri, column=ci, value=r[col])
+                cell.border = BORDER
+                cell.alignment = Alignment(vertical="top", wrap_text=(ci == 8))
+                if col == "bcs_class":
+                    cell.fill = PatternFill("solid", fgColor=CLASS_FILLS.get(r[col], "FFFFFF"))
+                    cell.alignment = Alignment(horizontal="center")
+                if col == "pH":
+                    cell.alignment = Alignment(horizontal="center")
+                    if r[col] in ("1.2", "6.8"):
+                        cell.fill = YES_FILL
+        for i, w in enumerate([18, 6, 7, 10, 16, 26, 26, 40], start=1):
+            wsv.column_dimensions[get_column_letter(i)].width = w
+        wsv.freeze_panes = "A2"
+        wsv.auto_filter.ref = f"A1:H{len(vrows) + 1}"
+        # 수치 시트를 요약 다음(2번째)로 이동
+        wb.move_sheet("수치데이터", -(len(wb.sheetnames) - 2))
 
     wb.save(OUT)
     print(f"저장: {OUT}  (총 {len(rows)}편, 시트 {len(wb.sheetnames)}개)")

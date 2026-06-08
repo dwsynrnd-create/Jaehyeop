@@ -1,0 +1,177 @@
+﻿drug,bcs_class,pH,time,percent_released,medium,source,note
+acetaminophen,I,6.8,45min,80,phosphate-buffer-6.8,USP9925148-enteric-capsule,delayed-release <10% at pH1.2 in 2h
+acetaminophen,I,1.2,15min,53,0.1N-HCl,sciencedirect-pain-relief,approx 52-55% range
+acetaminophen,I,1.2,60min,67,0.1N-HCl,sciencedirect-pain-relief,approx 66-68% range
+acetaminophen,I,1.2,180min,86,0.1N-HCl,sciencedirect-pain-relief,approx 85-88% range
+captopril,I,NA,NA,NA,0.1N-HCl-then-pH6.8,PMC3465150,method only; no numeric % in snippet
+chloroquine,I,NA,45min,94.26,water,researchsquare-Afghanistan,brand CQ-001
+chloroquine,I,NA,45min,96.17,water,researchsquare-Afghanistan,brand CQ-002
+chloroquine,I,NA,45min,97.63,water,researchsquare-Afghanistan,brand CQ-004
+chloroquine,I,NA,45min,89.20,water,researchsquare-Afghanistan,brand CQ-005
+diltiazem,I,NA,4h,15-40,NA,USP5439689-ER-patent,extended-release range
+diltiazem,I,NA,8h,40-70,NA,USP5439689-ER-patent,extended-release range
+diltiazem,I,NA,12h,50-85,NA,USP5439689-ER-patent,extended-release range
+diltiazem,I,NA,24h,70-100,NA,USP5439689-ER-patent,extended-release range
+enalapril,I,1.2,15min,85,0.1N-HCl,jpharmsci-biowaiver-enalapril,Vasotec >85% all 3 media
+enalapril,I,6.8,15min,85,phosphate-buffer-6.8,jpharmsci-biowaiver-enalapril,Vasotec >85% all 3 media
+enalapril,I,1.2,10min,85,0.1N-HCl,PMC8231320,FDC amlodipine-enalapril >85% in 10min
+levodopa,I,NA,120min,40,0.001N-HCl-NaCl,researchgate-CFMT,approx 40% at 120 min
+levofloxacin,I,NA,NA,NA,0.1N-HCl,scholarsresearch-floating-tablet,method only; no numeric % in snippet
+metformin,I,6.8,45min,75,phosphate-buffer-6.8,PMC6925909,IP/USP spec NLT 75% in 45min
+metformin,I,6.8,30min,80,phosphate-buffer-6.8,PMC8352574,USP single-point spec 80% at 30min
+metoprolol,I,6.8,NA,NA,phosphate-buffer-6.8,PMC2663665,method only; no numeric % in snippet
+metronidazole,I,1.2,60min,101,0.1N-HCl,PMC11234021,mean 101 +/- 2.22; IP NLT 85% in 60min
+minocycline,I,4.5,15min,15-25,acetate-buffer-4.5,USP9561241-ER-patent,extended-release range
+minocycline,I,4.5,30min,35-45,acetate-buffer-4.5,USP9561241-ER-patent,extended-release range
+minocycline,I,4.5,60min,50-65,acetate-buffer-4.5,USP9561241-ER-patent,extended-release range
+minocycline,I,4.5,120min,70-90,acetate-buffer-4.5,USP9561241-ER-patent,extended-release range
+minocycline,I,6.8,360min,75,phosphate-buffer-6.8,PMC2865789,NLT 75% after 360 min
+prednisolone,I,6.8,NA,NA,phosphate-buffer-6.8,IJNRD2506067,method only; sampled 15 and 30 min no % in snippet
+promethazine,I,1.2,30min,80,0.1N-HCl,iosrphr-v3i11,9 of 10 brands >80% in 30min
+promethazine,I,1.2,15min,92.3,0.1N-HCl,PMC8180616,approx 92.3% at 15min
+propranolol,I,NA,30min,88,NA,academia-comparative-study,reference brand 88%; locals 80-87%
+theophylline,I,1.2,60min,6.6-50.1,SGF,pubmed-6470957,SR range 1h gastric fluid
+theophylline,I,NA,6h,10.8-86.5,NA,pubmed-6470957,SR range at 6h
+theophylline,I,6.8,5h,95,phosphate-buffer-6.8,pubmed-6470957,Theo-Dur >95% in 5h
+tramadol,I,1.2,30min,80,0.1N-HCl,USP-monograph,NLT 80% in 30min
+tramadol,I,1.2,30min,100,0.1N-HCl,biomedpharmajournal-ER,IR cores 100% in ~30min
+tramadol,I,1.2,20min,100,0.1N-HCl,biomedpharmajournal-ER,chewable intact 100% in 20min
+venlafaxine,I,NA,1h,10-40,water,USP8105627-ER-patent,extended-release range
+venlafaxine,I,NA,8h,35-70,water,USP8105627-ER-patent,extended-release range
+venlafaxine,I,NA,24h,60,water,USP8105627-ER-patent,NLT 60% at 24h
+verapamil,I,6.8,15min,75,phosphate-buffer-6.8,PMC2996061,fast-dissolving strip >75% in 15min
+aceclofenac,II,6.8,60min,99.92,phosphate-buffer-6.8,Assessment-Marketed-Aceclofenac,formulation-FB-released-99.92pct
+aceclofenac,II,6.8,30min,80,phosphate-buffer-6.8,Assessment-Marketed-Aceclofenac,~80pct-at-30min-multiple-brands
+albendazole,II,1.2,30min,80,0.1N-HCl,USP24-spec,USP24-requires-80pct-at-30min
+albendazole,II,1.2,NA,400ug/mL,0.1N-HCl,solubility-note,solubility-0.4mg/mL-in-0.1N-HCl
+atorvastatin,II,6.8,60min,28.92,phosphate-buffer-6.8,PMC3645364,pure-drug-28.92pct-at-60min
+atorvastatin,II,6.8,60min,55.26,phosphate-buffer-6.8,PMC3645364,marketed-tablet-55.26pct-at-60min
+candesartan,II,6.5,NA,0.8ug/mL,phosphate-buffer-6.5,PMC4179655,solubility-0.8ug/mL-no-surfactant
+candesartan,II,6.5,10min,42.0,phosphate-buffer-6.5-polysorbate,PMC4179655,42.0-57.3pct-at-10min-50rpm
+carbamazepine,II,6.8,NA,503.9ug/mL,phosphate-buffer-6.8,biopharm-equiv-study,solubility-503.9ug/mL
+carbamazepine,II,1.2,30min,31.7,0.1N-HCl,biopharm-equiv-study,31.7-75.4pct-at-30min-pH1.2
+carvedilol,II,1.2,60min,95.8,SGF-pH1.2,PMC4984888,95.8-98.2pct-released-within-60min
+carvedilol,II,6.8,NA,5.8ug/mL,phosphate-buffer-6.8,PMC4984888,solubility-5.8-51.9ug/mL-pH6.5-7.8
+carvedilol,II,1.2,NA,545.1ug/mL,SGF-pH1.2,PMC4984888,solubility-545-2591ug/mL-pH1.2-5.0
+celecoxib,II,6.8,60min,27,phosphate-buffer-6.8,PMC9964073,pure-crystalline-no-more-than-27pct
+celecoxib,II,6.8,NA,106ug/mL,phosphate-buffer-6.8-1pctSLS,PMC9964073,solubility-106ug/mL-with-1pctSLS
+danazol,II,NA,NA,0.6ug/mL,water,DT201308-A05,aqueous-solubility-0.6-0.9ug/mL
+diclofenac,II,6.8,45min,100,phosphate-buffer-6.8,enteric-coated-study,reference-100pct-at-45min
+diclofenac,II,1.2,120min,0.9,0.1N-HCl,enteric-coated-study,less-than-0.9pct-in-acid-phase
+ezetimibe,II,6.8,NA,10,phosphate-buffer-6.8,solid-dispersion-study,less-than-10pct-without-SDS
+ezetimibe,II,6.8,60min,90,phosphate-buffer-6.8-0.45pctSDS,solid-dispersion-study,up-to-90pct-with-SDS
+felodipine,II,6.5,30min,95,phosphate-buffer-6.5-CTAB,PMC3093633,95pct-at-30min-with-0.4pctCTAB
+felodipine,II,NA,NA,1ug/mL,water,molar-solubility-study,aqueous-solubility-~1ug/mL
+fenofibrate,II,NA,60min,19.5,0.05M-SLS,supercritical-antisolvent-study,raw-fenofibrate-19.5pct-at-60min
+fenofibrate,II,NA,60min,27.38,0.05M-SLS,solid-dispersion-study,pure-drug-27.38pct-at-60min
+fenofibrate,II,NA,NA,474.4ug/mL,SLS-solution,supercritical-study,solubility-474.4ug/mL-at-1h
+fluconazole,II,1.2,NA,6900ug/mL,0.1N-HCl,equilibrium-solubility-study,solubility-~6.9mg/mL-high-solubility
+fluconazole,II,6.8,60min,80,phosphate-buffer-6.8,discriminating-method,greater-than-80pct-at-60min
+flurbiprofen,II,6.8,30min,96,phosphate-buffer-6.8,PMID15881610,96pct-at-30min-semisolid-dispersion
+flurbiprofen,II,NA,NA,5ug/mL,gastric-pH,solubility-note,solubility-5-10ug/mL-low-pH
+glibenclamide,II,7.4,60min,28.93,phosphate-buffer-7.4,PMC8874636,reference-28.93pct-at-60min
+glibenclamide,II,7.4,60min,95.51,phosphate-buffer-7.4,PMC8874636,dioxane-solvate-95.51pct-at-60min
+glimepiride,II,7.8,NA,6.88ug/mL,phosphate-buffer-7.8,PMC13012170,pure-drug-solubility-6.88ug/mL
+glimepiride,II,7.8,60min,98.20,phosphate-buffer-7.8,solid-dispersion-study,SD-Poloxamer188-98.20pct-at-60min
+glipizide,II,7.4,60min,90,phosphate-buffer-7.4,PMC7032084,~90pct-at-60min-formulationB
+glipizide,II,6.8,60min,40,phosphate-buffer-6.8,PMC2750283,less-than-40pct-below-pH6
+griseofulvin,II,NA,NA,8.64ug/mL,water,SCCO2-HPgCD-study,water-solubility-8.64mg/L
+ibuprofen,II,7.2,20min,100,phosphate-buffer-7.2,solid-dispersion-study,~100pct-release-after-20min
+ibuprofen,II,7.2,NA,5.85ug/mL,phosphate-buffer-7.2,chemrj-BCS2-study,solubility-highest-at-pH7.2
+ibuprofen,II,6.8,60min,100,SIF-pH6.8,PMC3630726,complete-dissolution-by-60min
+indomethacin,II,6.8,60min,8.08,phosphate-buffer-6.8,liquisolid-study,pure-drug-8.08pct-at-60min
+indomethacin,II,7.4,NA,105.2ug/mL,pH7.4,solubility-note,solubility-1.5ug/mL-pH1.2-vs-105.2-pH7.4
+itraconazole,II,1.2,60min,86.5,SGF-pH1.2,supersaturation-study,Sporanox-86.5pct-at-60min
+itraconazole,II,1.2,NA,3.5ug/mL,SGF-pH1.2,supersaturation-study,solubility-3.5ug/mL-in-SGF
+ketoconazole,II,2.0,30min,100,pH2-buffer,PMID6310994,all-dissolved-by-30min-pH2
+ketoconazole,II,6.0,60min,10,pH6-buffer,PMID6310994,only-10pct-at-60min-pH6
+ketoprofen,II,6.8,60min,63.96,phosphate-buffer-6.8,MDPI-12-275,intact-ketoprofen-63.96pct-at-60min
+ketoprofen,II,6.8,NA,40760ug/mL,phosphate-buffer-6.8,solubility-note,solubility-~40.76mg/mL-pH6.8
+meloxicam,II,7.4,60min,97.45,phosphate-buffer-7.4,solid-dispersion-study,SD-PEG6000-SLS-97.45pct-at-60min
+meloxicam,II,7.4,NA,937.5ug/mL,phosphate-buffer-7.4,solubility-note,solubility-~937.5ug/mL-pH7.4
+naproxen,II,6.8,NA,49.12ug/mL,SIF-pH6.8,PVP-nanoformulation-study,solubility-49.12ug/mL-pH6.8-vs-2.42-pH1.2
+naproxen,II,7.4,60min,35,phosphate-buffer-7.4,colonic-DDS-study,35-75pct-released-after-1h-CR
+nifedipine,II,6.8,60min,32.5,phosphate-buffer-6.8,JTAC-2012,acetone-crystals-32.5pct-at-60min
+nifedipine,II,6.5,NA,7.47ug/mL,phosphate-buffer-6.5,JTAC-2012,equilibrium-solubility-7.47ug/mL
+phenytoin,II,6.8,NA,NA,phosphate-buffer-6.8,Serajuddin-1993,Na-salt-converts-to-insoluble-phenytoin-incomplete-release
+piroxicam,II,6.8,NA,470ug/mL,phosphate-buffer-6.8,solubility-note,solubility-0.47mg/mL-pH6.8
+piroxicam,II,6.8,30min,85,phosphate-buffer-6.8,PMID16084514,not-less-than-85pct-at-30min-Gelucire
+simvastatin,II,7.0,60min,98.60,phosphate-buffer-7-0.5pctSLS,solid-dispersion-study,formulation-98.60pct-at-60min
+simvastatin,II,NA,NA,34ug/mL,water,solubility-note,enhanced-formulation-34ug/mL
+spironolactone,II,1.2,60min,27.25,0.1N-HCl,PMC4787064,pure-drug-27.25pct-at-60min
+spironolactone,II,NA,NA,23.54ug/mL,water,PMC4787064,pure-drug-solubility-23.54ug/mL
+telmisartan,II,1.2,5min,90,0.1N-HCl,HME-pH-modifier-study,raw-drug-greater-than-90pct-in-5min-pH1.2
+telmisartan,II,6.8,120min,1,phosphate-buffer-6.8,HME-pH-modifier-study,less-than-1pct-for-2h-pH6.8
+telmisartan,II,NA,NA,120ug/mL,water,solubility-note,aqueous-solubility-~0.12mg/mL
+valsartan,II,6.8,4min,38,phosphate-buffer-6.8,SMEDDS-study,intact-drug-38pct-at-4min
+valsartan,II,6.8,15min,85,phosphate-buffer-6.8,DT202308-Valsartan,brands-more-than-85pct-within-15min
+acyclovir,III,1.2,NA,41,SGF,PMC5385727,release no more than 41% in SGF hollow microspheres
+acyclovir,III,NA,4.76h,54.33,NA,PMC5385727,mean dissolution time 4.76h efficacy 54.33pct
+allopurinol,III,6.8,45min,NA,phosphate-buffer-6.8,FDA-method,sampling 5-45min paddle 50rpm no pct in snippet
+amoxicillin,III,1.2,6h,42.88,0.1N-HCl,academia-HPMC-K4M,floating tablet 42.88pct in 6h
+ascorbic acid,III,1.2,2h,36,SGF,PMC8180969,lipid encapsulation 36pct at 2h acid phase
+ascorbic acid,III,6.8,6h,85,SIF,PMC8180969,85pct at 6h intestinal phase
+ascorbic acid,III,6.8,8h,98,SIF,PMC8180969,98pct at 8h intestinal phase
+ascorbic acid,III,NA,30min,100,NA,PMC8180969,regular capsule 100pct at 30min
+atenolol,III,NA,30min,100.6,NA,innovareacademics-IR,immediate release 100.6pct in 30min
+cefixime,III,6.8,12min,90,phosphate-buffer-6.8,RG-mouth-dissolve,t90 about 12min in pH6.8
+cefuroxime,III,1.2,15min,70,0.1N-HCl,PMC4852570,more than 70pct within 15min
+cimetidine,III,1.2,15min,80.25,SGF,PMC5760944,dissolution up to 80.25pct at 15min
+cimetidine,III,1.2,18h,NA,SGF,ijpcbs-albizia,floating release sustained over 18h
+ciprofloxacin,III,1.2,12h,99.12,0.1N-HCl,tandfonline-F4,F4 99.12pct within 12h
+ciprofloxacin,III,1.2,8h,61.31,0.1N-HCl,tandfonline-F8,F8 61.31pct up to 8h
+famotidine,III,1.2,t80=6.3h,80,0.1N-HCl,pharmtech-floating,t30 1.9h t80 6.3h
+famotidine,III,NA,30min,100,NA,PMC2628252,gellan gum tablet full release 30min
+gabapentin,III,NA,1h,100,NA,PMC-springer-IIVIVR,IR complete within 1h
+gabapentin,III,NA,12h,NA,NA,PMC-springer-IIVIVR,SR released over 12h
+hydralazine,III,6.8,5min,87.38,phosphate-buffer-6.8,RG-SR-matrix,87.38pct at 5min 3pct superdisintegrant
+hydralazine,III,6.8,10min,100,phosphate-buffer-6.8,RG-SR-matrix,100pct in less than 10min
+hydralazine,III,NA,10h,70,SIF,US9486454-beads,SR greater than 70pct over 10h after 2h lag
+lisinopril,III,NA,6h,84,NA,PMC4491407,released 84-101pct at 6h
+lisinopril,III,6.8,6h,56.2,phosphate-buffer-6.8,sciencedirect-pellets,SR pellets 56.2pct at 6h
+lisinopril,III,6.8,360min,75,phosphate-buffer-6.8,US8883777,not less than 75pct at 360min
+metformin,III,1.2,8h,99.10,0.1N-HCl,PMC4986121,max release 99.10pct within 8h
+nadolol,III,NA,NA,NA,NA,NA,no numeric value in snippet
+pravastatin,III,6.8,15min,98.5,phosphate-buffer-6.8,academia-FDT-F8,F8 98.5pct release
+pravastatin,III,6.8,12h,80,phosphate-buffer-6.8,US6967218,coated 12h greater than or equal 80pct
+pregabalin,III,1.2,15min,95,0.1N-HCl,DT202011-bioeq,capsules 95-102pct within 15min at pH1.2
+pregabalin,III,NA,12h,60,NA,iajps-SR,SR 60-80pct at 12h
+pregabalin,III,NA,24h,99.45,NA,wisdomlib-F3,F3 99.45pct at 24h
+ranitidine,III,1.2,24h,91.2,0.1N-HCl,PLOS-0253391,91.2pct at 24h HPMC K15M Polyox
+ranitidine,III,1.2,NA,97.11,0.1N-HCl,scialert-ajdd,F5 highest 97.11pct
+tetracycline,III,1.2,5min,70,0.1N-HCl,DT202005-A04,doxycycline analog 70pct in 5min pH-dependent
+trimethoprim,III,6.8,NA,86,phosphate-buffer-6.8,PMC12389140,86pct at pH6.8 PEG-PLGA nanoparticles
+zidovudine,III,6.8,12h,88.1,phosphate-buffer-6.8,PMC2792557,Eudragit ethylcellulose 88.1pct in 12h
+acetazolamide,IV,7.4,NA,2mg/mL,phosphate-buffer,RG-232076701,max solubility above 2mg/mL at pH above 7
+acetazolamide,IV,6.8,NA,22x-increase,pH-6.8-buffer,acetazolamide-PABA-cocrystal,cocrystal 22x higher than pure drug
+amphotericin B,IV,6.8,24h,20-54,phosphate-buffer-deoxycholate,Dovepress-IJN,20-54pct released in 24h
+amphotericin B,IV,5.8,8h,NA,PBS-Tween80,Dovepress-IJN,no numeric percent given for 8h
+chlorothiazide,IV,7,NA,150mg/100mL,urine-pH7,chlorothiazide-PI,soluble 150mg per 100mL at pH7
+chlorothiazide,IV,NA,24h,0.05percent,water,chlorothiazide-PI,solubility 0.05pct in water
+chlorthalidone,IV,6.8,45min,80,phosphate-buffer-6.8-1pctSLS,RP-HPLC-combo-study,above 80pct in 45min USP-II 75rpm
+chlorthalidone,IV,6.8,30min,74,phosphate-buffer-6.8,PMC8876770,reference product 74pct at 30min
+colistin,IV,6.8,6h,96.63,PBS-6.8,Frontiers-fvets-2024,burst release free colistin 96.63pct in 6h
+colistin,IV,6.8,96h,88.35,PBS-6.8,Frontiers-fvets-2024,nanoemulsion 88.35pct at 96h
+cyclosporine,IV,6.8,30min,60,SIF-6.8,PMC12389572,up to 60pct released in 30min model without membrane
+cyclosporine,IV,6.8,96h,14,SIF-6.8,PMC12389572,no formulation above 14pct over 96h horizontal chamber
+furosemide,IV,1.2,10min,94.58,SGF-1.2,furosemide-nanoparticle,optimized nanoparticle 94.58pct in 10min
+furosemide,IV,6.8,4h,79.86,phosphate-buffer-6.8,furosemide-granule,79.86pct within 4h two-step
+furosemide,IV,6.5,NA,1.50mg/mL,water-pH6.5,furosemide-solubility,solubility 1.50mg/mL at pH6.5 vs 0.33 at pH5
+hydrochlorothiazide,IV,1.2,60min,64.02,0.1N-HCl,PMC4669426,marketed tablet 64.02pct in 60min
+hydrochlorothiazide,IV,1.2,15min,19,0.1N-HCl,PMC4669426,only 19pct in first 15min
+indapamide,IV,6.8,360min,97,phosphate-buffer-6.8,indapamide-solid-dispersion,acrylic-polymer SD 97pct at 360min
+methotrexate,IV,1.2,NA,93.75,SGF-1.2,PMC8309343,hydrogel max polymer 93.75pct at pH1.2
+methotrexate,IV,6.8,8h,95.78,phosphate-buffer-6.8,methotrexate-NP,cumulative release up to 95.78pct at 8h
+nelfinavir,IV,NA,NA,NA,multiple-buffers,ScienceDirect-S0022354918307123,no numeric percent in snippet
+nitrofurantoin,IV,NA,1h,90,water,Cherukuvada-2011,90pct dissolved from powder in about 1h
+norfloxacin,IV,NA,30min,80,USP-medium,norfloxacin-tablet-USPXXIII,passed USP releasing more than 80pct in 30min
+ofloxacin,IV,1.2,45min,85,0.1N-HCl,RG-287749661,marketed brands above 85pct in 45min
+ritonavir,IV,6.8,3h,66.30,phosphate-buffer-6.8,PMC2902348,RTV-ASD tablet 66.30pct vs native 9.53pct at 3h
+ritonavir,IV,6.8,NA,4.0ug/mL,FaSSIF,RG-372233614,solubility 4.0ug/mL FaSSIF vs 8.38 FaSSGF
+rosuvastatin,IV,6.8,45min,100,phosphate-buffer-6.8,PMC6598454,1.5pct Polyplasdone XL 100pct in 45min
+saquinavir,IV,6.8,45min,100,phosphate-buffer-6.8,Svir-capsule-study,100pct at pH6.8 in 45min
+saquinavir,IV,1.2,10min,100,0.1N-HCl,Svir-capsule-study,100pct in 10min at pH1.2
+sulfasalazine,IV,6.8,17h,93.89,phosphate-buffer-6.8,IJPSR-41647,93.89pct cumulative in 17h after 6h lag
+tacrolimus,IV,6.8,2h,90.70,0.1pct-SDS,tacrolimus-SMEDDS,FK506-SMEDDS 90.70pct at 2h vs raw 17.91pct
+tacrolimus,IV,6.8,60min,37.0,phosphate-buffer-6.8,US9358210-pellets,SR pellet 37.0pct at 60min
+torsemide,IV,6.8,NA,NA,phosphate-buffer-6.8,RJPT-torsemide,no numeric percent in snippet
