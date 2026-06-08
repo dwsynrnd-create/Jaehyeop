@@ -60,8 +60,19 @@ python download_dissolution_pdfs.py --drugs ibuprofen ketoprofen --require-ph an
 
 ## ⭐ 바로 받는 큐레이션 카탈로그 (`oa_catalog.csv` + `download_from_catalog.py`)
 
-이미 **검증된 OA 논문 45편**(17개 약물, pH 1.2 / 6.8 용출 데이터 확인)을
-`oa_catalog.csv` 에 정리해 두었습니다. 검색 단계 없이 바로 PDF만 받으려면:
+이미 **검증된 OA 논문 310편**(92개 약물, pH 1.2 / 6.8 용출 데이터 확인)을
+`oa_catalog.csv` 에 정리해 두었습니다. BCS 클래스별 수집 편수:
+
+| BCS Class | 논문 수 |
+|-----------|--------|
+| I (고용해도·고투과) | 51 |
+| II (저용해도·고투과) | 121 |
+| III (고용해도·저투과) | 77 |
+| IV (저용해도·저투과) | 60 |
+| **합계** | **310** |
+
+(이 중 pH 1.2·pH 6.8 둘 다 명시 확인된 논문 152편. 나머지는 한쪽이 `?`로,
+본문 확인 시 대부분 두 buffer 모두 포함.) 검색 단계 없이 바로 PDF만 받으려면:
 
 ```bash
 pip install requests
