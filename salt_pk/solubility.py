@@ -66,6 +66,10 @@ class SaltForm:
     ph_solubility: Optional[dict] = None
     # COMPENDIAL multi-pH dissolution: {pH(float): [(time_h, cumulative_fraction_0to1)]}
     ph_profiles: Optional[dict] = None
+    # Dissolution-test conditions for the dose/fluid-volume correction (optional;
+    # used only if ph_solubility at the high pH is not given).
+    test_dose_mg: Optional[float] = None
+    test_volume_mL: Optional[float] = None
     # Optional counterion molar mass (g/mol) -> salt/free-base weight factor for dosing.
     counterion_mw: Optional[float] = None
 
@@ -79,13 +83,15 @@ class SaltForm:
     @classmethod
     def of(cls, counterion_name: str, s_salt_ugml: float, label: str = "",
            diss_profile=None, diss_medium="", intestinal_profile=None,
-           ph_solubility=None, ph_profiles=None, counterion_mw=None):
+           ph_solubility=None, ph_profiles=None, counterion_mw=None,
+           test_dose_mg=None, test_volume_mL=None):
         ci = get_counterion(counterion_name)
         return cls(counterion=ci, s_salt_ugml=s_salt_ugml,
                    label=label or f"{counterion_name} salt",
                    diss_profile=diss_profile, diss_medium=diss_medium,
                    intestinal_profile=intestinal_profile, ph_profiles=ph_profiles,
-                   ph_solubility=ph_solubility, counterion_mw=counterion_mw)
+                   ph_solubility=ph_solubility, counterion_mw=counterion_mw,
+                   test_dose_mg=test_dose_mg, test_volume_mL=test_volume_mL)
 
 
 # Typical GI chloride concentration (mM) used for the common-ion calculation.

@@ -176,6 +176,14 @@ entry(id="Compound B1 tosylate (dog)", ctype="base", bcs="II", species="dog", gr
       cite="US 6,015,807 (PTSA salt ~4x dog)")
 
 
+entry(id="Compound A mesylate", ctype="base", bcs="II", species="rat", grade="C",
+      obs_auc=5.0, obs_cmax=5.0, predict=lambda: _template_base(3, 16, 9000, ci="mesylate"),
+      cite="salt mesylate/tosylate: Cmax/AUC 3-8x vs free base unmilled (rat)")
+entry(id="Compound A tosylate", ctype="base", bcs="II", species="rat", grade="C",
+      obs_auc=5.0, obs_cmax=5.0, predict=lambda: _template_base(3, 16, 9000, ci="tosylate"),
+      cite="salt mesylate/tosylate: Cmax/AUC 3-8x vs free base unmilled (rat)")
+
+
 def p_barbiturate_na():
     io = IonizableDrug(mw=240.0, pka=7.8, s0_ugml=30.0, is_base=False)
     pk = DrugPK(dose_mgkg=20, caco2=20, clint=8, ppb_percent=80)

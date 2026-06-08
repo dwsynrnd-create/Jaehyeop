@@ -1,12 +1,12 @@
 <svg xmlns="http://www.w3.org/2000/svg" width="940" height="720" font-family="Helvetica,Arial,sans-serif">
 <rect width="940" height="720" fill="#f5f2ec"/>
-<text x="470.0" y="34" font-size="20" font-weight="bold" text-anchor="middle" fill="#073d39">염 스크리닝 예측기 — 문헌 검증 종합 (16건)</text>
+<text x="470.0" y="34" font-size="20" font-weight="bold" text-anchor="middle" fill="#073d39">염 스크리닝 예측기 — 문헌 검증 종합 (18건)</text>
 <rect x="30" y="50" width="200" height="64" rx="9" fill="#fffdf9" stroke="#ded8cb"/>
 <text x="44" y="76" font-size="12" fill="#828a92">검증 건수</text>
-<text x="44" y="103" font-size="26" font-weight="bold" fill="#0d6b63">16</text>
+<text x="44" y="103" font-size="26" font-weight="bold" fill="#0d6b63">18</text>
 <rect x="242" y="50" width="200" height="64" rx="9" fill="#fffdf9" stroke="#ded8cb"/>
 <text x="256" y="76" font-size="12" fill="#828a92">방향 정확</text>
-<text x="256" y="103" font-size="26" font-weight="bold" fill="#2f6b3a">14/16</text>
+<text x="256" y="103" font-size="26" font-weight="bold" fill="#2f6b3a">16/18</text>
 <rect x="454" y="50" width="200" height="64" rx="9" fill="#fffdf9" stroke="#ded8cb"/>
 <text x="468" y="76" font-size="12" fill="#828a92">2-fold 이내</text>
 <text x="468" y="103" font-size="26" font-weight="bold" fill="#0d6b63">9/9</text>
@@ -44,6 +44,8 @@
 <circle cx="224" cy="203" r="5" fill="#9aa0a6" opacity="0.85"/>
 <circle cx="214" cy="305" r="5" fill="#9aa0a6" opacity="0.85"/>
 <circle cx="213" cy="247" r="5" fill="#9aa0a6" opacity="0.85"/>
+<circle cx="214" cy="203" r="5" fill="#9aa0a6" opacity="0.85"/>
+<circle cx="214" cy="203" r="5" fill="#9aa0a6" opacity="0.85"/>
 <circle cx="385" cy="413" r="5" fill="#9aa0a6" opacity="0.85"/>
 <circle cx="105" cy="342" r="7" fill="#9e2b25" opacity="0.85"/>
 <circle cx="74" cy="164" r="5" fill="#2f6b3a"/>

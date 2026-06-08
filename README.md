@@ -117,6 +117,27 @@ pHmax·위 평형용해도가 실시간 표시된다. 용출표는 **분 / 누�
 > 팩트체크 가능한 16건을 **A(측정 in vitro+PK)/B(PK+부분)/C(template 입력=방향만)** 등급으로
 > 나눠, **배율 정확도는 A·B군(n=9)에서만** 산정했습니다. C군은 방향(6/6)만 검증.
 
+### pH-용출 입력이 정확도를 올리나? — YES (`python validation/input_mode_comparison.py`)
+
+![input mode](input_mode_comparison.svg)
+
+같은 화합물(cilostazol)을 **두 방식으로 예측**한 직접 비교:
+
+| 입력 방식 | mesylate | besylate | 평균 정확도 |
+|---|---|---|---|
+| 용해도(S0·pKa) Tier 1 | 1.01 (26%) | 1.01 (34%) | **30%** |
+| **pH-용출 Tier 2** | 2.30 (59%) | 2.38 (81%) | **70% (+40%p)** |
+
+용해도 모델은 cilostazol의 pKa(11.8)를 잘못 해석해 "free base가 잘 녹는다"고 보고 **염 효과를
+0으로 예측**(완전 실패). **측정 pH-용출**은 실제 거동(위 25%·장 2.7%)을 담아 정상 예측.
+또 다중 pH 입력은 **Cmax 정확도를 56%→98%로** 끌어올림(앞 절). → **pH buffer 용출 기반이
+더 정확하고 robust**.
+
+> **자료 충분성(정직):** pH 1.2/4.5/6.8 용출 *원자료*는 모든 제네릭·IVIVC가 생성 → **입력용은
+> 풍부**. 단 *용출+in vivo PK를 짝지은 검증용* salt 데이터는 여전히 수십 개 수준. 또 compendial
+> %를 in vivo로 환산할 땐 **dose/액량비 보정**(측정 pH-용해도 입력으로 해결, BMS-480188·
+> bicarbonate 논문)이 필요해 엔진에 반영함(`ph_solubility`, `test_dose_mg/volume`).
+
 ### 메커니즘·BCS 단위검증
 ```
 $ python validation/run_validation.py

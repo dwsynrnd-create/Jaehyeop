@@ -2,7 +2,7 @@
 
 ![dashboard](validation_dashboard.svg)
 
-실제 문헌 **16건**(8개 약물군). 모델 상수 기본값 고정, 입력은 문헌 physchem만 사용(관측 PK비로 튜닝 안 함). 등급 A=측정 in vitro+PK, B=PK+부분 in vitro, C=template 입력(방향만).
+실제 문헌 **18건**(8개 약물군). 모델 상수 기본값 고정, 입력은 문헌 physchem만 사용(관측 PK비로 튜닝 안 함). 등급 A=측정 in vitro+PK, B=PK+부분 in vitro, C=template 입력(방향만).
 
 ## ① 정량 검증 (측정/문헌 입력 — 배율 신뢰)
 | 화합물 | 등급 | 종 | 예측 | 실측 | 정확도 | 판정 |
@@ -27,9 +27,11 @@
 | Serajuddin base B mesylate | C | rat | 1.81 | 5.0 | ✅ |
 | Compound B1 tosylate (rat) | C | rat | 1.73 | 3.0 | ✅ |
 | Compound B1 tosylate (dog) | C | dog | 1.71 | 4.0 | ✅ |
+| Compound A mesylate | C | rat | 1.73 | 5.0 | ✅ |
+| Compound A tosylate | C | rat | 1.73 | 5.0 | ✅ |
 | Diphenylbarbiturate Na | C | rat | 4.04 | 1.75 | ✅ |
 
-→ 방향 6/6 일치. **단 magnitude는 template 입력이라 신뢰 불가** — 큰 개선(>3x)은 과소예측 경향(보수적). 측정 용출 넣어야 정확.
+→ 방향 8/8 일치. **단 magnitude는 template 입력이라 신뢰 불가** — 큰 개선(>3x)은 과소예측 경향(보수적). 측정 용출 넣어야 정확.
 
 ## ③ 한계 (정직)
 - **counterion끼리 미세차이**: PKC mesylate/HCl 예측 1.00 vs 실측 2.50 → 측정 다중pH/2-stage 용출 없으면 ~동일로 예측.

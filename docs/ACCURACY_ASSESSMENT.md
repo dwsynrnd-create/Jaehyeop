@@ -1,7 +1,8 @@
 # 객관적 정확도 평가 & 연구소 사용 적합성 (Accuracy & Lab-Readiness)
 
-> **확장 검증(문헌 10건/8약물)**: 방향 9/10, 2-fold 이내 8/8, 평균 AUC 정확도 ~75%, plateau 정확.
-> 단 counterion 미세차이는 미반영(한계). 한눈 요약·산점도: [`VALIDATION_SUMMARY.md`](VALIDATION_SUMMARY.md).
+> **확장 검증(문헌 18건/8약물군)**: 방향 16/18, 정량입력군(n=9) 2-fold 9/9·평균 ~77%, plateau 정확.
+> **입력 방식별:** pH-용출 입력이 용해도 입력보다 정확(cilostazol 30%→70%, Cmax 56%→98%).
+> 단 counterion 미세차이는 미반영(한계). 한눈 요약: [`VALIDATION_SUMMARY.md`](VALIDATION_SUMMARY.md).
 
 
 > 결론 요약: **상대비교(순위·방향) ~90–100%, 절대 AUC비 ~75–90%, Cmax ~65–98%(측정 용출 입력 시 상단).**
