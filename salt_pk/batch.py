@@ -58,7 +58,8 @@ def _parse_profile(s):
 def load_csv(path):
     """Group CSV rows into {drug: {'drug_kw':..,'pk_kw':..,'forms':[(row, SaltForm)]}}"""
     with open(path, newline="", encoding="utf-8-sig") as fh:
-        rows = list(csv.DictReader(fh))
+        lines = [ln for ln in fh if ln.strip() and not ln.lstrip().startswith("#")]
+    rows = list(csv.DictReader(lines))
     drugs = OrderedDict()
     for r in rows:
         d = r["drug"].strip()

@@ -31,6 +31,15 @@ in vivo 노출(AUC · Cmax)이 가장 높은지** 예측·순위화하는 도구
 > 확산층(Mooney/Serajuddin) 관점의 Noyes–Whitney 용출 + 위→소장 구획 + 과포화/석출
 > ODE(RK4)로 구현. 측정 용출 프로파일을 넣으면 그것이 용출을 직접 구동한다.
 
+## ⚠️ 입력은 dissolution-first (물용해도 아님)
+
+**1차(권장) 입력 = pH 1.2 / 4.5 / 6.8 시간대별 누적 용출율.** 평형(물)용해도 S0는 과포화·석출
+동역학을 못 담아 예측력이 약하다 — 같은 약물에서 **용해도 입력 30% → pH-용출 입력 70%**(Cmax 56%→98%).
+데이터 수집·입력 프로토콜: [`docs/DATA_COLLECTION.md`](docs/DATA_COLLECTION.md), 템플릿:
+[`data/dissolution_template.csv`](data/dissolution_template.csv).
+> **데이터 한계(정직):** 시간별 용출 *원수치*는 논문 figure/table에 있고 본 환경은 외부 웹 fetch가 차단되어
+> 공개 자동수집 불가 → 실측 용출로 검증된 공개 건은 cilostazol뿐. **50+는 사내 용출/PK를 CSV로 적재**해 채운다.
+
 ## 염이 되면 무엇이 바뀌나 — 그리고 어떤 데이터가 정확도를 올리나
 
 **바뀌는 것:** 용해도·용출속도·과포화/석출·고체물성. **안 바뀌는 것:** 막투과(Caco-2)·

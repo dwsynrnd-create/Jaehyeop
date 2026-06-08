@@ -81,6 +81,10 @@ for r in sorted(rows, key=lambda r: (r["e"]["bcs"], -(r["e"].get("obs_auc") or 0
 print("-" * 96)
 sm, su = stats(svb_mod), stats(svb_ultra)
 smeas, stempl = stats(svb_meas), stats(svb_templ)
+diss_set = [r for r in rows if r["e"].get("diss") and r["e"].get("obs_auc")]
+sdiss = stats(diss_set)
+print(f"*** DISSOLUTION-INPUT (실측 pH-buffer 용출, n={sdiss['n_s']}): within2 {sdiss['w2']}/{sdiss['n_s']}, "
+      f"mean {sdiss['acc']:.0f}% — 권장 입력(최고 신뢰). 나머지는 PK비/물성 기반(방향 위주).")
 print(f"** MEASURED-input, S0>=1 (n={smeas['n_s']}): within2 {smeas['w2']}/{smeas['n_s']}, mean {smeas['acc']:.0f}%, dir {smeas['dir']}/{smeas['n_s']}  <- 주력 신뢰")
 print(f"   template-input C (n={stempl['n_s']}): within2 {stempl['w2']}/{stempl['n_s']}, mean {stempl['acc']:.0f}% (입력가정 → magnitude 비신뢰, 방향만)")
 print(f"BCS II salt-vs-base, S0>=1 ALL (n={sm['n_s']}): within2 {sm['w2']}/{sm['n_s']}, mean {sm['acc']:.0f}%, dir {sm['dir']}/{sm['n_s']}")

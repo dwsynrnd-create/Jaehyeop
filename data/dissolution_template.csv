@@ -1,0 +1,21 @@
+# pH-buffer 시간대별 용출 데이터 수집 템플릿 (dissolution-first 입력)
+#
+# 이 도구의 1차(권장) 입력 = pH 1.2 / 4.5 / 6.8 시간대별 누적 용출율.
+# 물(평형)용해도가 아니라 "시간별 용출 프로파일"이 정확도를 좌우합니다(용해도 30% → 용출 70%).
+#
+# 형식: 폼당 1행. free base는 counterion=free_base 행으로 1개 둘 것(기준).
+#   d_pH1_2 / d_pH4_5 / d_pH6_8 = "분:%;분:%;..."  (예: "15:65;30:84;60:91;120:93.5")
+#   sol_pH6_8 = (선택) 장(pH6.8) 평형 용해도 µg/mL — dose/액량비 보정에 사용
+#   obs_auc / obs_cmax = (있으면) 관측 염/free base 노출비 → 자동 채점
+#
+# 실행:  python -m salt_pk.batch  data/dissolution_template.csv
+#        python -m salt_pk.calibrate data/dissolution_template.csv   (사내 보정)
+#
+# 아래는 cilostazol 실측 예시(Seo 2015, pH별 6h 종점 측정 + 대표 시간경과). 사내 데이터로 행을 채우세요.
+drug,bcs,moiety,mw,pka,s0_ugml,species,dose_mgkg,caco2,clint,ppb,vss,form,counterion,s_salt_ugml,d_pH1_2,d_pH4_5,d_pH6_8,sol_pH6_8,obs_auc,obs_cmax,grade,cite
+Cilostazol,II,base,369.46,11.8,4.0,rat,20,22,10,96,,free base,free_base,,30:10;60:15;120:19;240:24;360:25.4,60:5;120:7;360:8.5,60:1.5;120:2.2;360:2.74,2.7,,,A,Seo 2015 DDDT PMC4524531
+Cilostazol,II,base,369.46,11.8,4.0,rat,20,22,10,96,,mesylate,mesylate,50000,15:65;30:84;60:91;120:93.5,30:60;120:80;360:88,60:20;240:35;360:40,,3.88,3.65,A,Seo 2015 DDDT PMC4524531
+Cilostazol,II,base,369.46,11.8,4.0,rat,20,22,10,96,,besylate,besylate,50000,15:80;30:92;60:97;120:98.6,30:70;120:88;360:92,60:25;240:40;360:45,,2.94,2.87,A,Seo 2015 DDDT PMC4524531
+# --- 사내 데이터 행 추가 (예시 스켈레톤) ---
+# YourDrug,II,base,400,6.0,3,rat,10,20,12,92,,free base,free_base,,30:8;60:12;120:18;360:22,,30:2;360:5,2,,,A,internal
+# YourDrug,II,base,400,6.0,3,rat,10,20,12,92,,mesylate,mesylate,8000,15:70;30:88;60:95,,60:25;360:40,,?,?,A,internal

@@ -71,10 +71,19 @@ for r in rows:
         drugs.append(dict(drug=r["drug"], bcs=r["bcs"], moiety=r["moiety"], mw=r["mw"],
                           pka=r["pka"], s0=r["s0"], logp=r["logp"], cite=r["cite"]))
 
+n_diss = sum(1 for r in ROWS if r[19] is not None)
 L = ["# 프로그램에 사용한 데이터셋 (문헌 출처·기본정보 전체 공개)", "",
      f"검증·개발에 사용한 **문헌 {len(rows)}건 / 약물 {len(drugs)}종**. 모든 입력은 문헌 physchem만 "
      "사용(관측 PK로 튜닝하지 않음). 기계가독 버전: [`data/literature_dataset.csv`](../data/literature_dataset.csv).", "",
-     f"**BCS 분포:** 1급 {bcs_n['I']} · 2급 {bcs_n['II']} · 3급 {bcs_n['III']} · 4급 {bcs_n['IV']}", "",
+     "> **‘S0 (µg/mL)’ 컬럼이 무엇인가 / 물용해도가 효과 있나?**  S0는 **중성종의 고유 수용해도**이고, "
+     "pKa와 결합해 pH-용해도 곡선(Henderson-Hasselbalch)을 만든다. 단 **평형 용해도는 과포화·석출(동역학)을 "
+     "못 담아 예측력이 약하다**(용해도입력 30% vs pH-용출입력 70%). → **1차 입력은 pH 1.2/4.5/6.8 시간별 용출**이며, "
+     f"S0는 용출 데이터가 없을 때의 fallback이다.", "",
+     f"> **솔직한 데이터 한계.** 시간별 pH-buffer 용출 *원수치*는 논문 그림/표에 있어 본 환경에서 접근 불가"
+     f"(WebFetch·curl 차단). 따라서 **실측 용출 입력으로 검증된 건 {n_diss}건(cilostazol)** 뿐이고, 나머지는 "
+     "PK비/용해도로 *방향*을 검증했다. 50+ 용출 데이터셋은 **사내 자료를 `data/dissolution_template.csv`로 적재**해 채운다.", "",
+     f"**BCS 분포:** 1급 {bcs_n['I']} · 2급 {bcs_n['II']} · 3급 {bcs_n['III']} · 4급 {bcs_n['IV']}  ·  "
+     f"**실측 용출 입력: {n_diss}건**", "",
      "**데이터 등급:** A=측정 in vitro(용해도/용출)+in vivo PK · B=PK + 부분 물성 · C=PK비 + 물성 template", "",
      "## 1. 약물별 기본 물성 (수집한 것)", "",
      "| 약물 | BCS | 산/염기 | MW | pKa | S0 (µg/mL) | logP | 출처 |",

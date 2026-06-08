@@ -100,6 +100,7 @@ for r in ROWS:
     ENTRIES.append(dict(
         id=r[0], drug=r[1], bcs=r[2], ctype=r[3], species=r[4], grade=r[13],
         s0=r[8], obs_auc=r[11], obs_cmax=r[12], kind=r[15], cite=r[14],
+        diss=(r[19] is not None),          # True = real measured pH-buffer dissolution input
         direction=("up" if r[11] is None else None),
         predict=(lambda row=r: _predict_row(row))))
 
