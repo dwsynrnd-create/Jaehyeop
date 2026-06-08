@@ -80,8 +80,9 @@ CILOSTAZOL = dict(
             "Drug Des. Devel. Ther. 2015;9:3961-3968. PMC4524531 / PMID 26251575"),
     mw=369.46, pka=11.8, s0_ugml=4.0, is_base=True,    # pKa 11.8 -> ~neutral in GI
     species="rat", dose_mgkg=20.0,
-    # measured cumulative dissolution at pH 1.2, 6 h:
-    diss_6h={"free base": 0.254, "mesylate": 0.935, "besylate": 0.986},
+    # REAL compendial multi-pH dissolution, cumulative % at 6 h:
+    diss_multipH_freebase={1.2: 0.254, 4.5: 0.0854, 6.8: 0.0274},  # clear weak-base pH dependence
+    diss_pH1_2_salt={"mesylate": 0.935, "besylate": 0.986},        # pH 1.2 at 6 h
     # observed PK ratios vs free base:
     obs_ratio={"mesylate": dict(AUC=3.88, Cmax=3.65),
                "besylate": dict(AUC=2.94, Cmax=2.87)},

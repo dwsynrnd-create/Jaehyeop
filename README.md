@@ -141,11 +141,15 @@ $ python validation/accuracy.py
   2. **besylate 이상치** — 용출은 더 됐는데(98.6% vs 93.5%) in vivo 노출은 더 낮음. 용출
      extent만으로는 예측 불가한 counterion별 과포화·석출 차이(실험적 변동 포함).
 
-> **정직한 결론.** a-priori 절대값을 일률적으로 ‘90% 이상’ 맞추는 것은 PK 예측의 표준
-> (2-fold)을 넘는 과한 기준입니다. 본 모델은 **방향·순위 100%, 전부 2-fold 이내**이며,
-> **잘 특성화된 lead 염의 AUC는 측정 용출 입력 + 1-파라미터 보정으로 ~90% 정확도**에
-> 도달합니다(예: cilostazol mesylate 96%, IIIM-290 91%). Cmax와 이상치(besylate)는
-> 그보다 불확실합니다.
+**다중 pH(Tier 2) 검증 — cilostazol 실제 용출(pH 1.2/4.5/6.8 = 25.4/8.54/2.74%)**
+(`python validation/multi_ph_validation.py`): free base Fa 39%(난용성 약염기와 부합),
+mesylate AUC비 2.71(실측 3.88), besylate 2.81(실측 2.94) — **다중 pH 입력 시 Cmax 정확도가
+56%→98%로 개선**(장내 석출이 Cmax를 좌우; J Pharm Sci 2018와 일치).
+
+> **객관적 정확도 (정직):** 방향·순위 **~90–100%**, AUC 배율 **~75–90%**(좋은 입력 시 90%+),
+> Cmax·절대값 **2-fold 이내**. 전부 2-fold 이내·방향 100%. 단 **검증 화합물 3종은 일반 정확도를
+> 주장하기엔 부족** → 사내 10–20개 전향적 검증 권장. **염 스크리닝·우선순위·기전 이해 용도로는
+> 사용 가능하나, 규제·절대값·생동 판단엔 부적합.** 상세: [`docs/ACCURACY_ASSESSMENT.md`](docs/ACCURACY_ASSESSMENT.md).
 
 ### 검증에 쓴 1차 문헌
 - **IIIM-290** — Bhagat et al., *ACS Omega* 2018, 3(8):8836-8845 (PMC6072253). free base S0 8.6 µg/mL,

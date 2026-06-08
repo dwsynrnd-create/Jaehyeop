@@ -211,7 +211,7 @@ function predict(d,sp,salt){
  const prof=[];
  // dissolution toward intrinsic surface solubility (supersaturation)
  const CsGdiss=surfSol(s0,sSalt,mw,pka,common,'stomach',sp.pHs,true);
- const CsSIdiss=surfSol(s0,sSalt,mw,pka,common,'si',sp.pHi,true);
+ let CsSIdiss=surfSol(s0,sSalt,mw,pka,common,'si',sp.pHi,true);
  const CsGeq=solubility(s0,sSalt,mw,pka,common,sp.pHs,'stomach',false);
  let CsSIeq=solubility(s0,0,mw,pka,common,sp.pHi,'si',false); // free-base floor
  const CsGrate=CsGdiss, CsSIrate=CsSIdiss;
@@ -229,6 +229,7 @@ function predict(d,sp,salt){
   const si=salt.phProfiles[phs[phs.length-1]].map(p=>[p[0]/60,p[1]/100]).sort((a,b)=>a[0]-b[0]);
   const plat=Math.max(...si.map(p=>p[1]));
   CsSIeq=Math.max(1e-6, plat*dose_ug/sp.Vsi);
+  CsSIdiss=CsSIeq;   // emptied solid dissolves only to the intestinal-pH extent
   const t63=(si.find(p=>p[1]>=0.63*plat&&p[0]>0)||[null])[0];
   kdS=Math.max(0.02,Math.min(50,t63?1/t63:0.3));
  }

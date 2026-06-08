@@ -158,8 +158,11 @@ def predict(drug: DrugPK, drug_io: IonizableDrug, form: SaltForm, sp: Species,
         Cs_g_eq = solubility(drug_io, form, sp.pH_stomach, "stomach")  # common-ion included
         Cs_si_eq = solubility(drug_io, SaltForm.free_base(), sp.pH_si, "si")
         if multi_ph:
-            # intestinal solubility ceiling from the measured high-pH (e.g. 6.8) plateau
+            # intestinal solubility ceiling from the measured high-pH (e.g. 6.8) plateau;
+            # the SI dissolution ceiling is the SAME measured level (emptied solid can
+            # only dissolve to the intestinal-pH extent, not the mechanistic value).
             Cs_si_eq = max(1e-6, si_ceiling_frac * dose_ug / sp.V_si)
+            Cs_si_diss = Cs_si_eq
         Cs_g_rate, Cs_si_rate = Cs_g_diss, Cs_si_diss                 # drive wetting/RATE edge
 
         # Dissolution RATE constants (1/h), Noyes-Whitney: rate ∝ surface
