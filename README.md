@@ -94,6 +94,16 @@ for r in screen(drug, drug_io, forms, get_species("rat")):
 ```
 보고서 표 + CSV 예제: `python -m salt_pk.report`
 
+### 사내 데이터로 표본 키우기 — CSV 배치 검증 + 보정 (★ 표본 100+ 경로)
+실험실이 이미 만드는 **pH 1.2/4.5/6.8 용출 + 관측 PK**를 CSV 한 장에 넣으면 자동 예측·채점됩니다.
+```bash
+python -m salt_pk.batch     data/dataset_template.csv   # 예측·정확도 일괄
+python -m salt_pk.calibrate data/your_data.csv          # 사내값으로 상수 보정
+```
+CSV는 폼당 1행(free base 포함), 용출은 `"분:%;분:%"` 형식(`data/dataset_template.csv` 참고).
+`salt_pk.calibrate`는 ≥10개 reference로 `kd0·kprecip·salt_wettability`를 피팅해 **screening→decision
+등급**으로 올리는 경로입니다.
+
 ### 웹 도구
 `salt_screening_predictor.html` 을 브라우저로 열기 → free base 물성·종·염형태 입력 →
 **“PK 예측 · 염 순위 계산”**. counterion을 고르면 pKa·공통이온 여부가 자동 적용되고

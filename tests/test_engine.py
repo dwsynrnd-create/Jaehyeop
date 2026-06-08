@@ -79,9 +79,22 @@ def test_measured_profile_is_absorption_ceiling():
     print("ok  measured-profile absorption ceiling")
 
 
+def test_batch_csv_import():
+    """CSV batch loader runs end-to-end and scores the template."""
+    from salt_pk.batch import run_csv, summary
+    path = os.path.join(os.path.dirname(os.path.dirname(os.path.abspath(__file__))),
+                        "data", "dataset_template.csv")
+    res = run_csv(path)
+    assert len(res) >= 3, "expected >=3 salt forms"
+    s = summary(res)
+    assert s["n_scored"] >= 3 and s["within2"] == s["n_scored"], s
+    assert 50 <= s["mean_acc"] <= 100, s["mean_acc"]
+    print("ok  CSV batch import + scoring")
+
+
 if __name__ == "__main__":
     for fn in [test_pHmax_formula, test_mass_balance_and_Fa_le_1, test_bcs_behaviour,
                test_common_ion_suppresses_hcl, test_compendial_multi_pH_high_pH_discriminates,
-               test_measured_profile_is_absorption_ceiling]:
+               test_measured_profile_is_absorption_ceiling, test_batch_csv_import]:
         fn()
     print("\nALL TESTS PASSED")

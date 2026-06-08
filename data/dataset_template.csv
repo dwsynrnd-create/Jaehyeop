@@ -1,0 +1,6 @@
+drug,moiety,mw,pka,s0_ugml,species,dose_mgkg,caco2,clint,ppb,vss,form,counterion,s_salt_ugml,d_pH1_2,d_pH4_5,d_pH6_8,sol_pH6_8,obs_auc,obs_cmax,grade,cite
+Cilostazol,base,369.46,11.8,4.0,rat,20,22,10,96,,free base,free_base,,15:9;30:14;60:19;240:24;360:25.4,30:6;60:9;360:8.5,30:1;120:2;360:2.74,,,,A,Seo 2015 DDDT 9:3961 PMC4524531
+Cilostazol,base,369.46,11.8,4.0,rat,20,22,10,96,,mesylate,mesylate,50000,15:65;30:84;60:91;120:93.5,30:60;120:80,60:20;240:35;360:40,,3.88,3.65,A,Seo 2015 DDDT 9:3961 PMC4524531
+Cilostazol,base,369.46,11.8,4.0,rat,20,22,10,96,,besylate,besylate,50000,15:80;30:92;60:97;120:98.6,30:70;120:88,60:25;240:40;360:45,,2.94,2.87,A,Seo 2015 DDDT 9:3961 PMC4524531
+IIIM-290,base,462.3,5.24,8.6,mouse,50,25,8,85,,free base,free_base,,,,,,,,A,Bhagat 2018 ACS Omega PMC6072253
+IIIM-290,base,462.3,5.24,8.6,mouse,50,25,8,85,,HCl,hcl,387,,,,,1.44,1.57,A,Bhagat 2018 ACS Omega PMC6072253
